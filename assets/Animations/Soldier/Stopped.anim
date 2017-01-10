@@ -1,0 +1,43 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "Stopped",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.43333333333333335,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 22,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "41294b4b-a08c-4f4a-816e-fade21451143"
+            }
+          },
+          {
+            "frame": 0.15,
+            "value": {
+              "__uuid__": "e151c56e-4311-49d4-bdeb-d70f63ccca35"
+            }
+          },
+          {
+            "frame": 0.3,
+            "value": {
+              "__uuid__": "cc4ccaf5-46e8-4700-bb42-dfb6c8e7f248"
+            }
+          },
+          {
+            "frame": 0.4166666666666667,
+            "value": {
+              "__uuid__": "cc4ccaf5-46e8-4700-bb42-dfb6c8e7f248"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

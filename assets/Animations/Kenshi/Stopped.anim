@@ -1,0 +1,43 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "KenshiStopped",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.4333333333333334,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 22,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "fc0c776d-baba-4b4f-a39e-8ff98def49f7"
+            }
+          },
+          {
+            "frame": 0.15,
+            "value": {
+              "__uuid__": "82fa9f84-b9c4-44fb-a67a-730e68ad6ffc"
+            }
+          },
+          {
+            "frame": 0.3,
+            "value": {
+              "__uuid__": "a8abd3ef-7acf-4e51-8e2e-f05ac71261f3"
+            }
+          },
+          {
+            "frame": 0.41666666666666674,
+            "value": {
+              "__uuid__": "a8abd3ef-7acf-4e51-8e2e-f05ac71261f3"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

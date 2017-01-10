@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "a841e6fa-7e13-443c-b304-15f515804bb2",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "Kenshi": {
+      "ver": "1.0.3",
+      "uuid": "bb65c76b-e2f4-4e2c-aa95-d907bd30be91",
+      "rawTextureUuid": "a841e6fa-7e13-443c-b304-15f515804bb2",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 5,
+      "offsetY": -7.5,
+      "trimX": 22,
+      "trimY": 19,
+      "width": 1928,
+      "height": 1585,
+      "rawWidth": 1962,
+      "rawHeight": 1608,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
