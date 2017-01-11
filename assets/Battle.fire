@@ -40,7 +40,8 @@
     "_globalZOrder": 0,
     "_tag": -1,
     "_opacityModifyRGB": false,
-    "_id": "879fdeHEgBJaI2TavUsCcSP"
+    "_id": "48cef88e-1be2-4822-8b16-f84ddcd95c55",
+    "autoReleaseAssets": false
   },
   {
     "__type__": "cc.Node",
@@ -299,11 +300,13 @@
       "__id__": 4
     },
     "_enabled": true,
+    "hp": 100,
+    "attackDamage": 2,
     "movementSpeed": 150,
     "facingLeft": false,
-    "moveForever": null,
-    "attackSequence": null,
-    "currentAction": 1
+    "targets": [],
+    "moveForward": null,
+    "attackSequence": null
   },
   {
     "__type__": "cc.BoxCollider",
@@ -445,11 +448,13 @@
       "__id__": 10
     },
     "_enabled": true,
+    "hp": 100,
+    "attackDamage": 1,
     "movementSpeed": 150,
     "facingLeft": true,
-    "moveForever": null,
-    "attackSequence": null,
-    "currentAction": 1
+    "targets": [],
+    "moveForward": null,
+    "attackSequence": null
   },
   {
     "__type__": "cc.Animation",

@@ -7,6 +7,10 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        //attributes
+        hp: 100,
+        attackDamage: 10,
+
         movementSpeed: 0,
         facingLeft: true,
         targets: [],
@@ -82,13 +86,16 @@ cc.Class({
     },
 
     beginAttack: function () {
-        this.node.runAction(this.attackSequence);
+        this.node.runAction(this.attackSequence).repeatForever();
     },
 
     attackAgainOrMove: function () {
-        if (this.targets.length > 0)
+        /*if (this.targets.length > 0)
             this.beginAttack();
         else
+            this.move();*/
+
+        if (this.targets.length === 0)
             this.move();
     },
 
@@ -99,8 +106,13 @@ cc.Class({
         for (t in this.targets) {
             target = this.targets[t];
 
-            target.destroy();
-            this.targets.splice(this.targets.indexOf(target), 1);
+            target.hp = target.hp - this.attackDamage;
+            console.log(target.hp);
+            if (target.hp <= 0)
+            {
+                target.destroy();
+                this.targets.splice(this.targets.indexOf(target), 1);
+            }
         }
     },
 
