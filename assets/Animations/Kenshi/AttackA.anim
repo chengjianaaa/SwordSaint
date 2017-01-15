@@ -3,7 +3,7 @@
   "_name": "AttackA",
   "_objFlags": 0,
   "_rawFiles": null,
-  "_duration": 0.18333333333333332,
+  "_duration": 0.2,
   "sample": 60,
   "speed": 1,
   "wrapMode": 1,
@@ -49,6 +49,11 @@
     {
       "frame": 0.06666666666666667,
       "func": "causeDamage",
+      "params": []
+    },
+    {
+      "frame": 0.2,
+      "func": "endAttack",
       "params": []
     }
   ]

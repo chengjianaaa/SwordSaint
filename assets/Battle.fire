@@ -301,10 +301,11 @@
     },
     "_enabled": true,
     "hp": 100,
-    "attackDamage": 2,
+    "attackDamage": 50,
     "movementSpeed": 150,
     "facingLeft": false,
     "targets": [],
+    "animationState": null,
     "moveForward": null,
     "attackSequence": null
   },
@@ -453,6 +454,7 @@
     "movementSpeed": 150,
     "facingLeft": true,
     "targets": [],
+    "animationState": null,
     "moveForward": null,
     "attackSequence": null
   },
@@ -476,6 +478,9 @@
       },
       {
         "__uuid__": "e84c999e-b131-4331-b2d5-8cab6b3be783"
+      },
+      {
+        "__uuid__": "59fa5d1b-a065-40bd-9b95-928d6518b92a"
       }
     ],
     "playOnLoad": false

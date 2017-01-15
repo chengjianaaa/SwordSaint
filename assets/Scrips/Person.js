@@ -3,6 +3,13 @@ var CollisionTag = cc.Enum({
     DAMAGE_AREA: 1
 });
 
+var AnimationName = cc.Enum({
+    STOPPED: 'Stopped',
+    WALKING: 'Walking',
+    ATTACK_A: 'AttackA',
+    FALLING: 'Falling'
+});
+
 cc.Class({
     extends: cc.Component,
 
@@ -14,6 +21,7 @@ cc.Class({
         movementSpeed: 0,
         facingLeft: true,
         targets: [],
+        animationState: null,
 
         moveForward: {
             default: null,
@@ -33,14 +41,13 @@ cc.Class({
             funcStop = new cc.callFunc(this.stop, this),
             funcAttack = new cc.callFunc(this.attack, this),
             waitAttackSpeed = new cc.delayTime(0.70),
-            waitAttackEnd = new cc.delayTime(0.30),
-            funcAttackAgainOrMove = new cc.callFunc(this.attackAgainOrMove, this);
+            waitAttackEnd = new cc.delayTime(0.30);
 
         manager.enabled = true;
         manager.enabledDebugDraw = true;
         manager.enabledDrawBoundingBox = true;
 
-        this.attackSequence = new cc.Sequence(funcStop, waitAttackSpeed, funcAttack, waitAttackEnd, funcAttackAgainOrMove);
+        this.attackSequence = new cc.Sequence(funcStop, waitAttackSpeed, funcAttack, waitAttackEnd);
 
         this.setFacingLeft(this.facingLeft);
         this.move();
@@ -64,39 +71,60 @@ cc.Class({
         this.node.runAction(new cc.flipX(!value));
     },
 
-    stop: function () {
-        this.getComponent(cc.Animation).play('Stopped');
+    isFalling: function () {
+        return this.animationState && this.animationState.name === AnimationName.FALLING;
+    },
 
-        if (this.moveForward && this.moveForward.getTarget() === this.node)
-            this.node.stopAction(this.moveForward);
+    stop: function () {
+        if (!this.isFalling()) {
+            this.animationState = this.getComponent(cc.Animation).play(AnimationName.STOPPED);
+
+            if (this.moveForward && this.moveForward.getTarget() === this.node)
+                this.node.stopAction(this.moveForward);
+        }
     },
 
     move: function () {
-        this.getComponent(cc.Animation).play('Walking');
+        if (!this.isFalling()) {
+            this.animationState = this.getComponent(cc.Animation).play(AnimationName.WALKING);
 
-        if (this.attackSequence && this.attackSequence.getTarget() === this.node)
-            this.node.stopAction(this.attackSequence);
+            if (this.attackSequence && this.attackSequence.getTarget() === this.node)
+                this.node.stopAction(this.attackSequence);
 
-        this.createMoveForwardAction();
-        this.node.runAction(this.moveForward).repeatForever();
+            this.node.runAction(this.moveForward).repeatForever();
+        }
+    },
+
+    fall: function () {
+        this.node.stopAllActions();
+        this.animationState = this.getComponent(cc.Animation).play(AnimationName.FALLING);
+    },
+
+    die: function () {
+        var fadeOutPerson = new cc.fadeOut(0.70),
+            destroyPerson,
+            sequence;
+
+        if (this.facingLeft) {
+            destroyPerson = new cc.callFunc(function () { this.node.destroy(); }, this);
+            sequence = new cc.Sequence(fadeOutPerson, destroyPerson);
+            this.node.runAction(sequence);
+        } else {
+            //the protagonist cant be destroyed because is associated with map camera
+            this.node.runAction(fadeOutPerson);
+        }
     },
 
     attack: function () {
-        this.getComponent(cc.Animation).play('AttackA');
+        if (!this.isFalling())
+            this.animationState = this.getComponent(cc.Animation).play(AnimationName.ATTACK_A);
     },
 
-    beginAttack: function () {
-        this.node.runAction(this.attackSequence).repeatForever();
-    },
-
-    attackAgainOrMove: function () {
-        /*if (this.targets.length > 0)
-            this.beginAttack();
-        else
-            this.move();*/
-
-        if (this.targets.length === 0)
-            this.move();
+    beginAttack: function (targetPerson) {
+        if (!this.isFalling()) {
+            this.targets.push(targetPerson);
+            this.node.runAction(this.attackSequence).repeatForever();
+        }
     },
 
     causeDamage: function () {
@@ -108,30 +136,28 @@ cc.Class({
 
             target.hp = target.hp - this.attackDamage;
             console.log(target.hp);
-            if (target.hp <= 0)
-            {
-                target.destroy();
+
+            if (target.hp <= 0) {
                 this.targets.splice(this.targets.indexOf(target), 1);
+                target.fall();
+            }
+        }
+    },
+
+    endAttack: function () {
+        if (this.targets.length === 0) {
+            if (this.facingLeft) {
+                this.move();
+                this.stop(); //enemies stop after kill protagonist
+            } else {
+                this.move(); //protagonist move after kill all targets
             }
         }
     },
 
     // Collision callback
     onCollisionEnter: function (other, self) {
-        if (self.tag === CollisionTag.DAMAGE_AREA && other.tag === CollisionTag.BODY) {
-            this.targets.push(other.node);
-            this.beginAttack();
-        }
-    },
-
-    onCollisionExit: function (other, self) {
-        var pos;
-
-        if (self.tag === CollisionTag.DAMAGE_AREA && other.tag === CollisionTag.BODY) {
-            pos = this.targets.indexOf(other.node);
-
-            if (pos >= 0)
-                this.targets.splice(pos, 1);
-        }
+        if (self.tag === CollisionTag.DAMAGE_AREA && other.tag === CollisionTag.BODY)
+            this.beginAttack(other.node.getComponent('Person'));
     }
 });

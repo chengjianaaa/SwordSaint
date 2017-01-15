@@ -15,7 +15,9 @@ cc.Class({
 
     update: function (dt) {
         var canvas = this.node.parent,
-            targetPos = this.target.x + this.target.width/2;
+            targetPos;
+
+        targetPos = this.target.x + this.target.width/2;
 
         //go back to beginning if reaches end
         if (targetPos >= this.node.width - canvas.width/2) 
