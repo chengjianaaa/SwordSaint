@@ -23,6 +23,11 @@ cc.Class({
         targets: [],
         animationState: null,
 
+        damageNumber: {
+            default: null,
+            type: cc.Prefab
+        },
+
         moveForward: {
             default: null,
             visible: false,
@@ -127,19 +132,36 @@ cc.Class({
         }
     },
 
+    receiveDamage: function (dmg) {
+        var num = cc.instantiate(this.damageNumber);
+
+        this.node.parent.addChild(num);
+        num.setPositionX(this.node.getPositionX() + (dmg >= 10 ? 0 : 45));
+        num.setPositionY(this.node.getPositionY());
+
+        this.hp = this.hp - dmg;
+        num.getComponent('DamageNumber').show(dmg);
+
+        if (this.hp <= 0) {
+            this.fall();
+        }
+    },
+
+    isDead: function () {
+        return this.hp <= 0;
+    },
+
     causeDamage: function () {
         var t,
             target;
 
         for (t in this.targets) {
             target = this.targets[t];
-
-            target.hp = target.hp - this.attackDamage;
-            console.log(target.hp);
-
-            if (target.hp <= 0) {
+            
+            target.receiveDamage(this.attackDamage);
+            
+            if (target.isDead()) {
                 this.targets.splice(this.targets.indexOf(target), 1);
-                target.fall();
             }
         }
     },
