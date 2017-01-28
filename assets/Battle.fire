@@ -93,7 +93,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 18
+        "__id__": 12
       }
     ],
     "_prefab": null,
@@ -128,9 +128,6 @@
     "_children": [
       {
         "__id__": 4
-      },
-      {
-        "__id__": 10
       }
     ],
     "_rotationX": 0,
@@ -152,10 +149,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 16
+        "__id__": 10
       },
       {
-        "__id__": 17
+        "__id__": 11
       }
     ],
     "_prefab": null,
@@ -353,185 +350,6 @@
     }
   },
   {
-    "__type__": "cc.Node",
-    "_name": "Soldier",
-    "_objFlags": 0,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_parent": {
-      "__id__": 3
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 318,
-      "height": 199
-    },
-    "_children": [],
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 1584,
-      "y": 192
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_tag": -1,
-    "_opacityModifyRGB": false,
-    "_id": "a30d3GCJzdFWpbd/htn1Rwp",
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 11
-      },
-      {
-        "__id__": 12
-      },
-      {
-        "__id__": 13
-      },
-      {
-        "__id__": 14
-      },
-      {
-        "__id__": 15
-      }
-    ],
-    "_prefab": null,
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 10
-    },
-    "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "41294b4b-a08c-4f4a-816e-fade21451143"
-    },
-    "_type": 0,
-    "_sizeMode": 1,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_atlas": {
-      "__uuid__": "6ad9832e-00cc-4f0d-82f8-64cf8a242b40"
-    }
-  },
-  {
-    "__type__": "4f9b9JB8kVOzqkcrIJzjnGf",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 10
-    },
-    "_enabled": true,
-    "hp": 100,
-    "attackDamage": 1,
-    "movementSpeed": 150,
-    "facingLeft": true,
-    "targets": [],
-    "animationState": null,
-    "damageNumber": {
-      "__uuid__": "feb1bb56-88de-4de2-b150-bdf866bcb5ab"
-    },
-    "moveForward": null,
-    "attackSequence": null
-  },
-  {
-    "__type__": "cc.Animation",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 10
-    },
-    "_enabled": true,
-    "_defaultClip": {
-      "__uuid__": "66825323-24e9-45ad-98fb-61f45164bc06"
-    },
-    "_clips": [
-      {
-        "__uuid__": "66825323-24e9-45ad-98fb-61f45164bc06"
-      },
-      {
-        "__uuid__": "05325a6d-3cc5-4010-b671-2e7ca3566e2e"
-      },
-      {
-        "__uuid__": "e84c999e-b131-4331-b2d5-8cab6b3be783"
-      },
-      {
-        "__uuid__": "59fa5d1b-a065-40bd-9b95-928d6518b92a"
-      }
-    ],
-    "playOnLoad": false
-  },
-  {
-    "__type__": "cc.BoxCollider",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 10
-    },
-    "_enabled": true,
-    "tag": 1,
-    "_offset": {
-      "__type__": "cc.Vec2",
-      "x": -109.5,
-      "y": 15.3
-    },
-    "_size": {
-      "__type__": "cc.Size",
-      "width": 94.3,
-      "height": 135
-    }
-  },
-  {
-    "__type__": "cc.BoxCollider",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 10
-    },
-    "_enabled": true,
-    "tag": 0,
-    "_offset": {
-      "__type__": "cc.Vec2",
-      "x": -28.9,
-      "y": -3.4
-    },
-    "_size": {
-      "__type__": "cc.Size",
-      "width": 102.8,
-      "height": 191.7
-    }
-  },
-  {
     "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
@@ -565,9 +383,19 @@
       "__id__": 3
     },
     "_enabled": true,
-    "target": {
+    "spawnPoint": {
+      "__type__": "cc.Vec2",
+      "x": 1584,
+      "y": 192
+    },
+    "spawnDistance": 500,
+    "player": {
       "__id__": 4
-    }
+    },
+    "soldierPrefab": {
+      "__uuid__": "35d81e7d-a943-4964-8c11-b171ea414e4d"
+    },
+    "soldier": null
   },
   {
     "__type__": "cc.Canvas",
