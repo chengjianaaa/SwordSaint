@@ -12,7 +12,7 @@ cc.Class({
 
     properties: {
         //attributes
-        hp: 100,
+        maxHp: 100,
         attackDamage: 10,
 
         movementSpeed: 0,
@@ -25,6 +25,11 @@ cc.Class({
             type: cc.Prefab
         },
 
+        lifeBar: {
+            default: null,
+            type: cc.ProgressBar
+        },
+
         moveForward: {
             default: null,
             visible: false,
@@ -35,6 +40,11 @@ cc.Class({
             default: null,
             visible: false,
             type: cc.Action
+        },
+
+        currentHp: {
+            default: 100,
+            visible: false
         }
     },
 
@@ -44,6 +54,8 @@ cc.Class({
             funcAttack = new cc.callFunc(this.attack, this),
             waitAttackSpeed = new cc.delayTime(0.70),
             waitAttackEnd = new cc.delayTime(0.30);
+
+        this.currentHp = this.maxHp;
 
         manager.enabled = true;
         manager.enabledDebugDraw = true;
@@ -136,16 +148,18 @@ cc.Class({
         num.setPositionX(this.node.getPositionX() + (dmg >= 10 ? 0 : 45));
         num.setPositionY(this.node.getPositionY());
 
-        this.hp = this.hp - dmg;
+        this.currentHp = this.currentHp - dmg;
         num.getComponent('DamageNumber').show(dmg);
 
-        if (this.hp <= 0) {
+        this.lifeBar.progress = this.currentHp / this.maxHp;
+
+        if (this.currentHp <= 0) {
             this.fall();
         }
     },
 
     isDead: function () {
-        return this.hp <= 0;
+        return this.currentHp <= 0;
     },
 
     causeDamage: function () {
