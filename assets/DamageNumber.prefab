@@ -30,7 +30,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 127,
-      "height": 56.2
+      "height": 42.15
     },
     "_children": [],
     "_rotationX": 0,
@@ -72,8 +72,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 100,
-    "_fontSize": 100,
+    "_actualFontSize": 75,
+    "_fontSize": 75,
     "_lineHeight": 136,
     "_enableWrapText": true,
     "_N$file": {
@@ -100,7 +100,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "feb1bb56-88de-4de2-b150-bdf866bcb5ab"
     },
     "fileId": "49c6arV2HNKJ6lC5Ls46Fax",
     "sync": false

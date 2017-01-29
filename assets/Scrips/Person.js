@@ -2,6 +2,7 @@ var AnimationName = cc.Enum({
     STOPPED: 'Stopped',
     WALKING: 'Walking',
     ATTACK_A: 'AttackA',
+    ATTACK_B: 'AttackB',
     FALLING: 'Falling'
 });
 
@@ -18,7 +19,6 @@ cc.Class({
         movementSpeed: 0,
         facingLeft: true,
         targets: [],
-        animationState: null,
 
         damageNumber: {
             default: null,
@@ -45,24 +45,19 @@ cc.Class({
         currentHp: {
             default: 100,
             visible: false
+        },
+
+        attackAnimationNames: {
+            default: [],
+            visible: false
         }
     },
 
     onLoad: function () {
-        var manager = cc.director.getCollisionManager(),
-            funcStop = new cc.callFunc(this.stop, this),
-            funcAttack = new cc.callFunc(this.attack, this),
-            waitAttackSpeed = new cc.delayTime(0.70),
-            waitAttackEnd = new cc.delayTime(0.30);
-
         this.currentHp = this.maxHp;
-
-        manager.enabled = true;
-        manager.enabledDebugDraw = true;
-        manager.enabledDrawBoundingBox = true;
-
-        this.attackSequence = new cc.Sequence(funcStop, waitAttackSpeed, funcAttack, waitAttackEnd);
-
+        this.fillAttackAnimationNamesList();
+        this.enableCollisions();
+        this.createAttackSequence();
         this.setFacingLeft(this.facingLeft);
         this.move();
     },
@@ -71,9 +66,41 @@ cc.Class({
         //
     },
 
+    fillAttackAnimationNamesList: function () {
+        var animations = this.getComponent(cc.Animation).getClips(),
+            aniIndex,
+            aniName;
+
+        for (aniIndex in animations) {
+            aniName = animations[aniIndex].name;
+            if (animations[aniIndex].name.startsWith("Attack")) {
+                this.attackAnimationNames.push(animations[aniIndex].name);
+            }
+        }
+    },
+
+    enableCollisions: function () {
+        var manager = cc.director.getCollisionManager();
+
+        manager.enabled = true;
+        
+        //show debug collision boxes
+        manager.enabledDebugDraw = true;
+        manager.enabledDrawBoundingBox = true;
+    },
+
     createMoveForwardAction: function () {
         var mult = this.facingLeft ? -1 : 1;
         this.moveForward = new cc.MoveBy(1, cc.p(this.movementSpeed * mult, 0));
+    },
+
+    createAttackSequence: function () {
+        var funcStop = new cc.callFunc(this.stop, this),
+            funcAttack = new cc.callFunc(this.attack, this),
+            waitAttackSpeed = new cc.delayTime(0.70),
+            waitAttackEnd = new cc.delayTime(0.30);
+
+        this.attackSequence = new cc.Sequence(funcStop, waitAttackSpeed, funcAttack, waitAttackEnd);
     },
 
     setFacingLeft: function (value) {
@@ -85,13 +112,13 @@ cc.Class({
         this.node.runAction(new cc.flipX(!value));
     },
 
-    isFalling: function () {
-        return this.animationState && this.animationState.name === AnimationName.FALLING;
+    isDead: function () {
+        return this.currentHp <= 0;
     },
 
     stop: function () {
-        if (!this.isFalling()) {
-            this.animationState = this.getComponent(cc.Animation).play(AnimationName.STOPPED);
+        if (!this.isDead()) {
+            this.getComponent(cc.Animation).play(AnimationName.STOPPED);
 
             if (this.moveForward && this.moveForward.getTarget() === this.node)
                 this.node.stopAction(this.moveForward);
@@ -99,8 +126,8 @@ cc.Class({
     },
 
     move: function () {
-        if (!this.isFalling()) {
-            this.animationState = this.getComponent(cc.Animation).play(AnimationName.WALKING);
+        if (!this.isDead()) {
+            this.getComponent(cc.Animation).play(AnimationName.WALKING);
 
             if (this.attackSequence && this.attackSequence.getTarget() === this.node)
                 this.node.stopAction(this.attackSequence);
@@ -111,7 +138,7 @@ cc.Class({
 
     fall: function () {
         this.node.stopAllActions();
-        this.animationState = this.getComponent(cc.Animation).play(AnimationName.FALLING);
+        this.getComponent(cc.Animation).play(AnimationName.FALLING);
     },
 
     die: function () {
@@ -130,12 +157,16 @@ cc.Class({
     },
 
     attack: function () {
-        if (!this.isFalling())
-            this.animationState = this.getComponent(cc.Animation).play(AnimationName.ATTACK_A);
+        var randomNumber;
+
+        if (!this.isDead()) {
+            randomNumber = Math.round(Math.random() * (this.attackAnimationNames.length - 1));
+            this.getComponent(cc.Animation).play(this.attackAnimationNames[randomNumber]);
+        }
     },
 
     beginAttack: function (targetPerson) {
-        if (!this.isFalling()) {
+        if (!this.isDead()) {
             this.targets.push(targetPerson);
             this.node.runAction(this.attackSequence).repeatForever();
         }
@@ -156,10 +187,6 @@ cc.Class({
         if (this.currentHp <= 0) {
             this.fall();
         }
-    },
-
-    isDead: function () {
-        return this.currentHp <= 0;
     },
 
     causeDamage: function () {
