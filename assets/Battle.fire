@@ -93,7 +93,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 12
+        "__id__": 13
       }
     ],
     "_prefab": null,
@@ -153,6 +153,9 @@
       },
       {
         "__id__": 11
+      },
+      {
+        "__id__": 12
       }
     ],
     "_prefab": null,
@@ -191,7 +194,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 199,
+      "x": 317,
       "y": 187
     },
     "_skewX": 0,
@@ -383,19 +386,33 @@
       "__id__": 3
     },
     "_enabled": true,
-    "spawnPoint": {
-      "__type__": "cc.Vec2",
-      "x": 1584,
-      "y": 192
-    },
-    "spawnDistance": 500,
+    "spawnDistance": 700,
     "player": {
       "__id__": 4
     },
     "soldierPrefab": {
       "__uuid__": "35d81e7d-a943-4964-8c11-b171ea414e4d"
+    }
+  },
+  {
+    "__type__": "cc.BoxCollider",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 3
     },
-    "soldier": null
+    "_enabled": true,
+    "tag": 2,
+    "_offset": {
+      "__type__": "cc.Vec2",
+      "x": 928,
+      "y": 189
+    },
+    "_size": {
+      "__type__": "cc.Size",
+      "width": 19,
+      "height": 100
+    }
   },
   {
     "__type__": "cc.Canvas",

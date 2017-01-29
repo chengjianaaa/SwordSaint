@@ -1,14 +1,11 @@
-var CollisionTag = cc.Enum({
-    BODY: 0,
-    DAMAGE_AREA: 1
-});
-
 var AnimationName = cc.Enum({
     STOPPED: 'Stopped',
     WALKING: 'Walking',
     ATTACK_A: 'AttackA',
     FALLING: 'Falling'
 });
+
+var collisionTag = require("CollisionTag");
 
 cc.Class({
     extends: cc.Component,
@@ -179,7 +176,7 @@ cc.Class({
 
     // Collision callback
     onCollisionEnter: function (other, self) {
-        if (self.tag === CollisionTag.DAMAGE_AREA && other.tag === CollisionTag.BODY)
+        if (self.tag === collisionTag.DAMAGE_AREA && other.tag === collisionTag.BODY)
             this.beginAttack(other.node.getComponent('Person'));
     }
 });
