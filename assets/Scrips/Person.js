@@ -6,6 +6,8 @@ var AnimationName = cc.Enum({
     FALLING: 'Falling'
 });
 
+var DAMAGE_UNIT = 60;
+
 var collisionTag = require("CollisionTag");
 
 cc.Class({
@@ -13,9 +15,10 @@ cc.Class({
 
     properties: {
         //attributes
-        maxHp: 100,
-        attackDamage: 10,
-        attackSpeed: 1,
+        lif: 1,
+        atk: 1,
+        def: 1,
+        spd: 1,
 
         movementSpeed: 0,
         facingLeft: true,
@@ -55,7 +58,7 @@ cc.Class({
     },
 
     onLoad: function () {
-        this.currentHp = this.maxHp;
+        this.currentHp = this.calcMaxHp();
         this.fillAttackAnimationNamesList();
         this.enableCollisions();
         this.setFacingLeft(this.facingLeft);
@@ -64,6 +67,10 @@ cc.Class({
 
     update: function (dt) {
         //
+    },
+
+    calcMaxHp: function () {
+        return this.lif * DAMAGE_UNIT * 10;
     },
 
     fillAttackAnimationNamesList: function () {
@@ -167,7 +174,7 @@ cc.Class({
 
             funcAttack = new cc.callFunc(this.attack, this);
 
-            timeWaitAttackSpeed = (3.60/this.attackSpeed) - 0.60;
+            timeWaitAttackSpeed = (3.60/this.spd) - 0.60;
             timeWaitAttackSpeed = timeWaitAttackSpeed > 0 ? timeWaitAttackSpeed : 0.01;
             waitAttackSpeed = new cc.delayTime(timeWaitAttackSpeed);
 
@@ -178,20 +185,25 @@ cc.Class({
     },
 
     receiveDamage: function (dmg) {
-        var num = cc.instantiate(this.damageNumber);
+        var num = cc.instantiate(this.damageNumber),
+            receivedDamage = dmg / this.def;
 
         this.node.parent.addChild(num);
-        num.setPositionX(this.node.getPositionX() + (dmg >= 10 ? 0 : 45));
+        num.setPositionX(this.node.getPositionX() + (this.facingLeft ? -30 : 0));
         num.setPositionY(this.node.getPositionY());
 
-        this.currentHp = this.currentHp - dmg;
-        num.getComponent('DamageNumber').show(dmg);
+        this.currentHp = this.currentHp - receivedDamage;
+        num.getComponent('DamageNumber').show(receivedDamage);
 
-        this.lifeBar.progress = this.currentHp / this.maxHp;
+        this.lifeBar.progress = this.currentHp / this.calcMaxHp();
 
         if (this.currentHp <= 0) {
             this.fall();
         }
+    },
+
+    calcCausedDamage : function () {
+        return this.atk * DAMAGE_UNIT;
     },
 
     causeDamage: function () {
@@ -201,7 +213,7 @@ cc.Class({
         for (t in this.targets) {
             target = this.targets[t];
             
-            target.receiveDamage(this.attackDamage);
+            target.receiveDamage(this.calcCausedDamage());
             
             if (target.isDead()) {
                 

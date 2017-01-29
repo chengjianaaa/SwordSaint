@@ -303,9 +303,10 @@
       "__id__": 4
     },
     "_enabled": true,
-    "maxHp": 100,
-    "attackDamage": 15,
-    "attackSpeed": 1,
+    "lif": 2,
+    "atk": 1,
+    "def": 2,
+    "spd": 2,
     "movementSpeed": 150,
     "facingLeft": false,
     "targets": [],

@@ -29,7 +29,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 127,
+      "width": 118.08,
       "height": 42.15
     },
     "_children": [],
@@ -39,8 +39,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 432,
-      "y": 270
+      "x": 624,
+      "y": 275
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -75,15 +75,15 @@
     "_actualFontSize": 75,
     "_fontSize": 75,
     "_lineHeight": 136,
-    "_enableWrapText": true,
+    "_enableWrapText": false,
     "_N$file": {
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
-    "_N$string": "00",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 0,
-    "_N$overflow": 3
+    "_N$string": "NAN",
+    "_N$horizontalAlign": 1,
+    "_N$verticalAlign": 1,
+    "_N$overflow": 0
   },
   {
     "__type__": "8f5demFRyJHtZul2IgnU8Ju",
