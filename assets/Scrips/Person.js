@@ -15,6 +15,7 @@ cc.Class({
         //attributes
         maxHp: 100,
         attackDamage: 10,
+        attackSpeed: 1,
 
         movementSpeed: 0,
         facingLeft: true,
@@ -57,7 +58,6 @@ cc.Class({
         this.currentHp = this.maxHp;
         this.fillAttackAnimationNamesList();
         this.enableCollisions();
-        this.createAttackSequence();
         this.setFacingLeft(this.facingLeft);
         this.move();
     },
@@ -92,15 +92,6 @@ cc.Class({
     createMoveForwardAction: function () {
         var mult = this.facingLeft ? -1 : 1;
         this.moveForward = new cc.MoveBy(1, cc.p(this.movementSpeed * mult, 0));
-    },
-
-    createAttackSequence: function () {
-        var funcStop = new cc.callFunc(this.stop, this),
-            funcAttack = new cc.callFunc(this.attack, this),
-            waitAttackSpeed = new cc.delayTime(0.70),
-            waitAttackEnd = new cc.delayTime(0.30);
-
-        this.attackSequence = new cc.Sequence(funcStop, waitAttackSpeed, funcAttack, waitAttackEnd);
     },
 
     setFacingLeft: function (value) {
@@ -165,10 +156,24 @@ cc.Class({
         }
     },
 
-    beginAttack: function (targetPerson) {
+    beginAttack: function () {
+        var funcStop,
+            funcAttack,
+            waitAttackSpeed,
+            timeWaitAttackSpeed;
+
         if (!this.isDead()) {
-            this.targets.push(targetPerson);
-            this.node.runAction(this.attackSequence).repeatForever();
+            funcStop = new cc.callFunc(this.stop, this);
+
+            funcAttack = new cc.callFunc(this.attack, this);
+
+            timeWaitAttackSpeed = (3.60/this.attackSpeed) - 0.60;
+            timeWaitAttackSpeed = timeWaitAttackSpeed > 0 ? timeWaitAttackSpeed : 0.01;
+            waitAttackSpeed = new cc.delayTime(timeWaitAttackSpeed);
+
+            this.attackSequence = new cc.Sequence(funcStop, waitAttackSpeed, funcAttack);
+
+            this.node.runAction(this.attackSequence);
         }
     },
 
@@ -199,13 +204,25 @@ cc.Class({
             target.receiveDamage(this.attackDamage);
             
             if (target.isDead()) {
-                this.targets.splice(this.targets.indexOf(target), 1);
+                
             }
         }
     },
 
     endAttack: function () {
-        if (this.targets.length === 0) {
+        var haveTarget = false;
+
+        if (this.targets.length > 0) {
+            if (this.targets[0].isDead()) {
+                this.targets.splice(this.targets.indexOf(this.targets[0]), 1);
+            } else {
+                haveTarget = true;
+            }
+        }
+
+        if (haveTarget) {
+            this.beginAttack();
+        } else {
             if (this.facingLeft) {
                 this.move();
                 this.stop(); //enemies stop after kill protagonist
@@ -217,7 +234,9 @@ cc.Class({
 
     // Collision callback
     onCollisionEnter: function (other, self) {
-        if (self.tag === collisionTag.DAMAGE_AREA && other.tag === collisionTag.BODY)
-            this.beginAttack(other.node.getComponent('Person'));
+        if (self.tag === collisionTag.DAMAGE_AREA && other.tag === collisionTag.BODY) {
+            this.targets.push(other.node.getComponent('Person'));
+            this.beginAttack();
+        }
     }
 });

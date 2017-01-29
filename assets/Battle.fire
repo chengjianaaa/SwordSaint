@@ -304,11 +304,11 @@
     },
     "_enabled": true,
     "maxHp": 100,
-    "attackDamage": 10,
+    "attackDamage": 15,
+    "attackSpeed": 1,
     "movementSpeed": 150,
     "facingLeft": false,
     "targets": [],
-    "animationState": null,
     "damageNumber": {
       "__uuid__": "feb1bb56-88de-4de2-b150-bdf866bcb5ab"
     },
@@ -317,7 +317,8 @@
     },
     "moveForward": null,
     "attackSequence": null,
-    "currentHp": 100
+    "currentHp": 100,
+    "attackAnimationNames": []
   },
   {
     "__type__": "cc.ProgressBar",
