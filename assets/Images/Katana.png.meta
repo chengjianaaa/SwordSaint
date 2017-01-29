@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "95536055-702d-491d-8e2d-548cd5329947",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "Katana": {
+      "ver": "1.0.3",
+      "uuid": "6b7b1fe7-4e33-4565-a11f-a07806eced90",
+      "rawTextureUuid": "95536055-702d-491d-8e2d-548cd5329947",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 16.5,
+      "offsetY": 6,
+      "trimX": 188,
+      "trimY": 21,
+      "width": 937,
+      "height": 666,
+      "rawWidth": 1280,
+      "rawHeight": 720,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
