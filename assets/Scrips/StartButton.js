@@ -11,5 +11,6 @@ cc.Class({
     },
 
     startGame: function () {
+        cc.director.loadScene("Attributes");
     }
 });
