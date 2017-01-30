@@ -11,6 +11,5 @@ cc.Class({
     },
 
     startGame: function () {
-		cc.director.loadScene("Battle");
-	}
+    }
 });

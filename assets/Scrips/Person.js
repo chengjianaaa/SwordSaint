@@ -9,6 +9,7 @@ var AnimationName = cc.Enum({
 var DAMAGE_UNIT = 60;
 
 var collisionTag = require("CollisionTag");
+var attr = require("Attributes");
 
 cc.Class({
     extends: cc.Component,
@@ -58,10 +59,18 @@ cc.Class({
     },
 
     onLoad: function () {
-        this.currentHp = this.calcMaxHp();
         this.fillAttackAnimationNamesList();
         this.enableCollisions();
         this.setFacingLeft(this.facingLeft);
+
+        if (!this.facingLeft) {
+            this.lif = attr.lif;
+            this.atk = attr.atk;
+            this.def = attr.def;
+            this.spd = attr.spd;
+        }
+        this.currentHp = this.calcMaxHp();
+
         this.move();
     },
 
