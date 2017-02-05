@@ -1,7 +1,7 @@
 info size=242 bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=0,0 outline=0
 common lineHeight=269 base=217 scaleW=1270 scaleH=544 pages=1 packed=0 alphaChnl=1 redChnl=0 greenChnl=0 blueChnl=0
 page id=0 file="SwordSaintFont.png"
-chars count=41
+chars count=42
 char id=79   x=0     y=0     width=127   height=136   xoffset=0     yoffset=0     xadvance=127   page=0  chnl=15
 char id=81   x=127   y=0     width=127   height=136   xoffset=0     yoffset=0     xadvance=127   page=0  chnl=15
 char id=71   x=254   y=0     width=127   height=136   xoffset=0     yoffset=0     xadvance=127   page=0  chnl=15
@@ -40,6 +40,8 @@ char id=54   x=516   y=408   width=86    height=136   xoffset=0     yoffset=0   
 char id=55   x=602   y=408   width=86    height=136   xoffset=0     yoffset=0     xadvance=86    page=0  chnl=15
 char id=56   x=688   y=408   width=86    height=136   xoffset=0     yoffset=0     xadvance=86    page=0  chnl=15
 char id=57   x=774   y=408   width=86    height=136   xoffset=0     yoffset=0     xadvance=86    page=0  chnl=15
-char id=32   x=860   y=408   width=127   height=136   xoffset=0     yoffset=0     xadvance=86    page=0  chnl=15
 char id=43   x=875   y=273   width=127   height=136   xoffset=0     yoffset=0     xadvance=86    page=0  chnl=15
 char id=45   x=1002  y=273   width=127   height=136   xoffset=0     yoffset=0     xadvance=86    page=0  chnl=15
+char id=58   x=1129  y=273   width=70    height=136   xoffset=0     yoffset=0     xadvance=86    page=0  chnl=15
+char id=47   x=860   y=408   width=127   height=136   xoffset=0     yoffset=0     xadvance=127   page=0  chnl=15
+char id=32   x=860   y=987   width=127   height=136   xoffset=0     yoffset=0     xadvance=86    page=0  chnl=15

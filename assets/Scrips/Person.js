@@ -35,6 +35,11 @@ cc.Class({
             type: cc.ProgressBar
         },
 
+        lifeNumbers: {
+            default: null,
+            type: cc.Label
+        },
+
         moveForward: {
             default: null,
             visible: false,
@@ -52,9 +57,24 @@ cc.Class({
             visible: false
         },
 
+        maxHp: {
+            default: 100,
+            visible: false
+        },
+
         attackAnimationNames: {
             default: [],
             visible: false
+        },
+		
+		killCount: {
+            default: 0,
+            visible: false
+        },
+		
+		killCounter: {
+            default: null,
+			type: cc.Label
         }
     },
 
@@ -69,17 +89,15 @@ cc.Class({
             this.def = attr.def;
             this.spd = attr.spd;
         }
-        this.currentHp = this.calcMaxHp();
+        this.maxHp = this.lif * DAMAGE_UNIT * 10;
+        this.currentHp = this.maxHp;
+		this.refreshLifebar();
 
         this.move();
     },
 
     update: function (dt) {
         //
-    },
-
-    calcMaxHp: function () {
-        return this.lif * DAMAGE_UNIT * 10;
     },
 
     fillAttackAnimationNamesList: function () {
@@ -118,6 +136,12 @@ cc.Class({
 
         this.node.runAction(new cc.flipX(!value));
     },
+
+	refreshLifebar: function() {
+		this.lifeBar.progress = this.currentHp / this.maxHp;
+		if (this.lifeNumbers)
+			this.lifeNumbers.string = this.currentHp + "/" + this.maxHp;
+	},
 
     isDead: function () {
         return this.currentHp <= 0;
@@ -204,7 +228,7 @@ cc.Class({
         this.currentHp = this.currentHp - receivedDamage;
         num.getComponent('DamageNumber').show(receivedDamage);
 
-        this.lifeBar.progress = this.currentHp / this.calcMaxHp();
+        this.refreshLifebar();
 
         if (this.currentHp <= 0) {
             this.fall();
@@ -225,10 +249,17 @@ cc.Class({
             target.receiveDamage(this.calcCausedDamage());
             
             if (target.isDead()) {
-                
+                this.refreshKillCount();
             }
         }
     },
+
+	refreshKillCount: function () {
+		this.killCount++;
+
+		if (this.killCounter)
+			this.killCounter.string = this.killCount;
+	},
 
     endAttack: function () {
         var haveTarget = false;
