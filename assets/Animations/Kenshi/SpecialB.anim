@@ -126,10 +126,8 @@
   "events": [
     {
       "frame": 0.26666666666666666,
-      "func": "causeDamage",
-      "params": [
-        120
-      ]
+      "func": "causeSkill1Damage",
+      "params": []
     },
     {
       "frame": 0.6833333333333333,

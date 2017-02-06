@@ -8,6 +8,8 @@ var AnimationName = cc.Enum({
 });
 
 var DAMAGE_UNIT = 60;
+var COOLDOWN_BAR_UPDATE_TIME = 0.1;
+var SKILL1_COOLDOWN_SECONDS = 5;
 
 var collisionTag = require("CollisionTag");
 var attr = require("Attributes");
@@ -44,6 +46,11 @@ cc.Class({
         killCounter: {
             default: null,
             type: cc.Label
+        },
+
+        skill1CooldownBar: {
+            default: null,
+            type: cc.ProgressBar
         },
 
         moveForward: {
@@ -270,6 +277,14 @@ cc.Class({
         }
     },
 
+    causeNormalDamage: function () {
+        this.causeDamage(0);
+    },
+
+    causeSkill1Damage: function () {
+        this.causeDamage(DAMAGE_UNIT * 1);
+    },
+
     refreshKillCount: function () {
         this.killCount++;
 
@@ -302,11 +317,35 @@ cc.Class({
         }
     },
 
+    getSkill1Button: function () {
+        return this.skill1CooldownBar.getComponentInChildren(cc.Button);
+    },
+
+    updatesSkill1CooldownBar: function () {
+        if (this.skill1CooldownBar.progress > 0) {
+            this.skill1Cooldown();
+            this.skill1CooldownBar.progress -= COOLDOWN_BAR_UPDATE_TIME / SKILL1_COOLDOWN_SECONDS;
+        } else {
+            this.getSkill1Button().interactable = true;
+        }
+    },
+
+    skill1Cooldown: function () {
+        var wait = new cc.delayTime(COOLDOWN_BAR_UPDATE_TIME),
+            updateBar = new cc.callFunc(this.updatesSkill1CooldownBar, this),
+            seq = new cc.Sequence(wait, updateBar);
+
+            this.node.runAction(seq);
+    },
+
     skill1: function () {
-        if (!this.isDead() && !this.usingSkill) {
+        if (!this.isDead() && !this.usingSkill && this.skill1CooldownBar.progress <= 0) {
             this.usingSkill = true;
             this.node.stopAllActions();
             this.playAnimation(AnimationName.SPECIAL_B);
+            this.getSkill1Button().interactable = false;
+            this.skill1CooldownBar.progress = 1;
+            this.skill1Cooldown();
         }
     },
 

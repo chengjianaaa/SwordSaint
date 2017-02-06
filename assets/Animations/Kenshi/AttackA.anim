@@ -48,10 +48,8 @@
   "events": [
     {
       "frame": 0.16666666666666666,
-      "func": "causeDamage",
-      "params": [
-        0
-      ]
+      "func": "causeNormalDamage",
+      "params": []
     },
     {
       "frame": 0.6,
