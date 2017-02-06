@@ -49,7 +49,9 @@
     {
       "frame": 0.16666666666666666,
       "func": "causeDamage",
-      "params": []
+      "params": [
+        0
+      ]
     },
     {
       "frame": 0.6,

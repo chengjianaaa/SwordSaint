@@ -3,7 +3,8 @@ var AnimationName = cc.Enum({
     WALKING: 'Walking',
     ATTACK_A: 'AttackA',
     ATTACK_B: 'AttackB',
-    FALLING: 'Falling'
+    FALLING: 'Falling',
+    SPECIAL_B: 'SpecialB',
 });
 
 var DAMAGE_UNIT = 60;
@@ -40,6 +41,11 @@ cc.Class({
             type: cc.Label
         },
 
+        killCounter: {
+            default: null,
+            type: cc.Label
+        },
+
         moveForward: {
             default: null,
             visible: false,
@@ -66,15 +72,15 @@ cc.Class({
             default: [],
             visible: false
         },
-		
-		killCount: {
+        
+        killCount: {
             default: 0,
             visible: false
         },
-		
-		killCounter: {
-            default: null,
-			type: cc.Label
+
+        usingSkill: {
+            default: false,
+            visible: false
         }
     },
 
@@ -91,7 +97,7 @@ cc.Class({
         }
         this.maxHp = this.lif * DAMAGE_UNIT * 10;
         this.currentHp = this.maxHp;
-		this.refreshLifebar();
+        this.refreshLifebar();
 
         this.move();
     },
@@ -137,19 +143,27 @@ cc.Class({
         this.node.runAction(new cc.flipX(!value));
     },
 
-	refreshLifebar: function() {
-		this.lifeBar.progress = this.currentHp / this.maxHp;
-		if (this.lifeNumbers)
-			this.lifeNumbers.string = this.currentHp + "/" + this.maxHp;
-	},
+    refreshLifebar: function() {
+        var currentHpToShow;
+
+        this.lifeBar.progress = this.currentHp / this.maxHp;
+        if (this.lifeNumbers) {
+            currentHpToShow = this.currentHp < 0 ? 0 : this.currentHp;
+            this.lifeNumbers.string = currentHpToShow + "/" + this.maxHp;
+        }
+    },
 
     isDead: function () {
         return this.currentHp <= 0;
     },
 
+    playAnimation: function (name) {
+        this.getComponent(cc.Animation).play(name);
+    },
+
     stop: function () {
         if (!this.isDead()) {
-            this.getComponent(cc.Animation).play(AnimationName.STOPPED);
+            this.playAnimation(AnimationName.STOPPED);
 
             if (this.moveForward && this.moveForward.getTarget() === this.node)
                 this.node.stopAction(this.moveForward);
@@ -157,8 +171,8 @@ cc.Class({
     },
 
     move: function () {
-        if (!this.isDead()) {
-            this.getComponent(cc.Animation).play(AnimationName.WALKING);
+        if (!this.isDead() && !this.usingSkill) {
+            this.playAnimation(AnimationName.WALKING);
 
             if (this.attackSequence && this.attackSequence.getTarget() === this.node)
                 this.node.stopAction(this.attackSequence);
@@ -169,7 +183,7 @@ cc.Class({
 
     fall: function () {
         this.node.stopAllActions();
-        this.getComponent(cc.Animation).play(AnimationName.FALLING);
+        this.playAnimation(AnimationName.FALLING);
     },
 
     die: function () {
@@ -190,9 +204,9 @@ cc.Class({
     attack: function () {
         var randomNumber;
 
-        if (!this.isDead()) {
+        if (!this.isDead() && !this.usingSkill) {
             randomNumber = Math.round(Math.random() * (this.attackAnimationNames.length - 1));
-            this.getComponent(cc.Animation).play(this.attackAnimationNames[randomNumber]);
+            this.playAnimation(this.attackAnimationNames[randomNumber]);
         }
     },
 
@@ -202,7 +216,7 @@ cc.Class({
             waitAttackSpeed,
             timeWaitAttackSpeed;
 
-        if (!this.isDead()) {
+        if (!this.isDead() && !this.usingSkill) {
             funcStop = new cc.callFunc(this.stop, this);
 
             funcAttack = new cc.callFunc(this.attack, this);
@@ -235,34 +249,38 @@ cc.Class({
         }
     },
 
-    calcCausedDamage : function () {
+    calcBaseDamage : function () {
         return this.atk * DAMAGE_UNIT;
     },
 
-    causeDamage: function () {
+    causeDamage: function (bonusDamage) {
         var t,
             target;
 
         for (t in this.targets) {
             target = this.targets[t];
             
-            target.receiveDamage(this.calcCausedDamage());
-            
-            if (target.isDead()) {
-                this.refreshKillCount();
+            if (!target.isDead()) {
+                target.receiveDamage(this.calcBaseDamage() + bonusDamage);
+
+                if (target.isDead()) {
+                    this.refreshKillCount();
+                }
             }
         }
     },
 
-	refreshKillCount: function () {
-		this.killCount++;
+    refreshKillCount: function () {
+        this.killCount++;
 
-		if (this.killCounter)
-			this.killCounter.string = this.killCount;
-	},
+        if (this.killCounter)
+            this.killCounter.string = this.killCount;
+    },
 
     endAttack: function () {
         var haveTarget = false;
+
+        this.usingSkill = false;
 
         if (this.targets.length > 0) {
             if (this.targets[0].isDead()) {
@@ -281,6 +299,14 @@ cc.Class({
             } else {
                 this.move(); //protagonist move after kill all targets
             }
+        }
+    },
+
+    skill1: function () {
+        if (!this.isDead() && !this.usingSkill) {
+            this.usingSkill = true;
+            this.node.stopAllActions();
+            this.playAnimation(AnimationName.SPECIAL_B);
         }
     },
 

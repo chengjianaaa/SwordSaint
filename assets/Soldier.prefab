@@ -423,13 +423,14 @@
     "lifeNumbers": {
       "__id__": 7
     },
+    "killCounter": null,
     "moveForward": null,
     "attackSequence": null,
     "currentHp": 100,
     "maxHp": 100,
     "attackAnimationNames": [],
     "killCount": 0,
-    "killCounter": null
+    "usingSkill": false
   },
   {
     "__type__": "cc.Animation",
