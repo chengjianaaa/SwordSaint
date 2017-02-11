@@ -4,12 +4,16 @@ var AnimationName = cc.Enum({
     ATTACK_A: 'AttackA',
     ATTACK_B: 'AttackB',
     FALLING: 'Falling',
+	SPECIAL_A: 'SpecialA',
     SPECIAL_B: 'SpecialB',
+    CHARGING: 'Charging'
 });
+
 
 var DAMAGE_UNIT = 60;
 var COOLDOWN_BAR_UPDATE_TIME = 0.1;
-var SKILL1_COOLDOWN_SECONDS = 5;
+var SKILLS_COOLDOWN_SECONDS = [5.0, 20.0];
+var SKILL_2_DURATION_SECONDS = 10.0;
 
 var collisionTag = require("CollisionTag");
 var attr = require("Attributes");
@@ -48,7 +52,12 @@ cc.Class({
             type: cc.Label
         },
 
-        skill1CooldownBar: {
+        skillCooldownBars: {
+            default: [],
+            type: [cc.ProgressBar]
+        },
+
+        skill2DurationBar: {
             default: null,
             type: cc.ProgressBar
         },
@@ -88,7 +97,12 @@ cc.Class({
         usingSkill: {
             default: false,
             visible: false
-        }
+        },
+
+		skill2AttackCounter: {
+            default: 0,
+            visible: false,
+        },
     },
 
     onLoad: function () {
@@ -208,12 +222,30 @@ cc.Class({
         }
     },
 
+	isSkill2Active: function () {
+		if (!this.skill2DurationBar)
+			return false;
+
+		return this.skill2DurationBar.progress > 0;
+	},
+
     attack: function () {
         var randomNumber;
 
         if (!this.isDead() && !this.usingSkill) {
-            randomNumber = Math.round(Math.random() * (this.attackAnimationNames.length - 1));
-            this.playAnimation(this.attackAnimationNames[randomNumber]);
+			if (!this.isSkill2Active() || this.skill2AttackCounter < 2) {
+				if (this.isSkill2Active())
+					this.skill2AttackCounter++; 
+
+				randomNumber = Math.round(Math.random() * (this.attackAnimationNames.length - 1));
+				this.playAnimation(this.attackAnimationNames[randomNumber]);
+			}
+			else {
+				if (this.isSkill2Active())
+					this.skill2AttackCounter = 0;
+
+				this.playAnimation(AnimationName.SPECIAL_A);
+			}
         }
     },
 
@@ -282,6 +314,10 @@ cc.Class({
     },
 
     causeSkill1Damage: function () {
+        this.causeDamage(DAMAGE_UNIT * 2);
+    },
+
+    causeSkill2Damage: function () {
         this.causeDamage(DAMAGE_UNIT * 1);
     },
 
@@ -316,36 +352,63 @@ cc.Class({
             }
         }
     },
-
-    getSkill1Button: function () {
-        return this.skill1CooldownBar.getComponentInChildren(cc.Button);
-    },
-
-    updatesSkill1CooldownBar: function () {
-        if (this.skill1CooldownBar.progress > 0) {
-            this.skill1Cooldown();
-            this.skill1CooldownBar.progress -= COOLDOWN_BAR_UPDATE_TIME / SKILL1_COOLDOWN_SECONDS;
-        } else {
-            this.getSkill1Button().interactable = true;
+	
+	updateSkill2DurationCooldownBar: function (target) {
+        if (this.skill2DurationBar.progress > 0) {
+            this.skill2DurationCooldown();
+            this.skill2DurationBar.progress -= COOLDOWN_BAR_UPDATE_TIME / SKILL_2_DURATION_SECONDS;
         }
     },
 
-    skill1Cooldown: function () {
+    skill2DurationCooldown: function () {
         var wait = new cc.delayTime(COOLDOWN_BAR_UPDATE_TIME),
-            updateBar = new cc.callFunc(this.updatesSkill1CooldownBar, this),
+            updateBar = new cc.callFunc(this.updateSkill2DurationCooldownBar, this),
             seq = new cc.Sequence(wait, updateBar);
 
-            this.node.runAction(seq);
+            this.skill2DurationBar.node.runAction(seq);
     },
 
-    skill1: function () {
-        if (!this.isDead() && !this.usingSkill && this.skill1CooldownBar.progress <= 0) {
+    endCharge: function () {
+		this.skill2AttackCounter = 0;
+		this.skill2DurationBar.progress = 1;
+		this.skill2DurationCooldown();
+		this.endAttack();
+	},
+
+    getSkillButton: function (index) {
+        return this.skillCooldownBars[index].getComponentInChildren(cc.Button);
+    },
+
+    updateSkillCooldownBar: function (target, index) {
+        if (this.skillCooldownBars[index].progress > 0) {
+            this.skillCooldown(index);
+            this.skillCooldownBars[index].progress -= COOLDOWN_BAR_UPDATE_TIME / SKILLS_COOLDOWN_SECONDS[index];
+        } else {
+            this.getSkillButton(index).interactable = true;
+        }
+    },
+
+    skillCooldown: function (index) {
+        var wait = new cc.delayTime(COOLDOWN_BAR_UPDATE_TIME),
+            updateBar = new cc.callFunc(this.updateSkillCooldownBar, this, index),
+            seq = new cc.Sequence(wait, updateBar);
+
+            this.skillCooldownBars[index].node.runAction(seq);
+    },
+
+    skill: function (event, index) {
+        if (!this.isDead() && !this.usingSkill && this.skillCooldownBars[index].progress <= 0) {
             this.usingSkill = true;
             this.node.stopAllActions();
-            this.playAnimation(AnimationName.SPECIAL_B);
-            this.getSkill1Button().interactable = false;
-            this.skill1CooldownBar.progress = 1;
-            this.skill1Cooldown();
+
+			if (index == 0)
+				this.playAnimation(AnimationName.SPECIAL_B);
+			else if (index == 1)
+				this.playAnimation(AnimationName.CHARGING);
+
+            this.getSkillButton(index).interactable = false;
+            this.skillCooldownBars[index].progress = 1;
+            this.skillCooldown(index);
         }
     },
 
