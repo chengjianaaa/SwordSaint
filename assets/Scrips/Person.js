@@ -122,6 +122,7 @@ cc.Class({
         this.maxHp = this.lif * DAMAGE_UNIT * 10;
         this.currentHp = this.maxHp;
         this.refreshLifebar();
+        this.setSkillCooldownBarsEndEvent();
 
         this.move();
     },
@@ -174,6 +175,15 @@ cc.Class({
         if (this.lifeNumbers) {
             currentHpToShow = this.currentHp < 0 ? 0 : this.currentHp;
             this.lifeNumbers.string = currentHpToShow + "/" + this.maxHp;
+        }
+    },
+
+    setSkillCooldownBarsEndEvent: function () {
+        for (var index in this.skillCooldownBars) {
+            this.skillCooldownBars[index].getComponent('TimedProgressBar').onBarEnd = 
+                function (self) {
+                    self.getComponentInChildren(cc.Button).interactable = true;
+                };
         }
     },
 
@@ -362,27 +372,6 @@ cc.Class({
         this.endAttack();
     },
 
-    getSkillButton: function (index) {
-        return this.skillCooldownBars[index].getComponentInChildren(cc.Button);
-    },
-
-    updateSkillCooldownBar: function (target, index) {
-        if (this.skillCooldownBars[index].progress > 0) {
-            this.skillCooldown(index);
-            this.skillCooldownBars[index].progress -= COOLDOWN_BAR_UPDATE_TIME / SKILLS_COOLDOWN_SECONDS[index];
-        } else {
-            this.getSkillButton(index).interactable = true;
-        }
-    },
-
-    skillCooldown: function (index) {
-        var wait = new cc.delayTime(COOLDOWN_BAR_UPDATE_TIME),
-            updateBar = new cc.callFunc(this.updateSkillCooldownBar, this, index),
-            seq = new cc.Sequence(wait, updateBar);
-
-            this.skillCooldownBars[index].node.runAction(seq);
-    },
-
     skill: function (event, index) {
         if (!this.isDead() && !this.usingSkill && this.skillCooldownBars[index].progress <= 0) {
             this.usingSkill = true;
@@ -393,9 +382,8 @@ cc.Class({
             else if (index == 1)
                 this.playAnimation(AnimationName.CHARGING);
 
-            this.getSkillButton(index).interactable = false;
-            this.skillCooldownBars[index].progress = 1;
-            this.skillCooldown(index);
+            this.skillCooldownBars[index].getComponentInChildren(cc.Button).interactable = false;
+            this.skillCooldownBars[index].getComponent('TimedProgressBar').startBar();
         }
     },
 

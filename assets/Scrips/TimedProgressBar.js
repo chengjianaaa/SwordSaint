@@ -23,7 +23,7 @@ cc.Class({
 		return this.node.getComponent(cc.ProgressBar).progress;
 	},
 
-	onBarEnd: function () {
+	onBarEnd: function (self) {
 		//Event: override it
 	},
 
@@ -42,7 +42,7 @@ cc.Class({
 			this.node.runAction(seq);
         } else {
 			this.setProgress(0);
-			this.onBarEnd();
+			this.onBarEnd(this);
 		}
     },
 
