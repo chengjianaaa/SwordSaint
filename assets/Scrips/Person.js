@@ -355,26 +355,10 @@ cc.Class({
             }
         }
     },
-    
-    updateSkill2DurationCooldownBar: function (target) {
-        if (this.skill2DurationBar.progress > 0) {
-            this.skill2DurationCooldown();
-            this.skill2DurationBar.progress -= COOLDOWN_BAR_UPDATE_TIME / SKILL_2_DURATION_SECONDS;
-        }
-    },
-
-    skill2DurationCooldown: function () {
-        var wait = new cc.delayTime(COOLDOWN_BAR_UPDATE_TIME),
-            updateBar = new cc.callFunc(this.updateSkill2DurationCooldownBar, this),
-            seq = new cc.Sequence(wait, updateBar);
-
-            this.skill2DurationBar.node.runAction(seq);
-    },
 
     endCharge: function () {
         this.skill2AttackCounter = 0;
-        this.skill2DurationBar.progress = 1;
-        this.skill2DurationCooldown();
+        this.skill2DurationBar.node.getComponent('TimedProgressBar').startBar();
         this.endAttack();
     },
 
