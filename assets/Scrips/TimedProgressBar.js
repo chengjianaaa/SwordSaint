@@ -7,14 +7,6 @@ cc.Class({
         durationSeconds: 1
     },
 
-    onLoad: function () {
-        //
-    },
-
-    update: function (dt) {
-        //df
-    },
-
 	setProgress: function (value) {
 		this.node.getComponent(cc.ProgressBar).progress = value;
 	},

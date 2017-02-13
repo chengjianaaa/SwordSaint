@@ -119,9 +119,10 @@ cc.Class({
             this.def = attr.def;
             this.spd = attr.spd;
         }
-        this.maxHp = this.lif * DAMAGE_UNIT * 10;
-        this.currentHp = this.maxHp;
-        this.refreshLifebar();
+
+        this.setMaxHp();
+        this.setHp(this.maxHp);
+
         this.setSkillCooldownBarsEndEvent();
 
         this.move();
@@ -168,14 +169,18 @@ cc.Class({
         this.node.runAction(new cc.flipX(!value));
     },
 
-    refreshLifebar: function() {
-        var currentHpToShow;
+    getNumberedLifebar: function () {
+        return this.lifeBar.node.getComponent('NumberedProgressBar');
+    },
 
-        this.lifeBar.progress = this.currentHp / this.maxHp;
-        if (this.lifeNumbers) {
-            currentHpToShow = this.currentHp < 0 ? 0 : this.currentHp;
-            this.lifeNumbers.string = currentHpToShow + "/" + this.maxHp;
-        }
+    setMaxHp: function () {
+        this.maxHp = this.lif * DAMAGE_UNIT * 10;
+        this.getNumberedLifebar().maxValue = this.maxHp;
+    },
+
+    setHp: function (value) {
+        this.currentHp = value;
+        this.getNumberedLifebar().setProgress(value);
     },
 
     setSkillCooldownBarsEndEvent: function () {
@@ -293,8 +298,7 @@ cc.Class({
 
         this.currentHp = this.currentHp - receivedDamage;
         num.getComponent('DamageNumber').show(receivedDamage);
-
-        this.refreshLifebar();
+        this.getNumberedLifebar().setProgress(this.currentHp);
 
         if (this.currentHp <= 0) {
             this.fall();
