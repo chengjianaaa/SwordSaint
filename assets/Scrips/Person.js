@@ -11,12 +11,13 @@ var AnimationName = cc.Enum({
 
 var COOLDOWN_BAR_UPDATE_TIME = 0.1;
 var SKILLS_COOLDOWN_SECONDS = [20.0, 20.0];
-var SKILL_2_DURATION_SECONDS = 10.0;
 
 var DAMAGE_UNIT = 60;
-var SKILL_1_DAMAGE_MULTIPLIER = 6;
-var SKILL_2_BONUS_DAMAGE = 120;
+var MAX_HP_MULTIPLIER = 5;
+var SKILL_1_MULTIPLIER = 14;
+var SKILL_2_MULTIPLIER = 2;
 var SKILL_2_ATTACKS = 1;
+var SKILL_2_DURATION_SECONDS = 10.0;
 
 var collisionTag = require("CollisionTag");
 var attr = require("Attributes");
@@ -174,7 +175,7 @@ cc.Class({
     },
 
     setMaxHp: function () {
-        this.maxHp = this.lif * DAMAGE_UNIT * 10;
+        this.maxHp = this.lif * DAMAGE_UNIT * MAX_HP_MULTIPLIER;
         this.getNumberedLifebar().maxValue = this.maxHp;
     },
 
@@ -331,11 +332,11 @@ cc.Class({
     },
 
     causeSkill1Damage: function () {
-        this.causeDamage(this.calcBaseDamage() * SKILL_1_DAMAGE_MULTIPLIER);
+        this.causeDamage(this.calcBaseDamage() + SKILL_1_MULTIPLIER * DAMAGE_UNIT);
     },
 
     causeSkill2Damage: function () {
-        this.causeDamage(this.calcBaseDamage() + SKILL_2_BONUS_DAMAGE);
+        this.causeDamage(this.calcBaseDamage() + SKILL_2_MULTIPLIER * DAMAGE_UNIT);
     },
 
     refreshKillCount: function () {

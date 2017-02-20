@@ -7,39 +7,39 @@ cc.Class({
         durationSeconds: 1
     },
 
-	setProgress: function (value) {
-		this.node.getComponent(cc.ProgressBar).progress = value;
-	},
+    setProgress: function (value) {
+        this.node.getComponent(cc.ProgressBar).progress = value;
+    },
 
-	getProgress: function () {
-		return this.node.getComponent(cc.ProgressBar).progress;
-	},
+    getProgress: function () {
+        return this.node.getComponent(cc.ProgressBar).progress;
+    },
 
-	onBarEnd: function (self) {
-		//Event: override it
-	},
+    onBarEnd: function (self) {
+        //Event: override it
+    },
 
-	updateBar: function () {
-		var wait,
+    updateBar: function () {
+        var wait,
             updateBarFunc,
             seq ;
 
         if (this.getProgress() > 0) {
-			this.setProgress(this.getProgress() - COOLDOWN_BAR_UPDATE_TIME / this.durationSeconds);
+            this.setProgress(this.getProgress() - COOLDOWN_BAR_UPDATE_TIME / this.durationSeconds);
             
-			wait = new cc.delayTime(COOLDOWN_BAR_UPDATE_TIME);
+            wait = new cc.delayTime(COOLDOWN_BAR_UPDATE_TIME);
             updateBarFunc = new cc.callFunc(this.updateBar, this);
             seq = new cc.Sequence(wait, updateBarFunc);
 
-			this.node.runAction(seq);
+            this.node.runAction(seq);
         } else {
-			this.setProgress(0);
-			this.onBarEnd(this);
-		}
+            this.setProgress(0);
+            this.onBarEnd(this);
+        }
     },
 
-	startBar: function () {
-		this.setProgress(1);
-		this.updateBar();
-	}
+    startBar: function () {
+        this.setProgress(1);
+        this.updateBar();
+    }
 });

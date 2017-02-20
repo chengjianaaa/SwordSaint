@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "41026bb5-3e75-47f5-90ff-1e7614fa182f",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "SoldierAssassin": {
+      "ver": "1.0.3",
+      "uuid": "501006fd-c06f-4e49-ac50-bd03f9dd968c",
+      "rawTextureUuid": "41026bb5-3e75-47f5-90ff-1e7614fa182f",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 16,
+      "offsetY": 1,
+      "trimX": 32,
+      "trimY": 0,
+      "width": 1888,
+      "height": 718,
+      "rawWidth": 1920,
+      "rawHeight": 720,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

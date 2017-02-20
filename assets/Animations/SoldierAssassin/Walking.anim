@@ -1,0 +1,43 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "Walking",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.35,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 22,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "397cd8e9-25c5-4db3-a65e-20bf8213e8c8"
+            }
+          },
+          {
+            "frame": 0.08333333333333333,
+            "value": {
+              "__uuid__": "69684d5d-e9d6-417a-a9fe-2d798cc74090"
+            }
+          },
+          {
+            "frame": 0.25,
+            "value": {
+              "__uuid__": "9ce64359-ca8d-46c8-ac97-818334cb6fe0"
+            }
+          },
+          {
+            "frame": 0.3333333333333333,
+            "value": {
+              "__uuid__": "9ce64359-ca8d-46c8-ac97-818334cb6fe0"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

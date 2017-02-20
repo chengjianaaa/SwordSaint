@@ -1,0 +1,60 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "AttackA",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.5833333333333334,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "670067c1-7dbb-493d-9db9-c6fcd042debd"
+            }
+          },
+          {
+            "frame": 0.16666666666666666,
+            "value": {
+              "__uuid__": "0fcdb274-62a2-4fc7-88ca-26fd50e3028f"
+            }
+          },
+          {
+            "frame": 0.25,
+            "value": {
+              "__uuid__": "13199aa8-db72-4e39-b0cb-3a4edfa21bf1"
+            }
+          },
+          {
+            "frame": 0.3333333333333333,
+            "value": {
+              "__uuid__": "d5ed59f4-4ded-4720-8767-b31fac0216e0"
+            }
+          },
+          {
+            "frame": 0.4166666666666667,
+            "value": {
+              "__uuid__": "fbcb91fc-c606-4683-a01a-b88fa2cbb935"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": [
+    {
+      "frame": 0.16666666666666666,
+      "func": "causeNormalDamage",
+      "params": []
+    },
+    {
+      "frame": 0.5833333333333334,
+      "func": "endAttack",
+      "params": []
+    }
+  ]
+}

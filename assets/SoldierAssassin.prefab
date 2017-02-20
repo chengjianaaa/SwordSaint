@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Soldier",
+    "_name": "SoldierAssassin",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -29,8 +29,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 318,
-      "height": 199
+      "width": 320,
+      "height": 180
     },
     "_children": [
       {
@@ -229,9 +229,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "fb8b5cb5-6307-4f08-8449-c4a555aeca55"
+      "__uuid__": "d0f266ce-56de-4b1a-92a2-657e12d54761"
     },
-    "fileId": "42807ayGgtBQpsDatcJGStT",
+    "fileId": "cda2dSGs6xHbJlmURUM9VP3",
     "sync": false
   },
   {
@@ -316,9 +316,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "fb8b5cb5-6307-4f08-8449-c4a555aeca55"
+      "__uuid__": "d0f266ce-56de-4b1a-92a2-657e12d54761"
     },
-    "fileId": "560b2NQXadLvo2T41CilUG+",
+    "fileId": "e5b40XgbiZO0YrFR6mZj85r",
     "sync": false
   },
   {
@@ -379,9 +379,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "fb8b5cb5-6307-4f08-8449-c4a555aeca55"
+      "__uuid__": "d0f266ce-56de-4b1a-92a2-657e12d54761"
     },
-    "fileId": "85449yUvsBDOYLwCZeEvra4",
+    "fileId": "b7f29QJdB1NU5qWrLfleqeL",
     "sync": false
   },
   {
@@ -393,7 +393,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "41294b4b-a08c-4f4a-816e-fade21451143"
+      "__uuid__": "dad6cade-393c-452c-b641-e6ed62920891"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -409,7 +409,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_atlas": {
-      "__uuid__": "6ad9832e-00cc-4f0d-82f8-64cf8a242b40"
+      "__uuid__": "9297268a-4481-45a3-9926-06d3da2186c3"
     }
   },
   {
@@ -421,9 +421,9 @@
     },
     "_enabled": true,
     "lif": 2,
-    "atk": 2,
-    "def": 2,
-    "spd": 2,
+    "atk": 1,
+    "def": 1,
+    "spd": 4,
     "movementSpeed": 150,
     "facingLeft": true,
     "targets": [],
@@ -461,16 +461,19 @@
     },
     "_clips": [
       {
-        "__uuid__": "66825323-24e9-45ad-98fb-61f45164bc06"
+        "__uuid__": "f25a5998-b329-497e-88f0-35dd21fa9424"
       },
       {
-        "__uuid__": "05325a6d-3cc5-4010-b671-2e7ca3566e2e"
+        "__uuid__": "b2833c39-d5c9-439c-894e-2f8f92465d3d"
       },
       {
-        "__uuid__": "e84c999e-b131-4331-b2d5-8cab6b3be783"
+        "__uuid__": "09b3f093-cce9-4221-9155-1e11d21234f0"
       },
       {
-        "__uuid__": "59fa5d1b-a065-40bd-9b95-928d6518b92a"
+        "__uuid__": "10529ab1-b05b-49ab-861f-964943e42079"
+      },
+      {
+        "__uuid__": "ef0b916c-ec8d-49dd-a79b-af5b036f71aa"
       }
     ],
     "playOnLoad": false
@@ -521,9 +524,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "fb8b5cb5-6307-4f08-8449-c4a555aeca55"
+      "__uuid__": "d0f266ce-56de-4b1a-92a2-657e12d54761"
     },
-    "fileId": "1a635jyMvtKxrcRpd92vV/a",
+    "fileId": "bbe0cdHux1DDqUAX4ajPikq",
     "sync": false
   }
 ]

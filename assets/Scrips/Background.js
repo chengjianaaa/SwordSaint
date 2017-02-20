@@ -11,10 +11,10 @@ cc.Class({
             type: cc.Node
         },
 
-        soldierPrefab: {
-            default: null,
-            type: cc.Prefab
-        }
+        enemyPrefabs: {
+            default: [],
+            type: [cc.Prefab]
+        },
     },
 
     // use this for initialization
@@ -37,8 +37,13 @@ cc.Class({
             this.node.x = -playerPos;
     },
 
+    getRandomEnemyPrefab: function () {
+        var randomNumber = Math.round(Math.random() * (this.enemyPrefabs.length - 1));
+        return this.enemyPrefabs[randomNumber];
+    },
+
     createSoldier: function () {
-        var soldier = cc.instantiate(this.soldierPrefab);
+        var soldier = cc.instantiate(this.getRandomEnemyPrefab());
 
         this.node.addChild(soldier);
         soldier.setPositionX(this.player.getPositionX() + this.spawnDistance);
