@@ -15,6 +15,11 @@ cc.Class({
             default: [],
             type: [cc.Prefab]
         },
+
+        skillButtons: {
+            default: [],
+            type: [cc.Button]
+        }
     },
 
     // use this for initialization
@@ -50,11 +55,30 @@ cc.Class({
         soldier.setPositionY(this.player.getPositionY());
     },
 
+    setSkillButtonsEnabled: function (enable) {
+        for (var i in this.skillButtons) {
+            this.skillButtons[i].enabled = enable;
+        }
+    },
+
     onCollisionEnter: function (other, self) {
         if (other.tag === collisionTag.BODY) {
             if (self.tag === collisionTag.SPAWN_AREA) {
                 this.createSoldier();
             }
         }
+    },
+
+    onPauseGame: function (other, self) {
+        var isPaused = cc.director.isPaused();
+
+        if (isPaused) {
+            cc.director.resume();
+        }
+        else {
+            cc.director.pause();
+        }
+
+        this.setSkillButtonsEnabled(isPaused);
     }
 });

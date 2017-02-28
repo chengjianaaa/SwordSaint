@@ -25,7 +25,7 @@
     "_anchorPoint": {
       "__type__": "cc.Vec2",
       "x": 0.5,
-      "y": 0.5
+      "y": 0.54
     },
     "_contentSize": {
       "__type__": "cc.Size",
@@ -44,7 +44,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 714,
-      "y": 198
+      "y": 191.4
     },
     "_skewX": 0,
     "_skewY": 0,
