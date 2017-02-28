@@ -19,12 +19,22 @@ cc.Class({
         skillButtons: {
             default: [],
             type: [cc.Button]
-        }
+        },
+
+        pauseButton: {
+            default: null,
+            type: cc.Button
+        },
+
+        skillSelector: {
+            default: null,
+            type: cc.Node
+        },
     },
 
     // use this for initialization
     onLoad: function () {
-        //
+        this.showSkillSelector();
     },
 
     update: function (dt) {
@@ -61,6 +71,20 @@ cc.Class({
         }
     },
 
+    showSkillSelector: function () {
+        this.setSkillButtonsEnabled(false);
+        this.pauseButton.getComponent(cc.Button).interactable = false;
+        cc.director.pause();
+        this.skillSelector.active = true;
+    },
+
+    hideSkillSelector: function () {
+        this.skillSelector.active = false;
+        cc.director.resume();
+        this.pauseButton.getComponent(cc.Button).interactable = true;
+        this.setSkillButtonsEnabled(true);
+    },
+
     onCollisionEnter: function (other, self) {
         if (other.tag === collisionTag.BODY) {
             if (self.tag === collisionTag.SPAWN_AREA) {
@@ -80,5 +104,10 @@ cc.Class({
         }
 
         this.setSkillButtonsEnabled(isPaused);
+    },
+
+    onUpgradeSkill: function (event, skillIndex) {
+        this.player.getComponent('Person').upgradeSkill(skillIndex);
+        this.hideSkillSelector();
     }
 });

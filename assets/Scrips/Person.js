@@ -36,6 +36,11 @@ cc.Class({
         facingLeft: true,
         targets: [],
 
+        skillsLevel: {
+            default: [],
+            type: ['Integer']
+        },
+
         damageNumber: {
             default: null,
             type: cc.Prefab
@@ -64,6 +69,11 @@ cc.Class({
         skill2DurationBar: {
             default: null,
             type: cc.ProgressBar
+        },
+
+        screen: {
+            default: null,
+            type: cc.Node
         },
 
         moveForward: {
@@ -125,6 +135,7 @@ cc.Class({
         this.setHp(this.maxHp);
 
         this.setSkillCooldownBarsEndEvent();
+        this.updateSkillButtonsState();
 
         this.move();
     },
@@ -190,6 +201,14 @@ cc.Class({
                 function (self) {
                     self.getComponentInChildren(cc.Button).interactable = true;
                 };
+        }
+    },
+
+    updateSkillButtonsState: function () {
+        var i;
+
+        for (i in this.skillsLevel) {
+            this.skillCooldownBars[i].getComponentInChildren(cc.Button).node.active = (this.skillsLevel[i] > 0);
         }
     },
 
@@ -332,11 +351,11 @@ cc.Class({
     },
 
     causeSkill1Damage: function () {
-        this.causeDamage(this.calcBaseDamage() + SKILL_1_MULTIPLIER * DAMAGE_UNIT);
+        this.causeDamage(this.calcBaseDamage() + SKILL_1_MULTIPLIER * DAMAGE_UNIT * this.skillsLevel[0]);
     },
 
     causeSkill2Damage: function () {
-        this.causeDamage(this.calcBaseDamage() + SKILL_2_MULTIPLIER * DAMAGE_UNIT);
+        this.causeDamage(this.calcBaseDamage() + SKILL_2_MULTIPLIER * DAMAGE_UNIT * this.skillsLevel[1]);
     },
 
     refreshKillCount: function () {
@@ -375,6 +394,11 @@ cc.Class({
         this.skill2AttackCounter = 0;
         this.skill2DurationBar.node.getComponent('TimedProgressBar').startBar();
         this.endAttack();
+    },
+
+    upgradeSkill: function (skillIndex) {
+        this.skillsLevel[skillIndex] += 1;
+        this.updateSkillButtonsState();
     },
 
     skill: function (event, index) {
