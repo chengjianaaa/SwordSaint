@@ -32,6 +32,9 @@ cc.Class({
         def: 1,
         spd: 1,
 
+        level: 0,
+        currentXp: 0,
+
         movementSpeed: 0,
         facingLeft: true,
         targets: [],
@@ -71,9 +74,14 @@ cc.Class({
             type: cc.ProgressBar
         },
 
-        screen: {
+        xpBar: {
             default: null,
-            type: cc.Node
+            type: cc.ProgressBar
+        },
+
+        levelLabel: {
+            default: null,
+            type: cc.Label
         },
 
         moveForward: {
@@ -117,6 +125,12 @@ cc.Class({
             default: 0,
             visible: false,
         },
+
+        killer: {
+            default: null,
+            visible: false,
+            type: cc.Node
+        }
     },
 
     onLoad: function () {
@@ -137,6 +151,7 @@ cc.Class({
         this.setSkillCooldownBarsEndEvent();
         this.updateSkillButtonsState();
 
+        this.levelUp();
         this.move();
     },
 
@@ -181,18 +196,14 @@ cc.Class({
         this.node.runAction(new cc.flipX(!value));
     },
 
-    getNumberedLifebar: function () {
-        return this.lifeBar.node.getComponent('NumberedProgressBar');
-    },
-
     setMaxHp: function () {
         this.maxHp = this.lif * DAMAGE_UNIT * MAX_HP_MULTIPLIER;
-        this.getNumberedLifebar().maxValue = this.maxHp;
+        this.getNumberedProgressBar(this.lifeBar).maxValue = this.maxHp;
     },
 
     setHp: function (value) {
         this.currentHp = value;
-        this.getNumberedLifebar().setProgress(value);
+        this.getNumberedProgressBar(this.lifeBar).setProgress(value);
     },
 
     setSkillCooldownBarsEndEvent: function () {
@@ -209,6 +220,38 @@ cc.Class({
 
         for (i in this.skillsLevel) {
             this.skillCooldownBars[i].getComponentInChildren(cc.Button).node.active = (this.skillsLevel[i] > 0);
+        }
+    },
+
+    getNumberedProgressBar: function (progressBar) {
+        return progressBar.node.getComponent('NumberedProgressBar');
+    },
+
+    calcXpToNextLevel: function (lvl) {
+        if (lvl <= 1)
+            return 1;
+
+        return lvl + this.calcXpToNextLevel(lvl - 1);
+    },
+
+    resetCooldowns: function () {
+        for (var index in this.skillCooldownBars)
+            this.skillCooldownBars[index].getComponent('TimedProgressBar').setProgress(0);
+    },
+
+    levelUp: function () {
+        if (this.xpBar) {
+            this.setHp(this.maxHp);
+            this.level++;
+            this.levelLabel.string = this.level;
+
+            this.getNumberedProgressBar(this.xpBar).maxValue = this.calcXpToNextLevel(this.level);
+            this.getNumberedProgressBar(this.xpBar).setProgress(0);
+            this.currentXp = 0;
+
+            this.resetCooldowns();
+
+            this.node.parent.getComponent('Background').showSkillSelector();
         }
     },
 
@@ -245,12 +288,34 @@ cc.Class({
         this.playAnimation(AnimationName.FALLING);
     },
 
+    refreshKillCount: function () {
+        this.killCount++;
+
+        if (this.killCounter)
+            this.killCounter.string = this.killCount;
+    },
+
+    incrementXp: function () {
+        if (this.xpBar) {
+            this.currentXp++;
+            this.getNumberedProgressBar(this.xpBar).setProgress(this.currentXp);
+            if (this.xpBar.progress >= 1)
+                this.levelUp();
+        }
+    },
+
+    rewardKiller: function () {
+        this.refreshKillCount();
+        this.incrementXp();
+    },
+
     die: function () {
         var fadeOutPerson = new cc.fadeOut(0.70),
             destroyPerson,
             sequence;
 
         if (this.facingLeft) {
+            this.killer.getComponent('Person').rewardKiller();
             destroyPerson = new cc.callFunc(function () { this.node.destroy(); }, this);
             sequence = new cc.Sequence(fadeOutPerson, destroyPerson);
             this.node.runAction(sequence);
@@ -316,9 +381,8 @@ cc.Class({
         num.setPositionX(this.node.getPositionX() + (this.facingLeft ? -30 : 0));
         num.setPositionY(this.node.getPositionY());
 
-        this.currentHp = this.currentHp - receivedDamage;
+        this.setHp(this.currentHp - receivedDamage);
         num.getComponent('DamageNumber').show(receivedDamage);
-        this.getNumberedLifebar().setProgress(this.currentHp);
 
         if (this.currentHp <= 0) {
             this.fall();
@@ -340,7 +404,7 @@ cc.Class({
                 target.receiveDamage(dmg);
 
                 if (target.isDead()) {
-                    this.refreshKillCount();
+                    target.killer = this;
                 }
             }
         }
@@ -356,13 +420,6 @@ cc.Class({
 
     causeSkill2Damage: function () {
         this.causeDamage(this.calcBaseDamage() + SKILL_2_MULTIPLIER * DAMAGE_UNIT * this.skillsLevel[1]);
-    },
-
-    refreshKillCount: function () {
-        this.killCount++;
-
-        if (this.killCounter)
-            this.killCounter.string = this.killCount;
     },
 
     endAttack: function () {
