@@ -57,30 +57,31 @@
       }
     },
     "props": {
-      "y": [
+      "y": [],
+      "anchorY": [
         {
           "frame": 0,
-          "value": 187
+          "value": 0.5
         },
         {
           "frame": 0.05,
-          "value": 187
+          "value": 0.5
         },
         {
           "frame": 0.06666666666666667,
-          "value": 217
+          "value": 0.4
         },
         {
           "frame": 0.08333333333333333,
-          "value": 227
+          "value": 0.3
         },
         {
           "frame": 0.1,
-          "value": 217
+          "value": 0.2
         },
         {
           "frame": 0.16666666666666666,
-          "value": 187
+          "value": 0.5
         }
       ]
     }
