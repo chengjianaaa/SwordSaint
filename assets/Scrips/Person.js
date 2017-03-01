@@ -84,6 +84,11 @@ cc.Class({
             type: cc.Label
         },
 
+        skillSelectorLevels: {
+            default: [],
+            type: [cc.Label]
+        },
+
         moveForward: {
             default: null,
             visible: false,
@@ -453,9 +458,16 @@ cc.Class({
         this.endAttack();
     },
 
+    updateSkillLevelLabels: function () {
+        for (var i in this.skillSelectorLevels) {
+            this.skillSelectorLevels[i].string = (this.skillsLevel[i] + 1);
+        }
+    },
+
     upgradeSkill: function (skillIndex) {
         this.skillsLevel[skillIndex] += 1;
         this.updateSkillButtonsState();
+        this.updateSkillLevelLabels();
     },
 
     skill: function (event, index) {

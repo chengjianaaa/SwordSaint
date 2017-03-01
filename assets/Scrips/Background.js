@@ -29,7 +29,7 @@ cc.Class({
         skillSelector: {
             default: null,
             type: cc.Node
-        },
+        }
     },
 
     // use this for initialization
