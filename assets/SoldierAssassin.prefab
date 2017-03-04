@@ -43,8 +43,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 714,
-      "y": 191.4
+      "x": 696.5,
+      "y": 193.7
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -420,13 +420,16 @@
       "__id__": 1
     },
     "_enabled": true,
-    "lif": 2,
+    "lif": 1,
     "atk": 1,
-    "def": 1,
+    "def": 2,
     "spd": 4,
+    "level": 0,
+    "currentXp": 0,
     "movementSpeed": 150,
     "facingLeft": true,
     "targets": [],
+    "skillsLevel": [],
     "damageNumber": {
       "__uuid__": "feb1bb56-88de-4de2-b150-bdf866bcb5ab"
     },
@@ -439,6 +442,9 @@
     "killCounter": null,
     "skillCooldownBars": [],
     "skill2DurationBar": null,
+    "xpBar": null,
+    "levelLabel": null,
+    "skillSelectorLevels": [],
     "moveForward": null,
     "attackSequence": null,
     "currentHp": 100,
@@ -446,7 +452,8 @@
     "attackAnimationNames": [],
     "killCount": 0,
     "usingSkill": false,
-    "skill2AttackCounter": 0
+    "skill2AttackCounter": 0,
+    "killer": null
   },
   {
     "__type__": "cc.Animation",

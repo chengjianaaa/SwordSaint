@@ -6,6 +6,7 @@ var AnimationName = cc.Enum({
     FALLING: 'Falling',
     SPECIAL_A: 'SpecialA',
     SPECIAL_B: 'SpecialB',
+    SPECIAL_C: 'SpecialC',
     CHARGING: 'Charging'
 });
 
@@ -14,12 +15,11 @@ var SKILLS_COOLDOWN_SECONDS = [20.0, 20.0];
 
 var DAMAGE_UNIT = 60;
 var MAX_HP_MULTIPLIER = 5;
-var SKILL_1_MULTIPLIER = 14;
-var SKILL_2_MULTIPLIER = 2;
+var SKILL_1_MULTIPLIER = 2;
+var SKILL_2_MULTIPLIER = 1;
 var SKILL_2_ATTACKS = 1;
 var SKILL_2_DURATION_SECONDS = 10.0;
-var SKILL_3_HEAL_MULTIPLIER = 19;
-var SKILL_3_DURATION_SECONDS = 10.0;
+var SKILL_3_MULTIPLIER = 0.4;
 
 var collisionTag = require("CollisionTag");
 var attr = require("Attributes");
@@ -72,11 +72,6 @@ cc.Class({
         },
 
         skill2DurationBar: {
-            default: null,
-            type: cc.ProgressBar
-        },
-
-        skill3DurationBar: {
             default: null,
             type: cc.ProgressBar
         },
@@ -138,21 +133,11 @@ cc.Class({
             visible: false,
         },
 
-        skill3AttackCounter: {
-            default: 0,
-            visible: false,
-        },
-
         killer: {
             default: null,
             visible: false,
             type: cc.Node
-        },
-
-        chargingSkill: {
-            default: 0,
-            visible: false
-        },
+        }
     },
 
     onLoad: function () {
@@ -362,13 +347,6 @@ cc.Class({
         return this.skill2DurationBar.progress > 0;
     },
 
-    isSkill3Active: function () {
-        if (!this.skill3DurationBar)
-            return false;
-
-        return this.skill3DurationBar.progress > 0;
-    },
-
     attack: function () {
         var randomNumber;
 
@@ -439,11 +417,6 @@ cc.Class({
             if (!target.isDead()) {
                 target.receiveDamage(dmg);
 
-                if (this.isSkill3Active()) {
-                    //receive negative damage = cure!
-                    this.receiveDamage(this.lif * (SKILL_3_HEAL_MULTIPLIER + this.skillsLevel[2]) * -1); 
-                }
-
                 if (target.isDead()) {
                     target.killer = this;
                 }
@@ -456,11 +429,18 @@ cc.Class({
     },
 
     causeSkill1Damage: function () {
-        this.causeDamage(this.calcBaseDamage() + SKILL_1_MULTIPLIER * DAMAGE_UNIT * this.skillsLevel[0]);
+        var multiplier = SKILL_1_MULTIPLIER * (this.skillsLevel[0] + 1); //4, 6, 8, 10...
+        this.causeDamage(this.calcBaseDamage() * multiplier);
     },
 
     causeSkill2Damage: function () {
-        this.causeDamage(this.calcBaseDamage() + SKILL_2_MULTIPLIER * DAMAGE_UNIT * this.skillsLevel[1]);
+        var bonusDamage = SKILL_2_MULTIPLIER * DAMAGE_UNIT * this.skillsLevel[1]; //60, 120, 180, 240...
+        this.causeDamage(this.calcBaseDamage() + bonusDamage);
+    },
+
+    causeSkill3Damage: function () {
+        var multiplier = 1 + SKILL_3_MULTIPLIER * (this.skillsLevel[2] - 1);  //1, 1.4, 1.8, 2.2...
+        this.causeDamage((this.maxHp - this.currentHp) * multiplier);
     },
 
     endAttack: function () {
@@ -489,13 +469,8 @@ cc.Class({
     },
 
     endCharge: function () {
-        if (this.chargingSkill == 1) {
-            this.skill2AttackCounter = 0;
-            this.skill2DurationBar.node.getComponent('TimedProgressBar').startBar();
-        } else {
-            this.skill3AttackCounter = 0;
-            this.skill3DurationBar.node.getComponent('TimedProgressBar').startBar();
-        }
+        this.skill2AttackCounter = 0;
+        this.skill2DurationBar.node.getComponent('TimedProgressBar').startBar();
 
         this.endAttack();
     },
@@ -519,10 +494,10 @@ cc.Class({
 
             if (index == 0)
                 this.playAnimation(AnimationName.SPECIAL_B);
-            else {
-                this.chargingSkill = index;
+            else if (index == 1)
                 this.playAnimation(AnimationName.CHARGING);
-            }
+            else if (index == 2)
+                this.playAnimation(AnimationName.SPECIAL_C);
 
             this.skillCooldownBars[index].getComponentInChildren(cc.Button).interactable = false;
             this.skillCooldownBars[index].getComponent('TimedProgressBar').startBar();
