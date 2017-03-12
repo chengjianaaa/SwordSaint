@@ -420,13 +420,16 @@
       "__id__": 1
     },
     "_enabled": true,
-    "lif": 2,
-    "atk": 2,
-    "def": 2,
-    "spd": 2,
+    "lif": 3,
+    "atk": 3,
+    "def": 1,
+    "spd": 1,
+    "level": 0,
+    "currentXp": 0,
     "movementSpeed": 150,
     "facingLeft": true,
     "targets": [],
+    "skillList": null,
     "damageNumber": {
       "__uuid__": "feb1bb56-88de-4de2-b150-bdf866bcb5ab"
     },
@@ -437,8 +440,9 @@
       "__id__": 7
     },
     "killCounter": null,
-    "skillCooldownBars": [],
     "skill2DurationBar": null,
+    "xpBar": null,
+    "levelLabel": null,
     "moveForward": null,
     "attackSequence": null,
     "currentHp": 100,
@@ -446,7 +450,8 @@
     "attackAnimationNames": [],
     "killCount": 0,
     "usingSkill": false,
-    "skill2AttackCounter": 0
+    "skill2AttackCounter": 0,
+    "killer": null
   },
   {
     "__type__": "cc.Animation",

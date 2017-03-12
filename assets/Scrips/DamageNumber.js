@@ -5,15 +5,9 @@ cc.Class({
         //
     },
 
-    // use this for initialization
     onLoad: function () {
         this.node.opacity = 0;
     },
-
-    // called every frame, uncomment this function to activate update callback
-    // update: function (dt) {
-        //
-    // },
 
     show: function (value) {
         var moveUp = new cc.MoveBy(0.75, cc.p(0, 136)).easing(cc.easeOut(3.0)),

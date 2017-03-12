@@ -2,60 +2,60 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-		level: 0,
+        level: 0,
 
-		selectorLevel: {
-			default: null,
-			type: cc.Label
-		}
-	},
+        selectorLevel: {
+            default: null,
+            type: cc.Label
+        }
+    },
 
     onLoad: function () {
         this.setCooldownBarEndEvent();
-		this.updateButtonState();
+        this.updateButtonState();
     },
 
-	getCooldownBar: function() {
-		return this.getComponentInChildren(cc.ProgressBar).getComponent('TimedProgressBar');
-	},
-
-	setCooldownBarEndEvent: function () {
-		var that = this;
-
-		this.getCooldownBar().onBarEnd =
-			function (self) {
-				that.getSkillButton().interactable = true;
-			};
+    getCooldownBar: function() {
+        return this.getComponentInChildren(cc.ProgressBar).getComponent('TimedProgressBar');
     },
 
-	getSkillButton: function() {
-		return this.getComponentInChildren(cc.Button);
-	},
+    setCooldownBarEndEvent: function () {
+        var that = this;
 
-	updateButtonState: function () {
+        this.getCooldownBar().onBarEnd =
+            function (self) {
+                that.getSkillButton().interactable = true;
+            };
+    },
+
+    getSkillButton: function() {
+        return this.getComponentInChildren(cc.Button);
+    },
+
+    updateButtonState: function () {
         this.getSkillButton().node.active = (this.level > 0);
     },
 
-	resetCooldown: function () {
+    resetCooldown: function () {
         this.getCooldownBar().setProgress(0);
     },
 
-	updateLevelLabel: function () {
+    updateLevelLabel: function () {
         this.selectorLevel.string = (this.level + 1);
     },
 
-	upgrade: function () {
+    upgrade: function () {
         this.level += 1;
         this.updateButtonState();
         this.updateLevelLabel();
     },
 
-	cooldownStart: function () {
-		this.getSkillButton().interactable = false;
+    cooldownStart: function () {
+        this.getSkillButton().interactable = false;
         this.getCooldownBar().startBar();
-	},
+    },
 
-	setButtonEnabled: function (enable) {
+    setButtonEnabled: function (enable) {
         this.getSkillButton().enabled = enable;
     }
 });

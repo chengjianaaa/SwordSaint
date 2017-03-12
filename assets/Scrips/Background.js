@@ -60,9 +60,9 @@ cc.Class({
         soldier.setPositionY(this.player.getPositionY());
     },
 
-	getPlayerPerson: function () {
-		return this.player.getComponent('Person');
-	},
+    getPlayerPerson: function () {
+        return this.player.getComponent('Person');
+    },
 
     showSkillSelector: function () {
         this.getPlayerPerson().getSkillList().setSkillButtonsEnabled(false);
@@ -96,7 +96,7 @@ cc.Class({
             cc.director.pause();
         }
 
-		this.getPlayerPerson().getSkillList().setSkillButtonsEnabled(isPaused);
+        this.getPlayerPerson().getSkillList().setSkillButtonsEnabled(isPaused);
     },
 
     onUpgradeSkill: function (event, skillIndex) {
