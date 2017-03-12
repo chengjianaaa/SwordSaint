@@ -10,9 +10,6 @@ var AnimationName = cc.Enum({
     CHARGING: 'Charging'
 });
 
-var COOLDOWN_BAR_UPDATE_TIME = 0.1;
-var SKILLS_COOLDOWN_SECONDS = [20.0, 20.0];
-
 var DAMAGE_UNIT = 60;
 var MAX_HP_MULTIPLIER = 5;
 var SKILL_1_MULTIPLIER = 2;
@@ -41,10 +38,10 @@ cc.Class({
         facingLeft: true,
         targets: [],
 
-        skillsLevel: {
-            default: [],
-            type: ['Integer']
-        },
+		skillList: {
+			default: null,
+            type: cc.Node
+		},
 
         damageNumber: {
             default: null,
@@ -66,11 +63,6 @@ cc.Class({
             type: cc.Label
         },
 
-        skillCooldownBars: {
-            default: [],
-            type: [cc.ProgressBar]
-        },
-
         skill2DurationBar: {
             default: null,
             type: cc.ProgressBar
@@ -84,11 +76,6 @@ cc.Class({
         levelLabel: {
             default: null,
             type: cc.Label
-        },
-
-        skillSelectorLevels: {
-            default: [],
-            type: [cc.Label]
         },
 
         moveForward: {
@@ -155,9 +142,6 @@ cc.Class({
         this.setMaxHp();
         this.setHp(this.maxHp);
 
-        this.setSkillCooldownBarsEndEvent();
-        this.updateSkillButtonsState();
-
         this.levelUp();
         this.move();
     },
@@ -221,23 +205,6 @@ cc.Class({
         this.getNumberedProgressBar(this.lifeBar).setProgress(trueValue);
     },
 
-    setSkillCooldownBarsEndEvent: function () {
-        for (var index in this.skillCooldownBars) {
-            this.skillCooldownBars[index].getComponent('TimedProgressBar').onBarEnd = 
-                function (self) {
-                    self.getComponentInChildren(cc.Button).interactable = true;
-                };
-        }
-    },
-
-    updateSkillButtonsState: function () {
-        var i;
-
-        for (i in this.skillsLevel) {
-            this.skillCooldownBars[i].getComponentInChildren(cc.Button).node.active = (this.skillsLevel[i] > 0);
-        }
-    },
-
     getNumberedProgressBar: function (progressBar) {
         return progressBar.node.getComponent('NumberedProgressBar');
     },
@@ -249,12 +216,13 @@ cc.Class({
         return lvl + this.calcXpToNextLevel(lvl - 1);
     },
 
-    resetCooldowns: function () {
-        for (var index in this.skillCooldownBars)
-            this.skillCooldownBars[index].getComponent('TimedProgressBar').setProgress(0);
-    },
+	getSkillList: function (index) {
+		return this.skillList.getComponent('SkillList');
+	},
 
     levelUp: function () {
+		var i;
+
         if (this.xpBar) {
             this.setHp(this.maxHp);
             this.level++;
@@ -264,7 +232,7 @@ cc.Class({
             this.getNumberedProgressBar(this.xpBar).setProgress(0);
             this.currentXp = 0;
 
-            this.resetCooldowns();
+			this.getSkillList().resetCooldowns();
 
             this.node.parent.getComponent('Background').showSkillSelector();
         }
@@ -429,17 +397,17 @@ cc.Class({
     },
 
     causeSkill1Damage: function () {
-        var multiplier = SKILL_1_MULTIPLIER * (this.skillsLevel[0] + 1); //4, 6, 8, 10...
+        var multiplier = SKILL_1_MULTIPLIER * (this.getSkillList().getSkill(0).level + 1); //4, 6, 8, 10...
         this.causeDamage(this.calcBaseDamage() * multiplier);
     },
 
     causeSkill2Damage: function () {
-        var bonusDamage = SKILL_2_MULTIPLIER * DAMAGE_UNIT * this.skillsLevel[1]; //60, 120, 180, 240...
+        var bonusDamage = SKILL_2_MULTIPLIER * DAMAGE_UNIT * this.getSkillList().getSkill(1).level; //60, 120, 180, 240...
         this.causeDamage(this.calcBaseDamage() + bonusDamage);
     },
 
     causeSkill3Damage: function () {
-        var multiplier = 1 + SKILL_3_MULTIPLIER * (this.skillsLevel[2] - 1);  //1, 1.4, 1.8, 2.2...
+        var multiplier = 1 + SKILL_3_MULTIPLIER * (this.getSkillList().getSkill(2).level - 1);  //1, 1.4, 1.8, 2.2...
         this.causeDamage((this.maxHp - this.currentHp) * multiplier);
     },
 
@@ -475,20 +443,10 @@ cc.Class({
         this.endAttack();
     },
 
-    updateSkillLevelLabels: function () {
-        for (var i in this.skillSelectorLevels) {
-            this.skillSelectorLevels[i].string = (this.skillsLevel[i] + 1);
-        }
-    },
-
-    upgradeSkill: function (skillIndex) {
-        this.skillsLevel[skillIndex] += 1;
-        this.updateSkillButtonsState();
-        this.updateSkillLevelLabels();
-    },
-
     skill: function (event, index) {
-        if (!this.isDead() && !this.usingSkill && this.skillCooldownBars[index].progress <= 0) {
+		var skillUsed = this.getSkillList().getSkill(index);
+
+        if (!this.isDead() && !this.usingSkill && skillUsed.getCooldownBar().getProgress() <= 0) {
             this.usingSkill = true;
             this.node.stopAllActions();
 
@@ -499,8 +457,7 @@ cc.Class({
             else if (index == 2)
                 this.playAnimation(AnimationName.SPECIAL_C);
 
-            this.skillCooldownBars[index].getComponentInChildren(cc.Button).interactable = false;
-            this.skillCooldownBars[index].getComponent('TimedProgressBar').startBar();
+			skillUsed.cooldownStart();
         }
     },
 

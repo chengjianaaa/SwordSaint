@@ -16,11 +16,6 @@ cc.Class({
             type: [cc.Prefab]
         },
 
-        skillButtons: {
-            default: [],
-            type: [cc.Button]
-        },
-
         pauseButton: {
             default: null,
             type: cc.Button
@@ -65,14 +60,12 @@ cc.Class({
         soldier.setPositionY(this.player.getPositionY());
     },
 
-    setSkillButtonsEnabled: function (enable) {
-        for (var i in this.skillButtons) {
-            this.skillButtons[i].enabled = enable;
-        }
-    },
+	getPlayerPerson: function () {
+		return this.player.getComponent('Person');
+	},
 
     showSkillSelector: function () {
-        this.setSkillButtonsEnabled(false);
+        this.getPlayerPerson().getSkillList().setSkillButtonsEnabled(false);
         this.pauseButton.getComponent(cc.Button).interactable = false;
         cc.director.pause();
         this.skillSelector.active = true;
@@ -82,7 +75,7 @@ cc.Class({
         this.skillSelector.active = false;
         cc.director.resume();
         this.pauseButton.getComponent(cc.Button).interactable = true;
-        this.setSkillButtonsEnabled(true);
+        this.getPlayerPerson().getSkillList().setSkillButtonsEnabled(true);
     },
 
     onCollisionEnter: function (other, self) {
@@ -103,11 +96,11 @@ cc.Class({
             cc.director.pause();
         }
 
-        this.setSkillButtonsEnabled(isPaused);
+		this.getPlayerPerson().getSkillList().setSkillButtonsEnabled(isPaused);
     },
 
     onUpgradeSkill: function (event, skillIndex) {
-        this.player.getComponent('Person').upgradeSkill(skillIndex);
+        this.getPlayerPerson().getSkillList().getSkill(skillIndex).upgrade();
         this.hideSkillSelector();
     }
 });
