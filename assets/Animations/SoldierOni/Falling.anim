@@ -1,0 +1,76 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "Falling",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.6,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "59a5347b-a2e0-4d6e-94d6-27097e57c8ac"
+            }
+          },
+          {
+            "frame": 0.06666666666666667,
+            "value": {
+              "__uuid__": "6151a773-9eb0-4c7f-a034-87913c467a52"
+            }
+          },
+          {
+            "frame": 0.13333333333333333,
+            "value": {
+              "__uuid__": "a404866e-cd57-4516-8723-e27f62da5243"
+            }
+          },
+          {
+            "frame": 0.2,
+            "value": {
+              "__uuid__": "1927923d-a020-419c-8d2b-34ff68332c45"
+            }
+          },
+          {
+            "frame": 0.26666666666666666,
+            "value": {
+              "__uuid__": "7d67b762-4163-49a7-8432-d715d20fd66b"
+            }
+          },
+          {
+            "frame": 0.3333333333333333,
+            "value": {
+              "__uuid__": "3b28ad1c-963b-4c83-9e2f-75e9dd5d5c24"
+            }
+          },
+          {
+            "frame": 0.4,
+            "value": {
+              "__uuid__": "9d3bb0ba-d391-4ec5-ac4b-3f134c303ad1"
+            }
+          },
+          {
+            "frame": 0.4666666666666667,
+            "value": {
+              "__uuid__": "c6e96bb8-b3ae-4cfc-98ca-f4ba3350c876"
+            }
+          }
+        ]
+      }
+    },
+    "props": {
+      "x": []
+    }
+  },
+  "events": [
+    {
+      "frame": 0.6,
+      "func": "die",
+      "params": []
+    }
+  ]
+}
