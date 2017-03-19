@@ -13,12 +13,13 @@ var AnimationName = cc.Enum({
 
 var DAMAGE_UNIT = 60;
 var MAX_HP_MULTIPLIER = 5;
+var SKILL_COOLDOWN = 15.0;
 var SKILL_1_MULTIPLIER = 2;
 var SKILL_2_MULTIPLIER = 1;
 var SKILL_2_ATTACKS = 1;
-var SKILL_2_DURATION_SECONDS = 10.0;
 var SKILL_3_MULTIPLIER = 0.4;
-var SKILL_4_MULTIPLIER = 1;
+var SKILL_4_DAMAGE_MULTIPLIER = 2;
+
 
 var collisionTag = require("CollisionTag");
 var attr = require("Attributes");
@@ -142,12 +143,29 @@ cc.Class({
         this.setHp(this.maxHp);
 
         this.levelUp();
+
+		this.setSkill2DurationBarEndEvent();
         this.move();
     },
 
     update: function (dt) {
         //
     },
+
+	getSkill2DurationBar: function () {
+		return this.skill2DurationBar.node.getComponent('TimedProgressBar');
+	},
+
+	setSkill2DurationBarEndEvent: function () {
+		var that = this;
+
+		if (this.skill2DurationBar) {
+			this.getSkill2DurationBar().onBarEnd =
+				function (self) {
+					that.skillCastEnd(1);
+				};
+		}
+	},
 
     fillAttackAnimationNamesList: function () {
         var animations = this.getComponent(cc.Animation).getClips(),
@@ -182,8 +200,6 @@ cc.Class({
 
         this.stop();
         this.createMoveForwardAction();
-
-        //this.node.runAction(new cc.flipX(!value));
     },
 
     setMaxHp: function () {
@@ -231,6 +247,7 @@ cc.Class({
             this.getNumberedProgressBar(this.xpBar).setProgress(0);
             this.currentXp = 0;
 
+			this.getSkill2DurationBar().setProgress(0);
             this.getSkillList().resetCooldowns();
 
             this.node.parent.getComponent('Background').showSkillSelector();
@@ -364,7 +381,7 @@ cc.Class({
             receivedDamage;
 
 		if (this.skillBeingUsed == 3)
-			defense++;
+			defense = defense * 2;
 
 		receivedDamage = dmg / defense;
 		this.skill4ReceivedDamage += dmg - receivedDamage;
@@ -422,7 +439,7 @@ cc.Class({
     },
 
     causeSkill4Damage: function () {
-        var multiplier = SKILL_4_MULTIPLIER * (this.getSkillList().getSkill(3).level + 1);
+        var multiplier = SKILL_4_DAMAGE_MULTIPLIER * (this.getSkillList().getSkill(3).level + 1); //4, 6, 8, 10...
         this.causeDamage(this.skill4ReceivedDamage * multiplier);
     },
 
@@ -453,7 +470,7 @@ cc.Class({
 
     endCharge: function () {
         this.skill2AttackCounter = 0;
-        this.skill2DurationBar.node.getComponent('TimedProgressBar').startBar();
+        this.getSkill2DurationBar().startBar();
 
         this.endAttack();
     },
@@ -476,9 +493,16 @@ cc.Class({
                 this.playAnimation(AnimationName.SPECIAL_D);
 			}
 
-            skillUsed.cooldownStart();
+            skillUsed.setCooldownFromBeginning();
         }
     },
+
+	skillCastEnd: function (skillIndex) {
+		this.getSkillList().getSkill(skillIndex).startCountCooldown();
+
+		if (skillIndex != 1)
+			this.endAttack();
+	},
 
     // Collision callback
     onCollisionEnter: function (other, self) {

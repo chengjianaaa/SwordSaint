@@ -72,6 +72,15 @@
     "_children": [
       {
         "__id__": 3
+      },
+      {
+        "__id__": 5
+      },
+      {
+        "__id__": 7
+      },
+      {
+        "__id__": 9
       }
     ],
     "_rotationX": 0,
@@ -106,9 +115,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 32,
+      "g": 32,
+      "b": 32,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -122,28 +131,18 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 960,
-      "height": 548
+      "width": 1001,
+      "height": 587
     },
-    "_children": [
-      {
-        "__id__": 4
-      },
-      {
-        "__id__": 6
-      },
-      {
-        "__id__": 8
-      }
-    ],
+    "_children": [],
     "_rotationX": 0,
     "_rotationY": 0,
     "_scaleX": 1,
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": 21,
+      "y": -20
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -155,11 +154,37 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 15
+        "__id__": 4
       }
     ],
     "_prefab": null,
     "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 3
+    },
+    "_enabled": true,
+    "_spriteFrame": {
+      "__uuid__": "8cdb44ac-a3f6-449f-b354-7cd48cf84061"
+    },
+    "_type": 1,
+    "_sizeMode": 0,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_atlas": null
   },
   {
     "__type__": "cc.Node",
@@ -175,7 +200,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 3
+      "__id__": 2
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -195,7 +220,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 278,
-      "y": -135
+      "y": -142
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -207,7 +232,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 5
+        "__id__": 6
       }
     ],
     "_prefab": null,
@@ -218,7 +243,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 4
+      "__id__": 5
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -253,7 +278,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 3
+      "__id__": 2
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -273,7 +298,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -10,
-      "y": 112
+      "y": 105
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -285,7 +310,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 7
+        "__id__": 8
       }
     ],
     "_prefab": null,
@@ -296,7 +321,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 6
+      "__id__": 7
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -327,7 +352,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 3
+      "__id__": 2
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -341,7 +366,7 @@
     },
     "_children": [
       {
-        "__id__": 9
+        "__id__": 10
       }
     ],
     "_rotationX": 0,
@@ -351,7 +376,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -169,
-      "y": -132
+      "y": -139
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -363,13 +388,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 11
-      },
-      {
         "__id__": 12
       },
       {
-        "__id__": 14
+        "__id__": 13
+      },
+      {
+        "__id__": 15
       }
     ],
     "_prefab": null,
@@ -389,7 +414,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 8
+      "__id__": 9
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -421,7 +446,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 10
+        "__id__": 11
       }
     ],
     "_prefab": null,
@@ -432,7 +457,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 9
+      "__id__": 10
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -454,7 +479,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 8
+      "__id__": 9
     },
     "_enabled": true,
     "_spriteFrame": null,
@@ -478,7 +503,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 8
+      "__id__": 9
     },
     "_enabled": true,
     "transition": 2,
@@ -498,15 +523,11 @@
     },
     "duration": 0.1,
     "zoomScale": 1.2,
-    "pressedSprite": {
-      "__uuid__": "e9ec654c-97a2-4787-9325-e6a10375219a"
-    },
-    "hoverSprite": {
-      "__uuid__": "e9ec654c-97a2-4787-9325-e6a10375219a"
-    },
+    "pressedSprite": null,
+    "hoverSprite": null,
     "clickEvents": [
       {
-        "__id__": 13
+        "__id__": 14
       }
     ],
     "_N$interactable": true,
@@ -526,17 +547,15 @@
       "a": 255
     },
     "_N$normalSprite": null,
-    "_N$disabledSprite": {
-      "__uuid__": "29158224-f8dd-4661-a796-1ffab537140e"
-    },
+    "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 8
+      "__id__": 9
     }
   },
   {
     "__type__": "cc.ClickEvent",
     "target": {
-      "__id__": 8
+      "__id__": 9
     },
     "component": "StartButton",
     "handler": "startGame",
@@ -547,35 +566,9 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 8
+      "__id__": 9
     },
     "_enabled": true
-  },
-  {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 3
-    },
-    "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "8cdb44ac-a3f6-449f-b354-7cd48cf84061"
-    },
-    "_type": 1,
-    "_sizeMode": 0,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_atlas": null
   },
   {
     "__type__": "cc.Canvas",

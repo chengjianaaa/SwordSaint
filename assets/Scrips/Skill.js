@@ -37,7 +37,8 @@ cc.Class({
     },
 
     resetCooldown: function () {
-        this.getCooldownBar().setProgress(0);
+		this.startCountCooldown();
+		this.getCooldownBar().setProgress(0);
     },
 
     updateLevelLabel: function () {
@@ -50,9 +51,13 @@ cc.Class({
         this.updateLevelLabel();
     },
 
-    cooldownStart: function () {
+    setCooldownFromBeginning: function () {
         this.getSkillButton().interactable = false;
-        this.getCooldownBar().startBar();
+        this.getCooldownBar().setProgress(1);
+    },
+
+    startCountCooldown: function () {
+        this.getCooldownBar().updateBar();
     },
 
     setButtonEnabled: function (enable) {

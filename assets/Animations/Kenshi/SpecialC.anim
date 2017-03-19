@@ -71,8 +71,10 @@
     },
     {
       "frame": 0.6833333333333333,
-      "func": "endAttack",
-      "params": []
+      "func": "skillCastEnd",
+      "params": [
+        2
+      ]
     }
   ]
 }
