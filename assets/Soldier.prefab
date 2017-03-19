@@ -421,14 +421,16 @@
     },
     "_enabled": true,
     "lif": 3,
-    "atk": 3,
+    "atk": 1,
     "def": 1,
-    "spd": 1,
+    "spd": 3,
     "level": 0,
     "currentXp": 0,
     "movementSpeed": 150,
     "facingLeft": true,
     "targets": [],
+    "skillBeingUsed": -1,
+    "skill4ReceivedDamage": 0,
     "skillList": null,
     "damageNumber": {
       "__uuid__": "feb1bb56-88de-4de2-b150-bdf866bcb5ab"
@@ -449,7 +451,6 @@
     "maxHp": 100,
     "attackAnimationNames": [],
     "killCount": 0,
-    "usingSkill": false,
     "skill2AttackCounter": 0,
     "killer": null
   },

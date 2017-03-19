@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "SoldierOni",
+    "_name": "SoldierAssassin",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -43,8 +43,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 696.5,
-      "y": 193.7
+      "x": -211,
+      "y": 187
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -116,7 +116,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -31,
+      "x": -15,
       "y": -112
     },
     "_skewX": 0,
@@ -392,7 +392,9 @@
       "__id__": 1
     },
     "_enabled": true,
-    "_spriteFrame": null,
+    "_spriteFrame": {
+      "__uuid__": "dad6cade-393c-452c-b641-e6ed62920891"
+    },
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -406,7 +408,9 @@
     "_isTrimmedMode": true,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_atlas": null
+    "_atlas": {
+      "__uuid__": "9297268a-4481-45a3-9926-06d3da2186c3"
+    }
   },
   {
     "__type__": "4f9b9JB8kVOzqkcrIJzjnGf",
@@ -416,10 +420,10 @@
       "__id__": 1
     },
     "_enabled": true,
-    "lif": 4,
-    "atk": 2,
-    "def": 1,
-    "spd": 1,
+    "lif": 1,
+    "atk": 1,
+    "def": 2,
+    "spd": 4,
     "level": 0,
     "currentXp": 0,
     "movementSpeed": 150,
@@ -463,16 +467,19 @@
     },
     "_clips": [
       {
-        "__uuid__": "8a5271a5-a527-4f55-b8ee-4907f15892b0"
+        "__uuid__": "f25a5998-b329-497e-88f0-35dd21fa9424"
       },
       {
-        "__uuid__": "4dca2aa7-a87f-4807-9706-63f9d7a63886"
+        "__uuid__": "b2833c39-d5c9-439c-894e-2f8f92465d3d"
       },
       {
-        "__uuid__": "f4d0b449-468a-4f54-baf4-70f73507588f"
+        "__uuid__": "09b3f093-cce9-4221-9155-1e11d21234f0"
       },
       {
-        "__uuid__": "4c12ef79-63bf-4eaa-bcd7-5fa5a24fabb0"
+        "__uuid__": "10529ab1-b05b-49ab-861f-964943e42079"
+      },
+      {
+        "__uuid__": "ef0b916c-ec8d-49dd-a79b-af5b036f71aa"
       }
     ],
     "playOnLoad": false

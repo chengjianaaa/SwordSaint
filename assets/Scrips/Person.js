@@ -39,8 +39,8 @@ cc.Class({
         movementSpeed: 0,
         facingLeft: true,
         targets: [],
-		skillBeingUsed: -1,
-		skill4ReceivedDamage: 0,
+        skillBeingUsed: -1,
+        skill4ReceivedDamage: 0,
 
         skillList: {
             default: null,
@@ -183,7 +183,7 @@ cc.Class({
         this.stop();
         this.createMoveForwardAction();
 
-        this.node.runAction(new cc.flipX(!value));
+        //this.node.runAction(new cc.flipX(!value));
     },
 
     setMaxHp: function () {

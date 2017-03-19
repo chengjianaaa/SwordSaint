@@ -217,8 +217,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 327,
-      "height": 201
+      "width": 366,
+      "height": 205
     },
     "_children": [
       {
@@ -232,7 +232,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 257,
-      "y": 250
+      "y": 238
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -299,7 +299,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 10,
+      "x": -16,
       "y": -106
     },
     "_skewX": 0,
@@ -342,7 +342,7 @@
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 1,
+      "x": 0,
       "y": 0.5
     },
     "_contentSize": {
@@ -357,7 +357,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 50,
+      "x": -50,
       "y": 0
     },
     "_skewX": 0,
@@ -395,7 +395,7 @@
       "x": 0,
       "y": 0
     },
-    "_fillStart": 1,
+    "_fillStart": 0,
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_srcBlendFactor": 770,
@@ -440,7 +440,7 @@
     "_N$mode": 0,
     "_N$totalLength": 100,
     "_N$progress": 0,
-    "_N$reverse": true
+    "_N$reverse": false
   },
   {
     "__type__": "1af3fyqnUBHeqJft+zMEvqC",
@@ -461,7 +461,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "55452c72-b2c5-454e-aad6-90d55e206ec3"
+      "__uuid__": "29144790-ec12-4276-a545-4c876e9d61b9"
     },
     "_type": 0,
     "_sizeMode": 2,
@@ -477,7 +477,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_atlas": {
-      "__uuid__": "1639aff2-2a15-4700-9151-fbef4bd35cbf"
+      "__uuid__": "2adff751-4fc1-4973-9c10-e553226c3084"
     }
   },
   {
@@ -5549,13 +5549,13 @@
     "tag": 1,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": -80,
-      "y": -18
+      "x": 96,
+      "y": -8
     },
     "_size": {
       "__type__": "cc.Size",
-      "width": 53,
-      "height": 163
+      "width": 81,
+      "height": 173
     }
   },
   {
@@ -5569,8 +5569,8 @@
     "tag": 0,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": 13.7,
-      "y": -4.7
+      "x": -17,
+      "y": -8
     },
     "_size": {
       "__type__": "cc.Size",
