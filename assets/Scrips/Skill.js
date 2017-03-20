@@ -37,8 +37,8 @@ cc.Class({
     },
 
     resetCooldown: function () {
-		this.startCountCooldown();
-		this.getCooldownBar().setProgress(0);
+        this.startCountCooldown();
+        this.getCooldownBar().setProgress(0);
     },
 
     updateLevelLabel: function () {
