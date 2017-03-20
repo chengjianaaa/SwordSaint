@@ -1240,7 +1240,7 @@
       "__id__": 26
     },
     "_enabled": true,
-    "durationSeconds": 10
+    "durationSeconds": 15
   },
   {
     "__type__": "968c5M4769GAqIffy3467KH",
@@ -1253,7 +1253,8 @@
     "level": 0,
     "selectorLevel": {
       "__id__": 33
-    }
+    },
+    "initialCoooldownTime": 0
   },
   {
     "__type__": "cc.Label",
@@ -4156,7 +4157,7 @@
       "__id__": 120
     },
     "_enabled": true,
-    "durationSeconds": 4
+    "durationSeconds": 15
   },
   {
     "__type__": "968c5M4769GAqIffy3467KH",
@@ -4169,7 +4170,8 @@
     "level": 0,
     "selectorLevel": {
       "__id__": 48
-    }
+    },
+    "initialCoooldownTime": 0
   },
   {
     "__type__": "cc.Node",
@@ -4570,7 +4572,7 @@
       "__id__": 132
     },
     "_enabled": true,
-    "durationSeconds": 10
+    "durationSeconds": 15
   },
   {
     "__type__": "968c5M4769GAqIffy3467KH",
@@ -4583,7 +4585,8 @@
     "level": 0,
     "selectorLevel": {
       "__id__": 67
-    }
+    },
+    "initialCoooldownTime": 0
   },
   {
     "__type__": "cc.Node",
@@ -4984,7 +4987,7 @@
       "__id__": 144
     },
     "_enabled": true,
-    "durationSeconds": 4
+    "durationSeconds": 15
   },
   {
     "__type__": "968c5M4769GAqIffy3467KH",
@@ -4997,7 +5000,8 @@
     "level": 0,
     "selectorLevel": {
       "__id__": 86
-    }
+    },
+    "initialCoooldownTime": 0
   },
   {
     "__type__": "cc.Sprite",
