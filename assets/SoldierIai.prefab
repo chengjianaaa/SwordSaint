@@ -43,8 +43,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 1366,
-      "y": 334
+      "x": -294,
+      "y": 270
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -421,9 +421,9 @@
     },
     "_enabled": true,
     "lif": 1,
-    "atk": 3,
+    "atk": 4,
     "def": 1,
-    "spd": 3,
+    "spd": 2,
     "level": 0,
     "currentXp": 0,
     "movementSpeed": 150,
@@ -443,6 +443,7 @@
     },
     "killCounter": null,
     "skill2DurationBar": null,
+    "skill4DurationBar": null,
     "xpBar": null,
     "levelLabel": null,
     "moveForward": null,

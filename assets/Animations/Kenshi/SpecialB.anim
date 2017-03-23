@@ -3,7 +3,7 @@
   "_name": "SpecialB",
   "_objFlags": 0,
   "_rawFiles": null,
-  "_duration": 0.6833333333333333,
+  "_duration": 0.75,
   "sample": 60,
   "speed": 1,
   "wrapMode": 1,
@@ -132,7 +132,7 @@
             }
           },
           {
-            "frame": 0.6666666666666666,
+            "frame": 0.7,
             "value": {
               "__uuid__": "c1ac8160-3e73-41f5-88f7-98de3f6ac0c5"
             }
@@ -148,11 +148,9 @@
       "params": []
     },
     {
-      "frame": 0.6833333333333333,
-      "func": "skillCastEnd",
-      "params": [
-        0
-      ]
+      "frame": 0.75,
+      "func": "endAttack",
+      "params": []
     }
   ]
 }

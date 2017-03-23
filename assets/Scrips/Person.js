@@ -12,11 +12,11 @@ var AnimationName = cc.Enum({
 });
 
 var DAMAGE_UNIT = 60;
-var MAX_HP_MULTIPLIER = 8;
-var SKILL_1_MULTIPLIER = 8;
+var MAX_HP_MULTIPLIER = 6;
+var SKILL_1_MULTIPLIER = 6;
 var SKILL_2_BONUS_DAMAGE = 240;
 var SKILL_2_ATTACKS = 1;
-var SKILL_3_MULTIPLIER = 1.5;
+var SKILL_3_MULTIPLIER = 1;
 var SKILL_4_DAMAGE_MULTIPLIER = 2;
 var SKILL_4_DEFENSE_MULTIPLIER = 2;
 
@@ -148,7 +148,6 @@ cc.Class({
 
         this.levelUp();
 
-        this.setSkillDurationBarsEndEvent();
         this.move();
     },
 
@@ -162,24 +161,6 @@ cc.Class({
 
     getSkill4DurationBar: function () {
         return this.skill4DurationBar.node.getComponent('TimedProgressBar');
-    },
-
-    setSkillDurationBarsEndEvent: function () {
-        var that = this;
-
-        if (this.skill2DurationBar) {
-            this.getSkill2DurationBar().onBarEnd =
-                function (self) {
-                    that.skillCastEnd(1);
-                };
-        }
-
-        if (this.skill4DurationBar) {
-            this.getSkill4DurationBar().onBarEnd =
-                function (self) {
-                    that.skillCastEnd(3);
-                };
-        }
     },
 
     fillAttackAnimationNamesList: function () {
@@ -262,8 +243,6 @@ cc.Class({
             this.getNumberedProgressBar(this.xpBar).setProgress(0);
             this.currentXp = 0;
 
-            this.getSkill2DurationBar().setProgress(0);
-            this.getSkill4DurationBar().setProgress(0);
             this.getSkillList().resetCooldowns();
 
             this.node.parent.getComponent('Background').showSkillSelector();
@@ -522,15 +501,8 @@ cc.Class({
             else if (index == 3)
                 this.playAnimation(AnimationName.CHARGING);
 
-            skillUsed.setCooldownFromBeginning();
+            skillUsed.cooldownStart();
         }
-    },
-
-    skillCastEnd: function (skillIndex) {
-        this.getSkillList().getSkill(skillIndex).startCountCooldown();
-
-        if (skillIndex != 1 && skillIndex != 3)
-            this.endAttack();
     },
 
     // Collision callback
