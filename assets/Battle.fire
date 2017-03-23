@@ -74,25 +74,25 @@
         "__id__": 3
       },
       {
-        "__id__": 184
+        "__id__": 186
       },
       {
         "__id__": 154
       },
       {
-        "__id__": 186
+        "__id__": 188
       },
       {
         "__id__": 164
       },
       {
-        "__id__": 188
+        "__id__": 190
       },
       {
         "__id__": 162
       },
       {
-        "__id__": 190
+        "__id__": 192
       },
       {
         "__id__": 172
@@ -105,6 +105,9 @@
       },
       {
         "__id__": 36
+      },
+      {
+        "__id__": 183
       }
     ],
     "_rotationX": 0,
@@ -126,7 +129,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 192
+        "__id__": 194
       }
     ],
     "_prefab": null,
@@ -188,7 +191,7 @@
         "__id__": 176
       },
       {
-        "__id__": 183
+        "__id__": 185
       }
     ],
     "_prefab": null,
@@ -5838,6 +5841,9 @@
     },
     "skillSelector": {
       "__id__": 36
+    },
+    "gameOverLabel": {
+      "__id__": 183
     }
   },
   {
@@ -6067,6 +6073,80 @@
     "customEventData": ""
   },
   {
+    "__type__": "cc.Node",
+    "_name": "GameOverLabel",
+    "_objFlags": 0,
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_parent": {
+      "__id__": 2
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 569.21,
+      "height": 69.73
+    },
+    "_children": [],
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": -14,
+      "y": 310
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_tag": -1,
+    "_opacityModifyRGB": false,
+    "_id": "2f7d6ks7pZIvJODWdrZ+A4q",
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 184
+      }
+    ],
+    "_prefab": null,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 183
+    },
+    "_enabled": true,
+    "_useOriginalSize": false,
+    "_actualFontSize": 125,
+    "_fontSize": 125,
+    "_lineHeight": 135,
+    "_enableWrapText": true,
+    "_N$file": {
+      "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
+    },
+    "_isSystemFontUsed": false,
+    "_N$string": "GAME OVER",
+    "_N$horizontalAlign": 1,
+    "_N$verticalAlign": 1,
+    "_N$overflow": 0
+  },
+  {
     "__type__": "cc.BoxCollider",
     "_name": "",
     "_objFlags": 0,
@@ -6132,7 +6212,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 185
+        "__id__": 187
       }
     ],
     "_prefab": null,
@@ -6143,7 +6223,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 184
+      "__id__": 186
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -6206,7 +6286,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 187
+        "__id__": 189
       }
     ],
     "_prefab": null,
@@ -6217,7 +6297,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 186
+      "__id__": 188
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -6280,7 +6360,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 189
+        "__id__": 191
       }
     ],
     "_prefab": null,
@@ -6291,7 +6371,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 188
+      "__id__": 190
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -6354,7 +6434,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 191
+        "__id__": 193
       }
     ],
     "_prefab": null,
@@ -6365,7 +6445,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 190
+      "__id__": 192
     },
     "_enabled": true,
     "_useOriginalSize": false,

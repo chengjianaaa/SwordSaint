@@ -1,3 +1,5 @@
+var attr = require("Attributes");
+
 cc.Class({
     extends: cc.Component,
 
@@ -11,6 +13,10 @@ cc.Class({
     },
 
     startGame: function () {
+		attr.lif = 1;
+		attr.atk = 1;
+		attr.def = 1;
+		attr.spd = 1;
         cc.director.loadScene("Attributes");
     }
 });

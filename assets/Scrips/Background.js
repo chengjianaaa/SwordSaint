@@ -24,6 +24,11 @@ cc.Class({
         skillSelector: {
             default: null,
             type: cc.Node
+        },
+
+        gameOverLabel: {
+            default: null,
+            type: cc.Node
         }
     },
 
@@ -77,6 +82,26 @@ cc.Class({
         this.pauseButton.getComponent(cc.Button).interactable = true;
         this.getPlayerPerson().getSkillList().setSkillButtonsEnabled(true);
     },
+
+	fadeOutAndBackToTitle: function () {
+		var screen = this.node.parent,
+			fadeOutScreen = new cc.FadeOut(3.0),
+			backToTitleFunc = new cc.callFunc(function () {cc.director.loadScene("TitleScreen");}, this),
+			sequence = new cc.Sequence(fadeOutScreen, backToTitleFunc);
+
+		fadeOutScreen.easing(cc.easeExponentialOut(30.0));
+		screen.runAction(sequence);
+	},
+
+	gameOver: function () {
+		var moveDownLabel = new cc.MoveTo(1.5, cc.p(this.gameOverLabel.x, 0)),
+			fadeOutScreenFunc = new cc.callFunc(this.fadeOutAndBackToTitle, this),
+			sequence = new cc.Sequence(moveDownLabel, fadeOutScreenFunc);
+
+		moveDownLabel.easing(cc.easeExponentialOut(30.0));
+
+		this.gameOverLabel.runAction(sequence);
+	},
 
     onCollisionEnter: function (other, self) {
         if (other.tag === collisionTag.BODY) {

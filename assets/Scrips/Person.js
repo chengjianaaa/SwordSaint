@@ -182,8 +182,8 @@ cc.Class({
         manager.enabled = true;
         
         //show debug collision boxes
-        manager.enabledDebugDraw = true;
-        manager.enabledDrawBoundingBox = true;
+        /*manager.enabledDebugDraw = true;
+        manager.enabledDrawBoundingBox = true;*/
     },
 
     createMoveForwardAction: function () {
@@ -231,6 +231,10 @@ cc.Class({
         return this.skillList.getComponent('SkillList');
     },
 
+	getBackground: function () {
+		return this.node.parent.getComponent('Background');
+	},
+
     levelUp: function () {
         var i;
 
@@ -245,7 +249,7 @@ cc.Class({
 
             this.getSkillList().resetCooldowns();
 
-            this.node.parent.getComponent('Background').showSkillSelector();
+            this.getBackground().showSkillSelector();
         }
     },
 
@@ -309,18 +313,20 @@ cc.Class({
 
     die: function () {
         var fadeOutPerson = new cc.fadeOut(0.70),
-            destroyPerson,
+            destroyPerson, //the protagonist cant be destroyed because is associated with map camera
+			gameOver, //game over only if protagonst dies
             sequence;
 
         if (this.facingLeft) {
             this.killer.getComponent('Person').rewardKiller();
             destroyPerson = new cc.callFunc(function () { this.node.destroy(); }, this);
             sequence = new cc.Sequence(fadeOutPerson, destroyPerson);
-            this.node.runAction(sequence);
         } else {
-            //the protagonist cant be destroyed because is associated with map camera
-            this.node.runAction(fadeOutPerson);
+			gameOver = new cc.callFunc(function () { this.getBackground().gameOver(); }, this);
+			sequence = new cc.Sequence(fadeOutPerson, cc.delayTime(1.50), gameOver);
         }
+
+		this.node.runAction(sequence);
     },
 
     isSkill2Active: function () {
