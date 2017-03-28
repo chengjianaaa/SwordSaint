@@ -54,6 +54,7 @@ cc.Class({
 
     getRandomEnemyPrefab: function () {
         var randomNumber = Math.floor(Math.random() * (this.enemyPrefabs.length));
+		randomNumber = 2;
         return this.enemyPrefabs[randomNumber];
     },
 

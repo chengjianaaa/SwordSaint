@@ -57,6 +57,11 @@ cc.Class({
             type: cc.ProgressBar
         },
 
+		evasionBar: {
+            default: null,
+            type: cc.ProgressBar
+        },
+
         lifeNumbers: {
             default: null,
             type: cc.Label
@@ -104,6 +109,11 @@ cc.Class({
             visible: false
         },
 
+		currentEp: {
+            default: 5,
+            visible: false
+        },
+
         maxHp: {
             default: 100,
             visible: false
@@ -145,6 +155,9 @@ cc.Class({
 
         this.setMaxHp();
         this.setHp(this.maxHp);
+
+		this.getNumberedProgressBar(this.evasionBar).maxValue = (this.def - 1);
+        this.setEp(this.def);
 
         this.levelUp();
 
@@ -214,6 +227,19 @@ cc.Class({
 
         this.currentHp = trueValue;
         this.getNumberedProgressBar(this.lifeBar).setProgress(trueValue);
+    },
+
+	setEp: function (value) {
+        var trueValue = value;
+
+        if (value < 0)
+            trueValue = 0;
+
+        if (value > this.def - 1)
+            trueValue = this.def - 1;
+
+        this.currentEp = trueValue;
+        this.getNumberedProgressBar(this.evasionBar).setProgress(trueValue);
     },
 
     getNumberedProgressBar: function (progressBar) {
@@ -388,21 +414,28 @@ cc.Class({
         var num = cc.instantiate(this.damageNumber),
             receivedDamage;
 
-        if (this.isSkill4Active()) {
-            receivedDamage = dmg / (this.def * SKILL_4_DEFENSE_MULTIPLIER);
-            this.skill4ReceivedDamage += dmg - receivedDamage;
-        } else
-            receivedDamage = dmg / this.def;
-
-        this.node.parent.addChild(num);
+		this.node.parent.addChild(num);
         num.setPositionX(this.node.getPositionX() + (this.facingLeft ? -30 : 0));
         num.setPositionY(this.node.getPositionY());
 
-        this.setHp(this.currentHp - receivedDamage);
-        num.getComponent('DamageNumber').show(receivedDamage);
+		if (this.currentEp > 0) {
+			this.setEp(this.currentEp - 1);
+			num.getComponent('DamageNumber').show("MISS");
+		} else {
+			if (this.isSkill4Active()) {
+				receivedDamage = dmg / (this.def * SKILL_4_DEFENSE_MULTIPLIER);
+				this.skill4ReceivedDamage += dmg - receivedDamage;
+			} else
+				receivedDamage = dmg / this.def;
 
-        if (this.currentHp <= 0)
-            this.fall();
+			this.setHp(this.currentHp - receivedDamage);
+			num.getComponent('DamageNumber').show(receivedDamage);
+
+			if (this.currentHp <= 0)
+				this.fall();
+			else
+				this.setEp(this.def);
+		}
     },
 
     calcBaseDamage : function () {
