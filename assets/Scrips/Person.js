@@ -374,7 +374,8 @@ cc.Class({
 
             funcAttack = new cc.callFunc(this.attack, this);
 
-            timeWaitAttackSpeed = (3.60/this.spd) - 0.60;
+            //timeWaitAttackSpeed = (3.60/this.spd) - 0.60;
+			timeWaitAttackSpeed = (3.00/this.spd) - 0.60;
             timeWaitAttackSpeed = timeWaitAttackSpeed > 0 ? timeWaitAttackSpeed : 0.01;
             waitAttackSpeed = new cc.delayTime(timeWaitAttackSpeed);
 

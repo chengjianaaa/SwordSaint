@@ -115,9 +115,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 32,
-      "g": 32,
-      "b": 32,
+      "r": 0,
+      "g": 0,
+      "b": 0,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -131,8 +131,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1001,
-      "height": 587
+      "width": 960,
+      "height": 548
     },
     "_children": [],
     "_rotationX": 0,
@@ -141,8 +141,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 21,
-      "y": -20
+      "x": 0,
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -333,6 +333,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "SWORD\nSAINT",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -469,6 +470,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "PRESS TO START ",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
