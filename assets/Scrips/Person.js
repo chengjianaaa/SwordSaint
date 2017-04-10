@@ -12,11 +12,11 @@ var AnimationName = cc.Enum({
 });
 
 var DAMAGE_UNIT = 60;
-var MAX_HP_MULTIPLIER = 6;
+var MAX_HP_MULTIPLIER = 10;
 var SKILL_1_MULTIPLIER = 6;
 var SKILL_2_BONUS_DAMAGE = 240;
 var SKILL_2_ATTACKS = 1;
-var SKILL_3_MULTIPLIER = 1;
+var SKILL_3_MULTIPLIER = 10;
 var SKILL_4_DAMAGE_MULTIPLIER = 2;
 var SKILL_4_DEFENSE_MULTIPLIER = 2;
 
@@ -385,15 +385,19 @@ cc.Class({
         }
     },
 
-    receiveDamage: function (dmg) {
+    receiveDamage: function (dmg, ignoreDefense) {
         var num = cc.instantiate(this.damageNumber),
             receivedDamage;
 
-        if (this.isSkill4Active()) {
-            receivedDamage = dmg / (this.def * SKILL_4_DEFENSE_MULTIPLIER);
-            this.skill4ReceivedDamage += dmg - receivedDamage;
-        } else
-            receivedDamage = dmg / this.def;
+		if (ignoreDefense)
+			receivedDamage = dmg;
+		else {
+			if (this.isSkill4Active()) {
+				receivedDamage = dmg / (this.def * SKILL_4_DEFENSE_MULTIPLIER);
+				this.skill4ReceivedDamage += dmg - receivedDamage;
+			} else
+				receivedDamage = dmg / this.def;
+		}
 
         this.node.parent.addChild(num);
         num.setPositionX(this.node.getPositionX() + (this.facingLeft ? -30 : 0));
@@ -450,7 +454,25 @@ cc.Class({
     },
 
     causeSkill3Damage: function () {
-        this.causeDamage((this.maxHp - this.currentHp) * SKILL_3_MULTIPLIER);
+        var t,
+            target,
+			dmg;
+
+        for (t in this.targets) {
+            target = this.targets[t];
+            
+            if (!target.isDead()) {
+                if (target.isSkill4Active())
+                    target.counterAttack();
+
+                target.receiveDamage(target.maxHp / SKILL_3_MULTIPLIER, true);
+				this.receiveDamage(-target.maxHp / SKILL_3_MULTIPLIER, true);
+
+                if (target.isDead()) {
+                    target.killer = this;
+                }
+            }
+        }
     },
 
     causeSkill4Damage: function () {
