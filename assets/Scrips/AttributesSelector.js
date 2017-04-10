@@ -16,7 +16,7 @@ cc.Class({
             type: cc.Label
         },
 
-        defLabel: {
+        staLabel: {
             default: null,
             type: cc.Label
         },
@@ -36,7 +36,7 @@ cc.Class({
     onLoad: function () {
         this.setLif(attr.lif);
         this.setAtk(attr.atk);
-        this.setDef(attr.def);
+        this.setSta(attr.sta);
         this.setSpd(attr.spd);
     },
 
@@ -50,9 +50,9 @@ cc.Class({
         this.atkLabel.string = val;
     },
 
-    setDef: function (val) {
-        attr.def = val;
-        this.defLabel.string = val;
+    setSta: function (val) {
+        attr.sta = val;
+        this.staLabel.string = val;
     },
 
     setSpd: function (val) {
@@ -79,9 +79,9 @@ cc.Class({
         }
     },
 
-    incrementDef: function () {
+    incrementSta: function () {
         if (this.points > 0) {
-            this.setDef(attr.def + 1);
+            this.setSta(attr.sta + 1);
             this.setPoints(this.points - 1);
         }
     },
@@ -107,9 +107,9 @@ cc.Class({
         }
     },
 
-    decrementDef: function () {
-        if (attr.def > 1) {
-            this.setDef(attr.def - 1);
+    decrementSta: function () {
+        if (attr.sta > 1) {
+            this.setSta(attr.sta - 1);
             this.setPoints(this.points + 1);
         }
     },

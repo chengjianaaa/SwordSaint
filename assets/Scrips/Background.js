@@ -70,7 +70,7 @@ cc.Class({
     },
 
     showSkillSelector: function () {
-        this.getPlayerPerson().getSkillList().setSkillButtonsEnabled(false);
+        this.getPlayerPerson().getSkillList().setSkillButtonsPaused(true);
         this.pauseButton.getComponent(cc.Button).interactable = false;
         cc.director.pause();
         this.skillSelector.active = true;
@@ -80,28 +80,28 @@ cc.Class({
         this.skillSelector.active = false;
         cc.director.resume();
         this.pauseButton.getComponent(cc.Button).interactable = true;
-        this.getPlayerPerson().getSkillList().setSkillButtonsEnabled(true);
+        this.getPlayerPerson().getSkillList().setSkillButtonsPaused(false);
     },
 
-	fadeOutAndBackToTitle: function () {
-		var screen = this.node.parent,
-			fadeOutScreen = new cc.FadeOut(3.0),
-			backToTitleFunc = new cc.callFunc(function () {cc.director.loadScene("TitleScreen");}, this),
-			sequence = new cc.Sequence(fadeOutScreen, backToTitleFunc);
+    fadeOutAndBackToTitle: function () {
+        var screen = this.node.parent,
+            fadeOutScreen = new cc.FadeOut(3.0),
+            backToTitleFunc = new cc.callFunc(function () {cc.director.loadScene("TitleScreen");}, this),
+            sequence = new cc.Sequence(fadeOutScreen, backToTitleFunc);
 
-		fadeOutScreen.easing(cc.easeExponentialOut(30.0));
-		screen.runAction(sequence);
-	},
+        fadeOutScreen.easing(cc.easeExponentialOut(30.0));
+        screen.runAction(sequence);
+    },
 
-	gameOver: function () {
-		var moveDownLabel = new cc.MoveTo(1.5, cc.p(this.gameOverLabel.x, 0)),
-			fadeOutScreenFunc = new cc.callFunc(this.fadeOutAndBackToTitle, this),
-			sequence = new cc.Sequence(moveDownLabel, fadeOutScreenFunc);
+    gameOver: function () {
+        var moveDownLabel = new cc.MoveTo(1.5, cc.p(this.gameOverLabel.x, 0)),
+            fadeOutScreenFunc = new cc.callFunc(this.fadeOutAndBackToTitle, this),
+            sequence = new cc.Sequence(moveDownLabel, fadeOutScreenFunc);
 
-		moveDownLabel.easing(cc.easeExponentialOut(30.0));
+        moveDownLabel.easing(cc.easeExponentialOut(30.0));
 
-		this.gameOverLabel.runAction(sequence);
-	},
+        this.gameOverLabel.runAction(sequence);
+    },
 
     onCollisionEnter: function (other, self) {
         if (other.tag === collisionTag.BODY) {
@@ -121,7 +121,7 @@ cc.Class({
             cc.director.pause();
         }
 
-        this.getPlayerPerson().getSkillList().setSkillButtonsEnabled(isPaused);
+        this.getPlayerPerson().getSkillList().setSkillButtonsPaused(!isPaused);
     },
 
     onUpgradeSkill: function (event, skillIndex) {

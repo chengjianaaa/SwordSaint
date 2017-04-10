@@ -3,47 +3,24 @@ cc.Class({
 
     properties: {
         level: 0,
+		cost: 0,
 
         selectorLevel: {
             default: null,
             type: cc.Label
-        },
-
-		initialCoooldownTime: {
-            default: 0,
-            visible: false
         }
     },
 
     onLoad: function () {
-        this.setCooldownBarEndEvent();
         this.updateButtonState();
-		this.initialCoooldownTime = this.getCooldownBar().durationSeconds;
-    },
-
-    getCooldownBar: function() {
-        return this.getComponentInChildren(cc.ProgressBar).getComponent('TimedProgressBar');
-    },
-
-    setCooldownBarEndEvent: function () {
-        var that = this;
-
-        this.getCooldownBar().onBarEnd =
-            function (self) {
-                that.getSkillButton().interactable = true;
-            };
     },
 
     getSkillButton: function() {
-        return this.getComponentInChildren(cc.Button);
+        return this.getComponent(cc.Button);
     },
 
     updateButtonState: function () {
         this.getSkillButton().node.active = (this.level > 0);
-    },
-
-    resetCooldown: function () {
-        this.getCooldownBar().setProgress(0);
     },
 
     updateLevelLabel: function () {
@@ -52,17 +29,15 @@ cc.Class({
 
     upgrade: function () {
         this.level += 1;
-        this.getCooldownBar().durationSeconds = this.initialCoooldownTime - 10 * Math.log10(this.level);
         this.updateButtonState();
         this.updateLevelLabel();
     },
 
-    cooldownStart: function () {
-        this.getSkillButton().interactable = false;
-        this.getCooldownBar().startBar();
+    updateSkillState: function (sp) {
+        this.getSkillButton().interactable = sp >= this.cost;
     },
 
-    setButtonEnabled: function (enable) {
-        this.getSkillButton().enabled = enable;
-    }
+	setSkillButtonPaused: function (paused) {
+		this.getSkillButton().enabled = !paused;
+	}
 });

@@ -30,7 +30,7 @@ cc.Class({
         //attributes
         lif: 1,
         atk: 1,
-        def: 1,
+        sta: 1,
         spd: 1,
 
         level: 0,
@@ -57,9 +57,9 @@ cc.Class({
             type: cc.ProgressBar
         },
 
-        lifeNumbers: {
+		specialBar: {
             default: null,
-            type: cc.Label
+            type: cc.ProgressBar
         },
 
         killCounter: {
@@ -93,6 +93,12 @@ cc.Class({
             type: cc.Action
         },
 
+		fillSp: {
+            default: null,
+            visible: false,
+            type: cc.Action
+        },
+
         attackSequence: {
             default: null,
             visible: false,
@@ -105,6 +111,16 @@ cc.Class({
         },
 
         maxHp: {
+            default: 100,
+            visible: false
+        },
+
+		currentSp: {
+            default: 100,
+            visible: false
+        },
+
+        maxSp: {
             default: 100,
             visible: false
         },
@@ -139,16 +155,20 @@ cc.Class({
         if (!this.facingLeft) {
             this.lif = attr.lif;
             this.atk = attr.atk;
-            this.def = attr.def;
+            this.sta = attr.sta;
             this.spd = attr.spd;
         }
 
         this.setMaxHp();
         this.setHp(this.maxHp);
 
+		this.setMaxSp();
+        this.setSp(this.maxSp);
+
         this.levelUp();
 
         this.move();
+		this.createFillSpAction();
     },
 
     update: function (dt) {
@@ -191,6 +211,17 @@ cc.Class({
         this.moveForward = new cc.MoveBy(1, cc.p(this.movementSpeed * mult, 0));
     },
 
+	incrementSp: function () {
+		this.setSp(this.currentSp + this.sta);
+	},
+
+	createFillSpAction: function () {
+		var funcIncrement = new cc.callFunc(this.incrementSp, this),
+            wait = new cc.delayTime(3.00);
+
+        this.fillSp = new cc.Sequence(wait, funcIncrement);
+    },
+
     setFacingLeft: function (value) {
         this.facingLeft = value;
 
@@ -198,9 +229,13 @@ cc.Class({
         this.createMoveForwardAction();
     },
 
+	getLifeBar: function () {
+		return this.getNumberedProgressBar(this.lifeBar);
+	},
+
     setMaxHp: function () {
         this.maxHp = this.lif * DAMAGE_UNIT * MAX_HP_MULTIPLIER;
-        this.getNumberedProgressBar(this.lifeBar).maxValue = this.maxHp;
+        this.getLifeBar().maxValue = this.maxHp;
     },
 
     setHp: function (value) {
@@ -213,7 +248,40 @@ cc.Class({
             trueValue = this.maxHp;
 
         this.currentHp = trueValue;
-        this.getNumberedProgressBar(this.lifeBar).setProgress(trueValue);
+        this.getLifeBar().setProgress(trueValue);
+    },
+
+	getSpecialBar: function () {
+		return this.getNumberedProgressBar(this.specialBar);
+	},
+
+	setMaxSp: function () {
+        this.maxSp = 8;
+
+		if (this.specialBar) // remove this 'if' when all persons have their skill bar
+			this.getSpecialBar().maxValue = this.maxSp;
+    },
+
+	getSkillList: function () {
+		return this.skillList.getComponent('SkillList');
+	},
+
+	setSp: function (value) {
+		var trueValue = value;
+
+		if (value < 0)
+			trueValue = 0;
+
+		if (value > this.maxSp)
+			trueValue = this.maxSp;
+
+		this.currentSp = trueValue;
+
+		if (this.skillList)
+			this.getSkillList().updateSkillsState(this.currentSp);
+
+		if (this.specialBar) // remove this 'if' when all persons have their skill bar
+			this.getSpecialBar().setProgress(trueValue);
     },
 
     getNumberedProgressBar: function (progressBar) {
@@ -227,10 +295,6 @@ cc.Class({
         return lvl + this.calcXpToNextLevel(lvl - 1);
     },
 
-    getSkillList: function (index) {
-        return this.skillList.getComponent('SkillList');
-    },
-
 	getBackground: function () {
 		return this.node.parent.getComponent('Background');
 	},
@@ -240,14 +304,13 @@ cc.Class({
 
         if (this.xpBar) {
             this.setHp(this.maxHp);
+			this.setSp(this.maxSp);
             this.level++;
             this.levelLabel.string = this.level;
 
             this.getNumberedProgressBar(this.xpBar).maxValue = this.calcXpToNextLevel(this.level);
             this.getNumberedProgressBar(this.xpBar).setProgress(0);
             this.currentXp = 0;
-
-            this.getSkillList().resetCooldowns();
 
             this.getBackground().showSkillSelector();
         }
@@ -281,7 +344,7 @@ cc.Class({
             if (this.attackSequence && this.attackSequence.getTarget() === this.node)
                 this.node.stopAction(this.attackSequence);
 
-            this.node.runAction(this.moveForward).repeatForever();
+            this.node.runAction(this.moveForward.repeatForever());
         }
     },
 
@@ -386,21 +449,14 @@ cc.Class({
     },
 
     receiveDamage: function (dmg) {
-        var num = cc.instantiate(this.damageNumber),
-            receivedDamage;
-
-        if (this.isSkill4Active()) {
-            receivedDamage = dmg / (this.def * SKILL_4_DEFENSE_MULTIPLIER);
-            this.skill4ReceivedDamage += dmg - receivedDamage;
-        } else
-            receivedDamage = dmg / this.def;
+        var num = cc.instantiate(this.damageNumber);
 
         this.node.parent.addChild(num);
         num.setPositionX(this.node.getPositionX() + (this.facingLeft ? -30 : 0));
         num.setPositionY(this.node.getPositionY());
 
-        this.setHp(this.currentHp - receivedDamage);
-        num.getComponent('DamageNumber').show(receivedDamage);
+        this.setHp(this.currentHp - dmg);
+        num.getComponent('DamageNumber').show(dmg);
 
         if (this.currentHp <= 0)
             this.fall();
@@ -493,9 +549,7 @@ cc.Class({
     },
 
     skill: function (event, index) {
-        var skillUsed = this.getSkillList().getSkill(index);
-
-        if (!this.isDead() && !this.isUsingSkill() && skillUsed.getCooldownBar().getProgress() <= 0) {
+        if (!this.isDead() && !this.isUsingSkill()) {
             this.skillBeingUsed = index;
             this.node.stopAllActions();
 
@@ -508,7 +562,8 @@ cc.Class({
             else if (index == 3)
                 this.playAnimation(AnimationName.CHARGING);
 
-            skillUsed.cooldownStart();
+			this.setSp(0);
+			this.node.runAction(cc.repeat(this.fillSp, this.maxSp));
         }
     },
 

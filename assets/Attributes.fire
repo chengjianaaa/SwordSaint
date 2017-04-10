@@ -122,8 +122,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 960,
-      "height": 548
+      "width": 980,
+      "height": 568
     },
     "_children": [
       {
@@ -281,6 +281,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "LIF",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -355,6 +356,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "ATK",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -362,7 +364,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "DefLabel",
+    "_name": "StaLabel",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -429,7 +431,8 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
-    "_N$string": "DEF",
+    "_spacingX": 0,
+    "_N$string": "STA",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$overflow": 0
@@ -503,6 +506,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "SPD",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -577,6 +581,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "1",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -651,6 +656,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "1",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -658,7 +664,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "DefValue",
+    "_name": "StaValue",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -725,6 +731,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "1",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -799,6 +806,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "1",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -873,6 +881,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "REMAINING\nPOINTS",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -947,6 +956,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "4",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -1080,6 +1090,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "+",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -1310,6 +1321,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "+",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -1414,7 +1426,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "IncrementDef",
+    "_name": "IncrementSta",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -1473,7 +1485,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "IncrementDefLabel",
+    "_name": "IncrementStaLabel",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -1540,6 +1552,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "+",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -1639,7 +1652,7 @@
       "__id__": 3
     },
     "component": "AttributesSelector",
-    "handler": "incrementDef",
+    "handler": "incrementSta",
     "customEventData": ""
   },
   {
@@ -1770,6 +1783,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "+",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -2000,6 +2014,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "-",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -2230,6 +2245,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "-",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -2334,7 +2350,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "DecrementDef",
+    "_name": "DecrementSta",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -2393,7 +2409,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "DecrementDefLabel",
+    "_name": "DecrementStaLabel",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -2460,6 +2476,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "-",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -2559,7 +2576,7 @@
       "__id__": 3
     },
     "component": "AttributesSelector",
-    "handler": "decrementDef",
+    "handler": "decrementSta",
     "customEventData": ""
   },
   {
@@ -2690,6 +2707,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "-",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -2920,6 +2938,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "OK",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -3063,7 +3082,7 @@
     "atkLabel": {
       "__id__": 15
     },
-    "defLabel": {
+    "staLabel": {
       "__id__": 17
     },
     "spdLabel": {

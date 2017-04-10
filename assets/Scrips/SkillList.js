@@ -16,19 +16,20 @@ cc.Class({
         return this.skills[index].getComponent('Skill');
     },
 
-    resetCooldowns: function (index) {
+    updateSkillsState: function (sp) {
         var i;
 
         for (i in this.skills) {
-            this.getSkill(i).resetCooldown();
+            this.getSkill(i).updateSkillState(sp);
         }
     },
-
-    setSkillButtonsEnabled: function (enable) {
-        var i;
+	
+	setSkillButtonsPaused: function (paused)
+	{
+		var i;
 
         for (i in this.skills) {
-            this.getSkill(i).setButtonEnabled(enable);
+            this.getSkill(i).setSkillButtonPaused(paused);
         }
-    }
+	}
 });
