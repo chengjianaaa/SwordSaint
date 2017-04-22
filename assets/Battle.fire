@@ -1243,7 +1243,7 @@
       "__id__": 26
     },
     "_enabled": true,
-    "durationSeconds": 15
+    "durationSeconds": 9
   },
   {
     "__type__": "968c5M4769GAqIffy3467KH",
@@ -1257,7 +1257,7 @@
     "selectorLevel": {
       "__id__": 33
     },
-    "initialCoooldownTime": 0
+    "coooldownTime": 0
   },
   {
     "__type__": "cc.Label",
@@ -1276,6 +1276,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "1",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -1542,6 +1543,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "CHOOSE A SKILL:",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -1693,6 +1695,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "RYUTSUISEN",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -1778,6 +1781,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "LEVEL",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -1863,6 +1867,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "1",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -2111,6 +2116,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "ATTACKS WILL\nCAUSE 120\nEXTRA DAMAGE\nFOR 10 SECONDS",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -2271,6 +2277,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "MURAMASA",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -2356,6 +2363,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "LEVEL",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -2441,6 +2449,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "1",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -2689,6 +2698,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "CAUSES \nLOSS  HP\nX1.6 DAMAGE",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -2849,6 +2859,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "AKUMETSU",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -2934,6 +2945,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "LEVEL",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -3019,6 +3031,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "1",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -3267,6 +3280,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "DEF +1 AND\nGIVES BACK\nABSORBED\nDAMAGE X2",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -3396,6 +3410,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "SASAMEYUKI",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -3481,6 +3496,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "LEVEL",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -3729,6 +3745,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "CAUSES\nATK X4\nDAMAGE",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -4160,7 +4177,7 @@
       "__id__": 120
     },
     "_enabled": true,
-    "durationSeconds": 15
+    "durationSeconds": 9
   },
   {
     "__type__": "968c5M4769GAqIffy3467KH",
@@ -4174,7 +4191,7 @@
     "selectorLevel": {
       "__id__": 48
     },
-    "initialCoooldownTime": 0
+    "coooldownTime": 0
   },
   {
     "__type__": "cc.Node",
@@ -4575,7 +4592,7 @@
       "__id__": 132
     },
     "_enabled": true,
-    "durationSeconds": 15
+    "durationSeconds": 9
   },
   {
     "__type__": "968c5M4769GAqIffy3467KH",
@@ -4589,7 +4606,7 @@
     "selectorLevel": {
       "__id__": 67
     },
-    "initialCoooldownTime": 0
+    "coooldownTime": 0
   },
   {
     "__type__": "cc.Node",
@@ -4990,7 +5007,7 @@
       "__id__": 144
     },
     "_enabled": true,
-    "durationSeconds": 15
+    "durationSeconds": 9
   },
   {
     "__type__": "968c5M4769GAqIffy3467KH",
@@ -5004,7 +5021,7 @@
     "selectorLevel": {
       "__id__": 86
     },
-    "initialCoooldownTime": 0
+    "coooldownTime": 0
   },
   {
     "__type__": "cc.Sprite",
@@ -5283,6 +5300,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "0/0",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -5341,6 +5359,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "0",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -5626,6 +5645,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "0/0",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -5684,6 +5704,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "0",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -6032,6 +6053,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "II",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -6141,6 +6163,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "GAME OVER",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -6235,6 +6258,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "HP:",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -6309,6 +6333,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "XP:",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -6383,6 +6408,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "KILLS:",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -6457,6 +6483,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "LEVEL:",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,

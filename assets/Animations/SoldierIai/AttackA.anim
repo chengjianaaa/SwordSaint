@@ -64,6 +64,18 @@
             "value": {
               "__uuid__": "f5493738-4fda-464f-92d7-d0bf9482d1b2"
             }
+          },
+          {
+            "frame": 0.5166666666666667,
+            "value": {
+              "__uuid__": "bb3b89d6-4106-4ef5-ac93-dc01196b9dcf"
+            }
+          },
+          {
+            "frame": 0.55,
+            "value": {
+              "__uuid__": "5dae6d2f-aa66-43ce-b84a-0bde935da378"
+            }
           }
         ]
       }

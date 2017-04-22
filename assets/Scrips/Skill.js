@@ -9,7 +9,7 @@ cc.Class({
             type: cc.Label
         },
 
-		initialCoooldownTime: {
+		coooldownTime: {
             default: 0,
             visible: false
         }
@@ -18,7 +18,7 @@ cc.Class({
     onLoad: function () {
         this.setCooldownBarEndEvent();
         this.updateButtonState();
-		this.initialCoooldownTime = this.getCooldownBar().durationSeconds;
+		this.coooldownTime = this.getCooldownBar().durationSeconds;
     },
 
     getCooldownBar: function() {
@@ -52,7 +52,7 @@ cc.Class({
 
     upgrade: function () {
         this.level += 1;
-        this.getCooldownBar().durationSeconds = this.initialCoooldownTime - 10 * Math.log10(this.level);
+        //this.getCooldownBar().durationSeconds = this.coooldownTime - 10 * Math.log10(this.level);
         this.updateButtonState();
         this.updateLevelLabel();
     },

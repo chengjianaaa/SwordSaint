@@ -43,8 +43,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -294,
-      "y": 270
+      "x": 509.6,
+      "y": 85.3
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -305,6 +305,7 @@
       "__uuid__": "7f42383e-ef6e-41b1-8f73-bec03fe0eec5"
     },
     "_isSystemFontUsed": false,
+    "_spacingX": 0,
     "_N$string": "0/0",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,

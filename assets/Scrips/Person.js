@@ -14,11 +14,14 @@ var AnimationName = cc.Enum({
 var DAMAGE_UNIT = 60;
 var MAX_HP_MULTIPLIER = 10;
 var SKILL_1_MULTIPLIER = 6;
-var SKILL_2_BONUS_DAMAGE = 240;
+var SKILL_1_MULTIPLIER_INCREMENT = 1.5;
+var SKILL_2_BONUS_DAMAGE = 4;
+var SKILL_2_BONUS_DAMAGE_INCREMENT = 1;
 var SKILL_2_ATTACKS = 1;
-var SKILL_3_MULTIPLIER = 10;
-var SKILL_4_DAMAGE_MULTIPLIER = 2;
-var SKILL_4_DEFENSE_MULTIPLIER = 2;
+var SKILL_3_DAMAGE = 2;
+var SKILL_3_DAMAGE_INCREMENT = 0.5;
+var SKILL_4_BONUS_DEFENSE = 4;
+var SKILL_4_BONUS_DEFENSE_INCREMENT = 1;
 
 var collisionTag = require("CollisionTag");
 var attr = require("Attributes");
@@ -40,7 +43,6 @@ cc.Class({
         facingLeft: true,
         targets: [],
         skillBeingUsed: -1,
-        skill4ReceivedDamage: 0,
 
         skillList: {
             default: null,
@@ -346,7 +348,7 @@ cc.Class({
     attack: function () {
         var randomNumber;
 
-        if (!this.isDead() && !this.isUsingSkill() && !this.isSkill4Active()) {
+        if (!this.isDead() && !this.isUsingSkill()) {
             if (!this.isSkill2Active() || this.skill2AttackCounter < SKILL_2_ATTACKS - 1) {
                 if (this.isSkill2Active())
                     this.skill2AttackCounter++; 
@@ -366,8 +368,7 @@ cc.Class({
         var funcStop,
             funcAttack,
             waitAttackSpeed,
-            timeWaitAttackSpeed,
-            targetUsingSkill4;
+            timeWaitAttackSpeed;
 
         if (!this.isDead() && !this.isUsingSkill()) {
             funcStop = new cc.callFunc(this.stop, this);
@@ -387,24 +388,27 @@ cc.Class({
 
     receiveDamage: function (dmg, ignoreDefense) {
         var num = cc.instantiate(this.damageNumber),
-            receivedDamage;
+			currentDef,
+            receivedDmg;
 
 		if (ignoreDefense)
-			receivedDamage = dmg;
+			receivedDmg = dmg;
 		else {
+			currentDef = this.def;
+
 			if (this.isSkill4Active()) {
-				receivedDamage = dmg / (this.def * SKILL_4_DEFENSE_MULTIPLIER);
-				this.skill4ReceivedDamage += dmg - receivedDamage;
-			} else
-				receivedDamage = dmg / this.def;
+				currentDef += (SKILL_4_BONUS_DEFENSE + (this.getSkillLevelByIndex(3) - 1)*SKILL_4_BONUS_DEFENSE_INCREMENT);
+			}
+
+			receivedDmg = dmg / currentDef;
 		}
 
         this.node.parent.addChild(num);
         num.setPositionX(this.node.getPositionX() + (this.facingLeft ? -30 : 0));
         num.setPositionY(this.node.getPositionY());
 
-        this.setHp(this.currentHp - receivedDamage);
-        num.getComponent('DamageNumber').show(receivedDamage);
+        this.setHp(this.currentHp - receivedDmg);
+        num.getComponent('DamageNumber').show(receivedDmg);
 
         if (this.currentHp <= 0)
             this.fall();
@@ -412,13 +416,6 @@ cc.Class({
 
     calcBaseDamage : function () {
         return this.atk * DAMAGE_UNIT;
-    },
-
-    counterAttack: function () {
-        this.skill4ReceivedDamage = 0;
-        if (!this.isDead() && !this.isUsingSkill()) {
-            this.playAnimation(AnimationName.SPECIAL_D);
-        }
     },
 
     causeDamage: function (dmg) {
@@ -429,9 +426,6 @@ cc.Class({
             target = this.targets[t];
             
             if (!target.isDead()) {
-                if (target.isSkill4Active())
-                    target.counterAttack();
-
                 target.receiveDamage(dmg);
 
                 if (target.isDead()) {
@@ -445,38 +439,36 @@ cc.Class({
         this.causeDamage(this.calcBaseDamage());
     },
 
+	getSkillLevelByIndex: function(index) {
+		return this.getSkillList().getSkill(index).level;
+	},
+
     causeSkill1Damage: function () {
-        this.causeDamage(this.calcBaseDamage() * SKILL_1_MULTIPLIER);
+        this.causeDamage(this.calcBaseDamage() * (SKILL_1_MULTIPLIER + (this.getSkillLevelByIndex(0) - 1)*SKILL_1_MULTIPLIER_INCREMENT));
     },
 
     causeSkill2Damage: function () {
-        this.causeDamage(this.calcBaseDamage() + SKILL_2_BONUS_DAMAGE);
+        this.causeDamage(this.calcBaseDamage() + (SKILL_2_BONUS_DAMAGE + (this.getSkillLevelByIndex(1) - 1)*SKILL_2_BONUS_DAMAGE_INCREMENT)*DAMAGE_UNIT);
     },
 
     causeSkill3Damage: function () {
         var t,
             target,
-			dmg;
+			causedDmg;
 
         for (t in this.targets) {
             target = this.targets[t];
             
             if (!target.isDead()) {
-                if (target.isSkill4Active())
-                    target.counterAttack();
-
-                target.receiveDamage(target.maxHp / SKILL_3_MULTIPLIER, true);
-				this.receiveDamage(-target.maxHp / SKILL_3_MULTIPLIER, true);
+				causedDmg = (SKILL_3_DAMAGE + (this.getSkillLevelByIndex(2) - 1)*SKILL_3_DAMAGE_INCREMENT)*DAMAGE_UNIT;
+                target.receiveDamage(causedDmg, true);
+				this.receiveDamage(-causedDmg, true);
 
                 if (target.isDead()) {
                     target.killer = this;
                 }
             }
         }
-    },
-
-    causeSkill4Damage: function () {
-        this.causeDamage(this.skill4ReceivedDamage * SKILL_4_DAMAGE_MULTIPLIER);
     },
 
     endAttack: function () {
