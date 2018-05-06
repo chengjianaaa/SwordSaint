@@ -23,13 +23,12 @@ cc.Class({
             this.getSkill(i).updateSkillState(sp);
         }
     },
-	
-	setSkillButtonsPaused: function (paused)
-	{
-		var i;
+
+    setSkillButtonsPaused: function (paused) {
+        var i;
 
         for (i in this.skills) {
             this.getSkill(i).setSkillButtonPaused(paused);
         }
-	}
+    }
 });

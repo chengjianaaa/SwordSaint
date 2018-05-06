@@ -4,7 +4,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        points: 4,
+        points: 2,
 
         lifLabel: {
             default: null,
@@ -21,11 +21,6 @@ cc.Class({
             type: cc.Label
         },
 
-        spdLabel: {
-            default: null,
-            type: cc.Label
-        },
-
         remainingPointsLabel: {
             default: null,
             type: cc.Label
@@ -37,7 +32,6 @@ cc.Class({
         this.setLif(attr.lif);
         this.setAtk(attr.atk);
         this.setSta(attr.sta);
-        this.setSpd(attr.spd);
     },
 
     setLif: function (val) {
@@ -53,11 +47,6 @@ cc.Class({
     setSta: function (val) {
         attr.sta = val;
         this.staLabel.string = val;
-    },
-
-    setSpd: function (val) {
-        attr.spd = val;
-        this.spdLabel.string = val;
     },
 
     setPoints: function (val) {
@@ -86,13 +75,6 @@ cc.Class({
         }
     },
 
-    incrementSpd: function () {
-        if (this.points > 0) {
-            this.setSpd(attr.spd + 1);
-            this.setPoints(this.points - 1);
-        }
-    },
-
     decrementLif: function () {
         if (attr.lif > 1) {
             this.setLif(attr.lif - 1);
@@ -110,13 +92,6 @@ cc.Class({
     decrementSta: function () {
         if (attr.sta > 1) {
             this.setSta(attr.sta - 1);
-            this.setPoints(this.points + 1);
-        }
-    },
-
-    decrementSpd: function () {
-        if (attr.spd > 1) {
-            this.setSpd(attr.spd - 1);
             this.setPoints(this.points + 1);
         }
     },

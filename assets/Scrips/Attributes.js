@@ -1,6 +1,5 @@
 module.exports = {
     lif: 1,
     atk: 1,
-    sta: 1,
-    spd: 1
+    sta: 1
 };

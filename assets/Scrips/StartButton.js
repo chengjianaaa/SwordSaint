@@ -13,10 +13,9 @@ cc.Class({
     },
 
     startGame: function () {
-		attr.lif = 1;
-		attr.atk = 1;
-		attr.sta = 1;
-		attr.spd = 1;
+        attr.lif = 1;
+        attr.atk = 1;
+        attr.sta = 1;
         cc.director.loadScene("Attributes");
     }
 });

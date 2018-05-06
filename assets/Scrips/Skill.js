@@ -3,7 +3,7 @@ cc.Class({
 
     properties: {
         level: 0,
-		cost: 0,
+        cost: 0,
 
         selectorLevel: {
             default: null,
@@ -37,7 +37,7 @@ cc.Class({
         this.getSkillButton().interactable = sp >= this.cost;
     },
 
-	setSkillButtonPaused: function (paused) {
-		this.getSkillButton().enabled = !paused;
-	}
+    setSkillButtonPaused: function (paused) {
+        this.getSkillButton().enabled = !paused;
+    }
 });

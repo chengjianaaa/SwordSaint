@@ -31,7 +31,6 @@ cc.Class({
         lif: 1,
         atk: 1,
         sta: 1,
-        spd: 1,
 
         level: 0,
         currentXp: 0,
@@ -156,7 +155,6 @@ cc.Class({
             this.lif = attr.lif;
             this.atk = attr.atk;
             this.sta = attr.sta;
-            this.spd = attr.spd;
         }
 
         this.setMaxHp();
@@ -211,12 +209,12 @@ cc.Class({
         this.moveForward = new cc.MoveBy(1, cc.p(this.movementSpeed * mult, 0));
     },
 
-	incrementSp: function () {
-		this.setSp(this.currentSp + this.sta);
-	},
+    incrementSp: function () {
+        this.setSp(this.currentSp + this.sta);
+    },
 
-	createFillSpAction: function () {
-		var funcIncrement = new cc.callFunc(this.incrementSp, this),
+    createFillSpAction: function () {
+        var funcIncrement = new cc.callFunc(this.incrementSp, this),
             wait = new cc.delayTime(3.00);
 
         this.fillSp = new cc.Sequence(wait, funcIncrement);
@@ -229,9 +227,9 @@ cc.Class({
         this.createMoveForwardAction();
     },
 
-	getLifeBar: function () {
-		return this.getNumberedProgressBar(this.lifeBar);
-	},
+    getLifeBar: function () {
+        return this.getNumberedProgressBar(this.lifeBar);
+    },
 
     setMaxHp: function () {
         this.maxHp = this.lif * DAMAGE_UNIT * MAX_HP_MULTIPLIER;
@@ -251,37 +249,37 @@ cc.Class({
         this.getLifeBar().setProgress(trueValue);
     },
 
-	getSpecialBar: function () {
-		return this.getNumberedProgressBar(this.specialBar);
-	},
-
-	setMaxSp: function () {
-        this.maxSp = 8;
-
-		if (this.specialBar) // remove this 'if' when all persons have their skill bar
-			this.getSpecialBar().maxValue = this.maxSp;
+    getSpecialBar: function () {
+        return this.getNumberedProgressBar(this.specialBar);
     },
 
-	getSkillList: function () {
-		return this.skillList.getComponent('SkillList');
-	},
+    setMaxSp: function () {
+        this.maxSp = 8;
 
-	setSp: function (value) {
-		var trueValue = value;
+        if (this.specialBar) // remove this 'if' when all persons have their skill bar
+            this.getSpecialBar().maxValue = this.maxSp;
+    },
 
-		if (value < 0)
-			trueValue = 0;
+    getSkillList: function () {
+        return this.skillList.getComponent('SkillList');
+    },
 
-		if (value > this.maxSp)
-			trueValue = this.maxSp;
+    setSp: function (value) {
+        var trueValue = value;
 
-		this.currentSp = trueValue;
+        if (value < 0)
+            trueValue = 0;
 
-		if (this.skillList)
-			this.getSkillList().updateSkillsState(this.currentSp);
+        if (value > this.maxSp)
+            trueValue = this.maxSp;
 
-		if (this.specialBar) // remove this 'if' when all persons have their skill bar
-			this.getSpecialBar().setProgress(trueValue);
+        this.currentSp = trueValue;
+
+        if (this.skillList)
+            this.getSkillList().updateSkillsState(this.currentSp);
+
+        if (this.specialBar) // remove this 'if' when all persons have their skill bar
+            this.getSpecialBar().setProgress(trueValue);
     },
 
     getNumberedProgressBar: function (progressBar) {
@@ -295,16 +293,16 @@ cc.Class({
         return lvl + this.calcXpToNextLevel(lvl - 1);
     },
 
-	getBackground: function () {
-		return this.node.parent.getComponent('Background');
-	},
+    getBackground: function () {
+        return this.node.parent.getComponent('Background');
+    },
 
     levelUp: function () {
         var i;
 
         if (this.xpBar) {
             this.setHp(this.maxHp);
-			this.setSp(this.maxSp);
+            this.setSp(this.maxSp);
             this.level++;
             this.levelLabel.string = this.level;
 
@@ -437,8 +435,7 @@ cc.Class({
 
             funcAttack = new cc.callFunc(this.attack, this);
 
-            //timeWaitAttackSpeed = (3.60/this.spd) - 0.60;
-			timeWaitAttackSpeed = (3.00/this.spd) - 0.60;
+            timeWaitAttackSpeed = 0.90;
             timeWaitAttackSpeed = timeWaitAttackSpeed > 0 ? timeWaitAttackSpeed : 0.01;
             waitAttackSpeed = new cc.delayTime(timeWaitAttackSpeed);
 
@@ -562,8 +559,8 @@ cc.Class({
             else if (index == 3)
                 this.playAnimation(AnimationName.CHARGING);
 
-			this.setSp(0);
-			this.node.runAction(cc.repeat(this.fillSp, this.maxSp));
+            this.setSp(0);
+            this.node.runAction(cc.repeat(this.fillSp, this.maxSp));
         }
     },
 
