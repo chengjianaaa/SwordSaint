@@ -1026,7 +1026,7 @@
     },
     "_enabled": true,
     "level": 0,
-    "cost": 8,
+    "cost": 10,
     "selectorLevel": {
       "__id__": 26
     }
@@ -3761,7 +3761,7 @@
     },
     "_enabled": true,
     "level": 0,
-    "cost": 8,
+    "cost": 10,
     "selectorLevel": {
       "__id__": 41
     }
@@ -3936,7 +3936,7 @@
     },
     "_enabled": true,
     "level": 0,
-    "cost": 8,
+    "cost": 10,
     "selectorLevel": {
       "__id__": 60
     }
@@ -4111,7 +4111,7 @@
     },
     "_enabled": true,
     "level": 0,
-    "cost": 8,
+    "cost": 10,
     "selectorLevel": {
       "__id__": 79
     }

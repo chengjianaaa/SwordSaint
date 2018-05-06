@@ -22,6 +22,7 @@ var SKILL_4_DEFENSE_MULTIPLIER = 2;
 
 var collisionTag = require("CollisionTag");
 var attr = require("Attributes");
+var skill = require("Skill");
 
 cc.Class({
     extends: cc.Component,
@@ -92,7 +93,7 @@ cc.Class({
             type: cc.Action
         },
 
-		fillSp: {
+        fillSp: {
             default: null,
             visible: false,
             type: cc.Action
@@ -114,7 +115,7 @@ cc.Class({
             visible: false
         },
 
-		currentSp: {
+        currentSp: {
             default: 100,
             visible: false
         },
@@ -160,13 +161,13 @@ cc.Class({
         this.setMaxHp();
         this.setHp(this.maxHp);
 
-		this.setMaxSp();
+        this.setMaxSp();
         this.setSp(this.maxSp);
 
         this.levelUp();
 
         this.move();
-		this.createFillSpAction();
+        this.createFillSpAction();
     },
 
     update: function (dt) {
@@ -209,13 +210,13 @@ cc.Class({
         this.moveForward = new cc.MoveBy(1, cc.p(this.movementSpeed * mult, 0));
     },
 
-    incrementSp: function () {
-        this.setSp(this.currentSp + this.sta);
+     incrementSp: function () {
+        this.setSp(this.currentSp + 1);
     },
 
     createFillSpAction: function () {
         var funcIncrement = new cc.callFunc(this.incrementSp, this),
-            wait = new cc.delayTime(3.00);
+            wait = new cc.delayTime(0.50);
 
         this.fillSp = new cc.Sequence(wait, funcIncrement);
     },
@@ -254,7 +255,7 @@ cc.Class({
     },
 
     setMaxSp: function () {
-        this.maxSp = 8;
+        this.maxSp = this.sta * skill.SKILL_COST;
 
         if (this.specialBar) // remove this 'if' when all persons have their skill bar
             this.getSpecialBar().maxValue = this.maxSp;
@@ -375,7 +376,7 @@ cc.Class({
     die: function () {
         var fadeOutPerson = new cc.fadeOut(0.70),
             destroyPerson, //the protagonist cant be destroyed because is associated with map camera
-			gameOver, //game over only if protagonst dies
+            gameOver, //game over only if protagonst dies
             sequence;
 
         if (this.facingLeft) {
@@ -383,11 +384,11 @@ cc.Class({
             destroyPerson = new cc.callFunc(function () { this.node.destroy(); }, this);
             sequence = new cc.Sequence(fadeOutPerson, destroyPerson);
         } else {
-			gameOver = new cc.callFunc(function () { this.getBackground().gameOver(); }, this);
-			sequence = new cc.Sequence(fadeOutPerson, cc.delayTime(1.50), gameOver);
+            gameOver = new cc.callFunc(function () { this.getBackground().gameOver(); }, this);
+            sequence = new cc.Sequence(fadeOutPerson, cc.delayTime(1.50), gameOver);
         }
 
-		this.node.runAction(sequence);
+        this.node.runAction(sequence);
     },
 
     isSkill2Active: function () {
@@ -559,7 +560,7 @@ cc.Class({
             else if (index == 3)
                 this.playAnimation(AnimationName.CHARGING);
 
-            this.setSp(0);
+            this.setSp(this.currentSp - skill.SKILL_COST);
             this.node.runAction(cc.repeat(this.fillSp, this.maxSp));
         }
     },

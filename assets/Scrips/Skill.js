@@ -1,9 +1,14 @@
+var value = cc.Enum({
+    SKILL_COST: 10
+});
+
+module.exports = value;
+
 cc.Class({
     extends: cc.Component,
 
     properties: {
         level: 0,
-        cost: 0,
 
         selectorLevel: {
             default: null,
@@ -34,7 +39,7 @@ cc.Class({
     },
 
     updateSkillState: function (sp) {
-        this.getSkillButton().interactable = sp >= this.cost;
+        this.getSkillButton().interactable = sp >= value.SKILL_COST;
     },
 
     setSkillButtonPaused: function (paused) {
