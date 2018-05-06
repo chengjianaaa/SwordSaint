@@ -11,10 +11,12 @@ var AnimationName = cc.Enum({
     SPECIAL_D: 'SpecialD'
 });
 
-var DAMAGE_UNIT = 60;
-var MAX_HP_MULTIPLIER = 6;
-var SKILL_1_MULTIPLIER = 6;
-var SKILL_2_BONUS_DAMAGE = 240;
+var DAMAGE_UNIT = 1;
+var MAX_HP_MULTIPLIER = 12;
+var SKILL_1_INIT_DAMAGE = 6;
+var SKILL_1_DAMAGE_PER_LEVEL = 1;
+var SKILL_2_INIT_DAMAGE = 2;
+var SKILL_2_DAMAGE_PER_LEVEL = 1;
 var SKILL_2_ATTACKS = 1;
 var SKILL_3_MULTIPLIER = 1;
 var SKILL_4_DAMAGE_MULTIPLIER = 2;
@@ -436,7 +438,7 @@ cc.Class({
 
             funcAttack = new cc.callFunc(this.attack, this);
 
-            timeWaitAttackSpeed = 0.90;
+            timeWaitAttackSpeed = 1.80;
             timeWaitAttackSpeed = timeWaitAttackSpeed > 0 ? timeWaitAttackSpeed : 0.01;
             waitAttackSpeed = new cc.delayTime(timeWaitAttackSpeed);
 
@@ -495,12 +497,16 @@ cc.Class({
         this.causeDamage(this.calcBaseDamage());
     },
 
+    getSkillLevel: function (skill) {
+            return this.getSkillList().getSkill(skill).level;
+    },
+
     causeSkill1Damage: function () {
-        this.causeDamage(this.calcBaseDamage() * SKILL_1_MULTIPLIER);
+        this.causeDamage(SKILL_1_INIT_DAMAGE + this.getSkillLevel(0) * SKILL_1_DAMAGE_PER_LEVEL);
     },
 
     causeSkill2Damage: function () {
-        this.causeDamage(this.calcBaseDamage() + SKILL_2_BONUS_DAMAGE);
+        this.causeDamage(this.calcBaseDamage() + SKILL_2_INIT_DAMAGE + this.getSkillLevel(1) * SKILL_2_DAMAGE_PER_LEVEL);
     },
 
     causeSkill3Damage: function () {
