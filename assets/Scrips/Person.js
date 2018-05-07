@@ -56,7 +56,7 @@ cc.Class({
             type: cc.ProgressBar
         },
 
-		specialBar: {
+        specialBar: {
             default: null,
             type: cc.ProgressBar
         },
@@ -292,6 +292,29 @@ cc.Class({
         return this.node.parent.getComponent('Background');
     },
 
+	calcSkill1Damage: function(level) {
+		return SKILL_1_INIT_DAMAGE + level * SKILL_1_DAMAGE_PER_LEVEL;
+	},
+
+	calcSkill2BonusDamage: function(level) {
+        return SKILL_2_INIT_DAMAGE + level * SKILL_2_DAMAGE_PER_LEVEL;
+	},
+
+	calcSkill3Duration: function(level) {
+		return SKILL_3_INIT_DURATION + level * SKILL_3_DURATION_PER_LEVEL;
+	},
+
+	getSkillDescriptionValue: function (i) {
+		if (i == 0)
+			return this.calcSkill1Damage(this.getSkillLevel(0) + 1);
+		if (i == 1)
+			return this.calcSkill2BonusDamage(this.getSkillLevel(1) + 1);
+		if (i == 2)
+			return this.calcSkill3Duration(this.getSkillLevel(2) + 1);
+
+		return "X";
+	},
+
     levelUp: function () {
         var i;
 
@@ -304,6 +327,10 @@ cc.Class({
             this.getNumberedProgressBar(this.xpBar).maxValue = this.calcXpToNextLevel(this.level);
             this.getNumberedProgressBar(this.xpBar).setProgress(0);
             this.currentXp = 0;
+
+			for (i in this.getSkillList().skills) {
+				this.getSkillList().getSkill(i).changeDescriptionLabel(this.getSkillDescriptionValue(i));
+			}
 
             this.getBackground().showSkillSelector();
         }
@@ -482,11 +509,11 @@ cc.Class({
     },
 
     causeSkill1Damage: function () {
-        this.causeDamage(SKILL_1_INIT_DAMAGE + this.getSkillLevel(0) * SKILL_1_DAMAGE_PER_LEVEL);
+        this.causeDamage(this.calcSkill1Damage(this.getSkillLevel(0)));
     },
 
     causeSkill2Damage: function () {
-        this.causeDamage(this.calcBaseDamage() + SKILL_2_INIT_DAMAGE + this.getSkillLevel(1) * SKILL_2_DAMAGE_PER_LEVEL);
+        this.causeDamage(this.calcBaseDamage() + this.calcSkill2BonusDamage(this.getSkillLevel(1)));
     },
 
     endAttack: function () {
@@ -518,7 +545,7 @@ cc.Class({
         if (this.skillBeingUsed == 1) {
             this.getSkill2DurationBar().startBar();
         } else if (this.skillBeingUsed == 2)
-            this.getSkill3DurationBar().startBar(SKILL_3_INIT_DURATION + this.getSkillLevel(2) * SKILL_3_DURATION_PER_LEVEL);
+            this.getSkill3DurationBar().startBar(this.calcSkill3Duration(this.getSkillLevel(2)));
 
         this.endAttack();
     },

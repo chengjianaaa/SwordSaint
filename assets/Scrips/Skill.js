@@ -9,8 +9,17 @@ cc.Class({
 
     properties: {
         level: 0,
+        descriptionLabelWithWildcard: {
+            default: '',
+            visible: false
+        },
 
         selectorLevel: {
+            default: null,
+            type: cc.Label
+        },
+
+        descriptionLabel: {
             default: null,
             type: cc.Label
         }
@@ -30,6 +39,13 @@ cc.Class({
 
     updateLevelLabel: function () {
         this.selectorLevel.string = (this.level + 1);
+    },
+
+    changeDescriptionLabel: function (newValue) {
+		if (this.descriptionLabelWithWildcard == '')
+			this.descriptionLabelWithWildcard = this.descriptionLabel.string;
+
+        this.descriptionLabel.string = this.descriptionLabelWithWildcard.replace('?', newValue);
     },
 
     upgrade: function () {

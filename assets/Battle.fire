@@ -1021,8 +1021,12 @@
     },
     "_enabled": true,
     "level": 0,
+    "descriptionLabelWithWildcard": "",
     "selectorLevel": {
       "__id__": 26
+    },
+    "descriptionLabel": {
+      "__id__": 85
     }
   },
   {
@@ -3160,8 +3164,12 @@
     },
     "_enabled": true,
     "level": 0,
+    "descriptionLabelWithWildcard": "",
     "selectorLevel": {
       "__id__": 41
+    },
+    "descriptionLabel": {
+      "__id__": 49
     }
   },
   {
@@ -3334,8 +3342,12 @@
     },
     "_enabled": true,
     "level": 0,
+    "descriptionLabelWithWildcard": "",
     "selectorLevel": {
       "__id__": 60
+    },
+    "descriptionLabel": {
+      "__id__": 68
     }
   },
   {
