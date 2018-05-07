@@ -38,7 +38,10 @@ cc.Class({
         }
     },
 
-    startBar: function () {
+    startBar: function (duration) {
+        if (duration)
+            this.durationSeconds = duration;
+
         this.setProgress(1);
         this.updateBar();
     }

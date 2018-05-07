@@ -17,6 +17,8 @@ var SKILL_1_INIT_DAMAGE = 6;
 var SKILL_1_DAMAGE_PER_LEVEL = 1;
 var SKILL_2_INIT_DAMAGE = 1;
 var SKILL_2_DAMAGE_PER_LEVEL = 1;
+var SKILL_3_INIT_DURATION = 7.2;
+var SKILL_3_DURATION_PER_LEVEL = 2.4;
 
 var collisionTag = require("CollisionTag");
 var attr = require("Attributes");
@@ -417,17 +419,13 @@ cc.Class({
         var funcStop,
             funcAttack,
             waitAttackSpeed,
-            timeWaitAttackSpeed,
             targetUsingSkill4;
 
         if (!this.isDead() && !this.isUsingSkill()) {
             funcStop = new cc.callFunc(this.stop, this);
 
             funcAttack = new cc.callFunc(this.attack, this);
-
-            timeWaitAttackSpeed = 1.80;
-            timeWaitAttackSpeed = timeWaitAttackSpeed > 0 ? timeWaitAttackSpeed : 0.01;
-            waitAttackSpeed = new cc.delayTime(timeWaitAttackSpeed);
+            waitAttackSpeed = new cc.delayTime(1.80);
 
             this.attackSequence = new cc.Sequence(funcStop, waitAttackSpeed, funcAttack);
 
@@ -437,13 +435,18 @@ cc.Class({
 
     receiveDamage: function (dmg) {
         var num = cc.instantiate(this.damageNumber);
+        var numValue = dmg;
 
         this.node.parent.addChild(num);
         num.setPositionX(this.node.getPositionX() + (this.facingLeft ? -30 : 0));
         num.setPositionY(this.node.getPositionY());
 
-        this.setHp(this.currentHp - dmg);
-        num.getComponent('DamageNumber').show(dmg);
+        if (this.skill3DurationBar && this.getSkill3DurationBar().getProgress() > 0)
+            numValue = "MISS";
+        else
+            this.setHp(this.currentHp - dmg);
+
+        num.getComponent('DamageNumber').show(numValue);
 
         if (this.currentHp <= 0)
             this.fall();
@@ -515,7 +518,7 @@ cc.Class({
         if (this.skillBeingUsed == 1) {
             this.getSkill2DurationBar().startBar();
         } else if (this.skillBeingUsed == 2)
-            this.getSkill3DurationBar().startBar();
+            this.getSkill3DurationBar().startBar(SKILL_3_INIT_DURATION + this.getSkillLevel(2) * SKILL_3_DURATION_PER_LEVEL);
 
         this.endAttack();
     },

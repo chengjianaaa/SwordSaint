@@ -14,7 +14,7 @@ cc.Class({
             disappear = new cc.fadeOut(0.75).easing(cc.easeIn(3.0)),
             sp = new cc.Spawn(moveUp, disappear);
 
-        this.node.getComponent(cc.Label).string = Math.round(Math.abs(value));
+        this.node.getComponent(cc.Label).string = value;
         this.node.opacity = 255;
 
         if (value < 0)

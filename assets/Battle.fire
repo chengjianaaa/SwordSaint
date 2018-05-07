@@ -656,7 +656,7 @@
       "__id__": 11
     },
     "_enabled": true,
-    "durationSeconds": 7.2
+    "durationSeconds": 9.6
   },
   {
     "__type__": "cc.Sprite",
@@ -1854,8 +1854,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 145.22,
-      "height": 57.02
+      "width": 162.09,
+      "height": 61.98
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1863,7 +1863,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": -8,
       "y": -79
     },
     "_skewX": 0,
@@ -1882,8 +1882,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 23,
-    "_fontSize": 23,
+    "_actualFontSize": 25,
+    "_fontSize": 25,
     "_lineHeight": 150,
     "_enableWrapText": true,
     "_N$file": {
@@ -1891,7 +1891,7 @@
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "ATTACKS WILL\nCAUSE 2 EXTRA\nDAMAGE FOR \n10 SECONDS",
+    "_N$string": "ATTACKS WILL\nCAUSE ? EXTRA\nDAMAGE FOR \n15 SECONDS",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -2483,7 +2483,7 @@
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "EVADE ENEMY\nATTACKS FOR\n7.2 SECONDS",
+    "_N$string": "EVADE ENEMY\nATTACKS FOR\n? SECONDS",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -2920,7 +2920,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 94.46,
+      "width": 120.87,
       "height": 55.79
     },
     "_rotationX": 0,
@@ -2957,7 +2957,7 @@
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "CAUSES\nATK X4\nDAMAGE",
+    "_N$string": "DEALS ?\nDAMAGE\nON ENEMY",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
