@@ -15,12 +15,8 @@ var DAMAGE_UNIT = 1;
 var MAX_HP_MULTIPLIER = 12;
 var SKILL_1_INIT_DAMAGE = 6;
 var SKILL_1_DAMAGE_PER_LEVEL = 1;
-var SKILL_2_INIT_DAMAGE = 2;
+var SKILL_2_INIT_DAMAGE = 1;
 var SKILL_2_DAMAGE_PER_LEVEL = 1;
-var SKILL_2_ATTACKS = 1;
-var SKILL_3_MULTIPLIER = 1;
-var SKILL_4_DAMAGE_MULTIPLIER = 2;
-var SKILL_4_DEFENSE_MULTIPLIER = 2;
 
 var collisionTag = require("CollisionTag");
 var attr = require("Attributes");
@@ -42,7 +38,6 @@ cc.Class({
         facingLeft: true,
         targets: [],
         skillBeingUsed: -1,
-        skill4ReceivedDamage: 0,
 
         skillList: {
             default: null,
@@ -74,7 +69,7 @@ cc.Class({
             type: cc.ProgressBar
         },
 
-        skill4DurationBar: {
+        skill3DurationBar: {
             default: null,
             type: cc.ProgressBar
         },
@@ -137,11 +132,6 @@ cc.Class({
             visible: false
         },
 
-        skill2AttackCounter: {
-            default: 0,
-            visible: false,
-        },
-
         killer: {
             default: null,
             visible: false,
@@ -180,8 +170,8 @@ cc.Class({
         return this.skill2DurationBar.node.getComponent('TimedProgressBar');
     },
 
-    getSkill4DurationBar: function () {
-        return this.skill4DurationBar.node.getComponent('TimedProgressBar');
+    getSkill3DurationBar: function () {
+        return this.skill3DurationBar.node.getComponent('TimedProgressBar');
     },
 
     fillAttackAnimationNamesList: function () {
@@ -400,21 +390,18 @@ cc.Class({
         return this.skill2DurationBar.progress > 0;
     },
 
-    isSkill4Active: function () {
-        if (!this.skill4DurationBar)
+    isSkill3Active: function () {
+        if (!this.skill3DurationBar)
             return false;
 
-        return this.skill4DurationBar.progress > 0;
+        return this.skill3DurationBar.progress > 0;
     },
 
     attack: function () {
         var randomNumber;
 
-        if (!this.isDead() && !this.isUsingSkill() && !this.isSkill4Active()) {
-            if (!this.isSkill2Active() || this.skill2AttackCounter < SKILL_2_ATTACKS - 1) {
-                if (this.isSkill2Active())
-                    this.skill2AttackCounter++; 
-
+        if (!this.isDead() && !this.isUsingSkill()) {
+            if (!this.isSkill2Active()) {
                 randomNumber = Math.round(Math.random() * (this.attackAnimationNames.length - 1));
                 this.playAnimation(this.attackAnimationNames[randomNumber]);
             } else {
@@ -466,13 +453,6 @@ cc.Class({
         return this.atk * DAMAGE_UNIT;
     },
 
-    counterAttack: function () {
-        this.skill4ReceivedDamage = 0;
-        if (!this.isDead() && !this.isUsingSkill()) {
-            this.playAnimation(AnimationName.SPECIAL_D);
-        }
-    },
-
     causeDamage: function (dmg) {
         var t,
             target;
@@ -481,9 +461,6 @@ cc.Class({
             target = this.targets[t];
             
             if (!target.isDead()) {
-                if (target.isSkill4Active())
-                    target.counterAttack();
-
                 target.receiveDamage(dmg);
 
                 if (target.isDead()) {
@@ -507,14 +484,6 @@ cc.Class({
 
     causeSkill2Damage: function () {
         this.causeDamage(this.calcBaseDamage() + SKILL_2_INIT_DAMAGE + this.getSkillLevel(1) * SKILL_2_DAMAGE_PER_LEVEL);
-    },
-
-    causeSkill3Damage: function () {
-        this.causeDamage((this.maxHp - this.currentHp) * SKILL_3_MULTIPLIER);
-    },
-
-    causeSkill4Damage: function () {
-        this.causeDamage(this.skill4ReceivedDamage * SKILL_4_DAMAGE_MULTIPLIER);
     },
 
     endAttack: function () {
@@ -544,10 +513,9 @@ cc.Class({
 
     endCharge: function () {
         if (this.skillBeingUsed == 1) {
-            this.skill2AttackCounter = 0;
             this.getSkill2DurationBar().startBar();
-        } else if (this.skillBeingUsed == 3)
-            this.getSkill4DurationBar().startBar();
+        } else if (this.skillBeingUsed == 2)
+            this.getSkill3DurationBar().startBar();
 
         this.endAttack();
     },
@@ -562,8 +530,6 @@ cc.Class({
             else if (index == 1)
                 this.playAnimation(AnimationName.CHARGING);
             else if (index == 2)
-                this.playAnimation(AnimationName.SPECIAL_C);
-            else if (index == 3)
                 this.playAnimation(AnimationName.CHARGING);
 
             this.setSp(this.currentSp - skill.SKILL_COST);
