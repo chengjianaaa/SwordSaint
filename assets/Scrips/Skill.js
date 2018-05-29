@@ -42,8 +42,8 @@ cc.Class({
     },
 
     changeDescriptionLabel: function (newValue) {
-		if (this.descriptionLabelWithWildcard == '')
-			this.descriptionLabelWithWildcard = this.descriptionLabel.string;
+        if (this.descriptionLabelWithWildcard == '')
+            this.descriptionLabelWithWildcard = this.descriptionLabel.string;
 
         this.descriptionLabel.string = this.descriptionLabelWithWildcard.replace('?', newValue);
     },

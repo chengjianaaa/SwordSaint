@@ -92,12 +92,6 @@ cc.Class({
             type: cc.Action
         },
 
-        fillSp: {
-            default: null,
-            visible: false,
-            type: cc.Action
-        },
-
         attackSequence: {
             default: null,
             visible: false,
@@ -161,7 +155,6 @@ cc.Class({
         this.levelUp();
 
         this.move();
-        this.createFillSpAction();
     },
 
     update: function (dt) {
@@ -193,7 +186,7 @@ cc.Class({
         var manager = cc.director.getCollisionManager();
 
         manager.enabled = true;
-        
+
         //show debug collision boxes
         /*manager.enabledDebugDraw = true;
         manager.enabledDrawBoundingBox = true;*/
@@ -202,17 +195,6 @@ cc.Class({
     createMoveForwardAction: function () {
         var mult = this.facingLeft ? -1 : 1;
         this.moveForward = new cc.MoveBy(1, cc.p(this.movementSpeed * mult, 0));
-    },
-
-     incrementSp: function () {
-        this.setSp(this.currentSp + 1);
-    },
-
-    createFillSpAction: function () {
-        var funcIncrement = new cc.callFunc(this.incrementSp, this),
-            wait = new cc.delayTime(0.50);
-
-        this.fillSp = new cc.Sequence(wait, funcIncrement);
     },
 
     setFacingLeft: function (value) {
@@ -292,28 +274,28 @@ cc.Class({
         return this.node.parent.getComponent('Background');
     },
 
-	calcSkill1Damage: function(level) {
-		return SKILL_1_INIT_DAMAGE + level * SKILL_1_DAMAGE_PER_LEVEL;
-	},
+    calcSkill1Damage: function(level) {
+        return SKILL_1_INIT_DAMAGE + level * SKILL_1_DAMAGE_PER_LEVEL;
+    },
 
-	calcSkill2BonusDamage: function(level) {
+    calcSkill2BonusDamage: function(level) {
         return SKILL_2_INIT_DAMAGE + level * SKILL_2_DAMAGE_PER_LEVEL;
-	},
+    },
 
-	calcSkill3Duration: function(level) {
-		return SKILL_3_INIT_DURATION + level * SKILL_3_DURATION_PER_LEVEL;
-	},
+    calcSkill3Duration: function(level) {
+        return SKILL_3_INIT_DURATION + level * SKILL_3_DURATION_PER_LEVEL;
+    },
 
-	getSkillDescriptionValue: function (i) {
-		if (i == 0)
-			return this.calcSkill1Damage(this.getSkillLevel(0) + 1);
-		if (i == 1)
-			return this.calcSkill2BonusDamage(this.getSkillLevel(1) + 1);
-		if (i == 2)
-			return this.calcSkill3Duration(this.getSkillLevel(2) + 1);
+    getSkillDescriptionValue: function (i) {
+        if (i == 0)
+            return this.calcSkill1Damage(this.getSkillLevel(0) + 1);
+        if (i == 1)
+            return this.calcSkill2BonusDamage(this.getSkillLevel(1) + 1);
+        if (i == 2)
+            return this.calcSkill3Duration(this.getSkillLevel(2) + 1);
 
-		return "X";
-	},
+        return "X";
+    },
 
     levelUp: function () {
         var i;
@@ -328,9 +310,9 @@ cc.Class({
             this.getNumberedProgressBar(this.xpBar).setProgress(0);
             this.currentXp = 0;
 
-			for (i in this.getSkillList().skills) {
-				this.getSkillList().getSkill(i).changeDescriptionLabel(this.getSkillDescriptionValue(i));
-			}
+            for (i in this.getSkillList().skills) {
+                this.getSkillList().getSkill(i).changeDescriptionLabel(this.getSkillDescriptionValue(i));
+            }
 
             this.getBackground().showSkillSelector();
         }
@@ -390,6 +372,7 @@ cc.Class({
     },
 
     rewardKiller: function () {
+		this.setSp(this.maxSp);
         this.refreshKillCount();
         this.incrementXp();
     },
@@ -563,7 +546,6 @@ cc.Class({
                 this.playAnimation(AnimationName.CHARGING);
 
             this.setSp(this.currentSp - skill.SKILL_COST);
-            this.node.runAction(cc.repeat(this.fillSp, this.maxSp));
         }
     },
 
