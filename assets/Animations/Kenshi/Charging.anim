@@ -3,7 +3,7 @@
   "_name": "Charging",
   "_objFlags": 0,
   "_rawFiles": null,
-  "_duration": 1.0333333333333334,
+  "_duration": 1.45,
   "sample": 60,
   "speed": 1,
   "wrapMode": 1,
@@ -48,25 +48,61 @@
             }
           },
           {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "ba7f7616-0d6e-4ae5-9a61-0d2bdca5af99"
+            }
+          },
+          {
+            "frame": 0.5833333333333334,
+            "value": {
+              "__uuid__": "7e309f98-bb7c-4bec-b6d4-8ad3cf8feb16"
+            }
+          },
+          {
             "frame": 0.6666666666666666,
             "value": {
-              "__uuid__": "1ac6ecff-14e9-497e-b6ef-69f222bc3f13"
+              "__uuid__": "ba7f7616-0d6e-4ae5-9a61-0d2bdca5af99"
             }
           },
           {
             "frame": 0.75,
             "value": {
-              "__uuid__": "165c667e-5e56-43fd-a536-860afa815443"
+              "__uuid__": "7e309f98-bb7c-4bec-b6d4-8ad3cf8feb16"
             }
           },
           {
             "frame": 0.8333333333333334,
             "value": {
-              "__uuid__": "57fe4ddd-0f98-4ff5-ab6f-33c96b4569a8"
+              "__uuid__": "ba7f7616-0d6e-4ae5-9a61-0d2bdca5af99"
             }
           },
           {
             "frame": 0.9166666666666666,
+            "value": {
+              "__uuid__": "7e309f98-bb7c-4bec-b6d4-8ad3cf8feb16"
+            }
+          },
+          {
+            "frame": 1.1666666666666667,
+            "value": {
+              "__uuid__": "1ac6ecff-14e9-497e-b6ef-69f222bc3f13"
+            }
+          },
+          {
+            "frame": 1.25,
+            "value": {
+              "__uuid__": "165c667e-5e56-43fd-a536-860afa815443"
+            }
+          },
+          {
+            "frame": 1.3333333333333333,
+            "value": {
+              "__uuid__": "57fe4ddd-0f98-4ff5-ab6f-33c96b4569a8"
+            }
+          },
+          {
+            "frame": 1.4166666666666667,
             "value": {
               "__uuid__": "8d609432-c3c9-481c-923f-e9401a41ced8"
             }
@@ -77,7 +113,7 @@
   },
   "events": [
     {
-      "frame": 1.0333333333333334,
+      "frame": 1.45,
       "func": "endCharge",
       "params": []
     }

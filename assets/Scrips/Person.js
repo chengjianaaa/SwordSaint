@@ -11,14 +11,23 @@ var AnimationName = cc.Enum({
     SPECIAL_D: 'SpecialD'
 });
 
+/*
+skill sasameyuki  -> 0:33 = 0,55
+attack animation  -> 0:36 = 0,60
+
+3hits skill = 1,65
+attack wait + attack animation = 1,9 + 0,6 = 2,5
+*/
+
 var DAMAGE_UNIT = 1;
+var ATTACK_SPEED_WAIT = 1.90;
 var MAX_HP_MULTIPLIER = 12;
 var SKILL_1_INIT_DAMAGE = 6;
 var SKILL_1_DAMAGE_PER_LEVEL = 1;
 var SKILL_2_INIT_DAMAGE = 1;
 var SKILL_2_DAMAGE_PER_LEVEL = 1;
-var SKILL_3_INIT_DURATION = 7.2;
-var SKILL_3_DURATION_PER_LEVEL = 2.4;
+var SKILL_3_INIT_DURATION = 7.50;
+var SKILL_3_DURATION_PER_LEVEL = 2.50;
 
 var collisionTag = require("CollisionTag");
 var attr = require("Attributes");
@@ -294,7 +303,7 @@ cc.Class({
         if (i == 2)
             return this.calcSkill3Duration(this.getSkillLevel(2) + 1);
 
-        return "X";
+        return "NOT A NUMBER!";
     },
 
     levelUp: function () {
@@ -372,7 +381,7 @@ cc.Class({
     },
 
     rewardKiller: function () {
-		this.setSp(this.maxSp);
+        this.setSp(this.maxSp);
         this.refreshKillCount();
         this.incrementXp();
     },
@@ -435,7 +444,7 @@ cc.Class({
             funcStop = new cc.callFunc(this.stop, this);
 
             funcAttack = new cc.callFunc(this.attack, this);
-            waitAttackSpeed = new cc.delayTime(1.80);
+            waitAttackSpeed = new cc.delayTime(ATTACK_SPEED_WAIT);
 
             this.attackSequence = new cc.Sequence(funcStop, waitAttackSpeed, funcAttack);
 

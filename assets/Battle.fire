@@ -466,7 +466,7 @@
       "__id__": 5
     },
     "_enabled": true,
-    "durationSeconds": 10
+    "durationSeconds": 15
   },
   {
     "__type__": "cc.Node",
@@ -656,7 +656,7 @@
       "__id__": 11
     },
     "_enabled": true,
-    "durationSeconds": 9.6
+    "durationSeconds": 8
   },
   {
     "__type__": "cc.Sprite",
@@ -776,7 +776,6 @@
       "__id__": 127
     },
     "moveForward": null,
-    "fillSp": null,
     "attackSequence": null,
     "currentHp": 100,
     "maxHp": 100,
