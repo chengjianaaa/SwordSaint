@@ -273,10 +273,11 @@ cc.Class({
     },
 
     calcXpToNextLevel: function (lvl) {
-        if (lvl <= 1)
+        /*if (lvl <= 1)
             return 1;
 
-        return lvl + this.calcXpToNextLevel(lvl - 1);
+        return lvl + this.calcXpToNextLevel(lvl - 1);*/
+        return lvl;
     },
 
     getBackground: function () {

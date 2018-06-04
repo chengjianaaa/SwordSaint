@@ -466,7 +466,7 @@
       "__id__": 5
     },
     "_enabled": true,
-    "durationSeconds": 15
+    "durationSeconds": 30
   },
   {
     "__type__": "cc.Node",
