@@ -28,6 +28,7 @@ var SKILL_2_INIT_DAMAGE = 1;
 var SKILL_2_DAMAGE_PER_LEVEL = 1;
 var SKILL_3_INIT_DURATION = 7.50;
 var SKILL_3_DURATION_PER_LEVEL = 2.50;
+var SHADOW_OPACTY = 64;
 
 var collisionTag = require("CollisionTag");
 var attr = require("Attributes");
@@ -141,6 +142,12 @@ cc.Class({
             default: null,
             visible: false,
             type: cc.Node
+        },
+
+        shadows: {
+            default: [],
+            visible: true,
+            type: [cc.Node]
         }
     },
 
@@ -148,6 +155,8 @@ cc.Class({
         this.fillAttackAnimationNamesList();
         this.enableCollisions();
         this.setFacingLeft(this.facingLeft);
+
+        this.createHideShadowEvent();
 
         if (!this.facingLeft) {
             this.lif = attr.lif;
@@ -211,6 +220,18 @@ cc.Class({
 
         this.stop();
         this.createMoveForwardAction();
+    },
+
+    createHideShadowEvent: function () {
+        if (this.skill3DurationBar) {
+            this.getSkill3DurationBar().shdws = this.shadows;
+            this.getSkill3DurationBar().onBarEnd = function () {
+                for (i in this.shdws) {
+                    this.shdws[i].runAction(new cc.MoveBy(1.27, cc.p(30 * (i==0?-1:1), 0)));
+                    this.shdws[i].runAction(new cc.FadeOut(0.25));
+                }
+            }
+        }
     },
 
     getLifeBar: function () {
@@ -333,7 +354,11 @@ cc.Class({
     },
 
     playAnimation: function (name) {
+        var i;
+
         this.getComponent(cc.Animation).play(name);
+        for (i in this.shadows) 
+            this.shadows[i].getComponent(cc.Animation).play(name);
     },
 
     stop: function () {
@@ -537,13 +562,16 @@ cc.Class({
     endCharge: function () {
         if (this.skillBeingUsed == 1) {
             this.getSkill2DurationBar().startBar();
-        } else if (this.skillBeingUsed == 2)
+        } else if (this.skillBeingUsed == 2) {
             this.getSkill3DurationBar().startBar(this.calcSkill3Duration(this.getSkillLevel(2)));
+        }
 
         this.endAttack();
     },
 
     skill: function (event, index) {
+        var i;
+
         if (!this.isDead() && !this.isUsingSkill()) {
             this.skillBeingUsed = index;
             this.node.stopAllActions();
@@ -552,8 +580,17 @@ cc.Class({
                 this.playAnimation(AnimationName.SPECIAL_B);
             else if (index == 1)
                 this.playAnimation(AnimationName.CHARGING);
-            else if (index == 2)
+            else if (index == 2) {
                 this.playAnimation(AnimationName.CHARGING);
+                for (i in this.shadows) {
+					if (this.shadows[i].opacity == 0) {
+						this.shadows[i].stopAllActions();
+						this.shadows[i].runAction(new cc.MoveBy(0, cc.p(this.x, 0)));
+						this.shadows[i].runAction(new cc.MoveBy(1.27, cc.p(30 * (i==0?1:-1), 0)));
+						this.shadows[i].runAction(new cc.FadeTo(1.27, SHADOW_OPACTY));
+					}
+                }
+            }
 
             this.setSp(this.currentSp - skill.SKILL_COST);
         }
