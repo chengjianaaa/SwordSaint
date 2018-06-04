@@ -1,5 +1,5 @@
 var value = cc.Enum({
-    SKILL_COST: 10
+    SKILL_COST: 1
 });
 
 module.exports = value;

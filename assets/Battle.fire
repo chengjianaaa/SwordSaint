@@ -1894,7 +1894,7 @@
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "ATTACKS WILL\nCAUSE ? EXTRA\nDAMAGE FOR \n15 SECONDS",
+    "_N$string": "ATTACKS WILL\nCAUSE ? EXTRA\nDAMAGE FOR \n30 SECONDS",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",

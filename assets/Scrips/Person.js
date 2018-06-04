@@ -21,7 +21,7 @@ attack wait + attack animation = 1,9 + 0,6 = 2,5
 
 var DAMAGE_UNIT = 1;
 var ATTACK_SPEED_WAIT = 1.90;
-var MAX_HP_MULTIPLIER = 12;
+var HP_MULTIPLIER = 12;
 var SKILL_1_INIT_DAMAGE = 6;
 var SKILL_1_DAMAGE_PER_LEVEL = 1;
 var SKILL_2_INIT_DAMAGE = 1;
@@ -218,7 +218,7 @@ cc.Class({
     },
 
     setMaxHp: function () {
-        this.maxHp = this.lif * DAMAGE_UNIT * MAX_HP_MULTIPLIER;
+        this.maxHp = this.lif * DAMAGE_UNIT * HP_MULTIPLIER;
         this.getLifeBar().maxValue = this.maxHp;
     },
 
