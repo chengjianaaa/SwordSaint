@@ -28,7 +28,6 @@ var SKILL_2_INIT_DAMAGE = 1;
 var SKILL_2_DAMAGE_PER_LEVEL = 1;
 var SKILL_3_INIT_DURATION = 7.50;
 var SKILL_3_DURATION_PER_LEVEL = 2.50;
-var SHADOW_OPACTY = 64;
 
 var collisionTag = require("CollisionTag");
 var attr = require("Attributes");
@@ -144,10 +143,10 @@ cc.Class({
             type: cc.Node
         },
 
-        shadows: {
-            default: [],
+        shadow: {
+            default: null,
             visible: true,
-            type: [cc.Node]
+            type: cc.Node
         }
     },
 
@@ -222,15 +221,21 @@ cc.Class({
         this.createMoveForwardAction();
     },
 
+    getShadow: function () {
+        return this.shadow.getComponent('Shadow');
+    },
+
     createHideShadowEvent: function () {
+        var bar;
+
         if (this.skill3DurationBar) {
-            this.getSkill3DurationBar().shdws = this.shadows;
-            this.getSkill3DurationBar().onBarEnd = function () {
-                for (i in this.shdws) {
-                    this.shdws[i].runAction(new cc.MoveBy(1.27, cc.p(30 * (i==0?-1:1), 0)));
-                    this.shdws[i].runAction(new cc.FadeOut(0.25));
-                }
+            bar = this.getSkill3DurationBar();
+            bar.shdw = this.getShadow();
+
+            bar.onBarEnd = function () {
+                this.shdw.hide();
             }
+
         }
     },
 
@@ -357,8 +362,8 @@ cc.Class({
         var i;
 
         this.getComponent(cc.Animation).play(name);
-        for (i in this.shadows) 
-            this.shadows[i].getComponent(cc.Animation).play(name);
+        if (this.shadow)
+            this.getShadow().playAnimation(name);
     },
 
     stop: function () {
@@ -570,8 +575,6 @@ cc.Class({
     },
 
     skill: function (event, index) {
-        var i;
-
         if (!this.isDead() && !this.isUsingSkill()) {
             this.skillBeingUsed = index;
             this.node.stopAllActions();
@@ -582,14 +585,9 @@ cc.Class({
                 this.playAnimation(AnimationName.CHARGING);
             else if (index == 2) {
                 this.playAnimation(AnimationName.CHARGING);
-                for (i in this.shadows) {
-					if (this.shadows[i].opacity == 0) {
-						this.shadows[i].stopAllActions();
-						this.shadows[i].runAction(new cc.MoveBy(0, cc.p(this.x, 0)));
-						this.shadows[i].runAction(new cc.MoveBy(1.27, cc.p(30 * (i==0?1:-1), 0)));
-						this.shadows[i].runAction(new cc.FadeTo(1.27, SHADOW_OPACTY));
-					}
-                }
+
+                if (this.shadow)
+                    this.getShadow().show();
             }
 
             this.setSp(this.currentSp - skill.SKILL_COST);
