@@ -54,8 +54,10 @@ cc.Class({
 
         moveTo = new cc.MoveTo(0, cc.p(this.x, 0));
 
-        moveBy = new cc.MoveBy(1.27, cc.p(30 * leftOrRight, 0));
-        fadeTo = new cc.FadeTo(1.27, SHADOW_OPACTY);
+        moveBy = new cc.MoveBy(0.45, cc.p(30 * leftOrRight, 0));
+        moveBy.easing(cc.easeBackOut(60.0));
+        fadeTo = new cc.FadeTo(0.45, SHADOW_OPACTY);
+        fadeTo.easing(cc.easeOut(60.0));
         spawn = cc.spawn(moveBy, fadeTo);
 
         func1 = new cc.callFunc(function () { this.visibility = Visibility.SHOWING; }, this);

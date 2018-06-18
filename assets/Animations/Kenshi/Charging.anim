@@ -113,8 +113,13 @@
   },
   "events": [
     {
+      "frame": 0.4166666666666667,
+      "func": "startChargeEffect",
+      "params": []
+    },
+    {
       "frame": 1.45,
-      "func": "endCharge",
+      "func": "endAttack",
       "params": []
     }
   ]

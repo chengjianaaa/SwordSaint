@@ -26,7 +26,7 @@ var SKILL_1_INIT_DAMAGE = 6;
 var SKILL_1_DAMAGE_PER_LEVEL = 1;
 var SKILL_2_INIT_DAMAGE = 1;
 var SKILL_2_DAMAGE_PER_LEVEL = 1;
-var SKILL_3_INIT_DURATION = 7.50;
+var SKILL_3_INIT_DURATION = 8.50;
 var SKILL_3_DURATION_PER_LEVEL = 2.50;
 
 var collisionTag = require("CollisionTag");
@@ -564,14 +564,14 @@ cc.Class({
         }
     },
 
-    endCharge: function () {
+    startChargeEffect: function () {
         if (this.skillBeingUsed == 1) {
             this.getSkill2DurationBar().startBar();
         } else if (this.skillBeingUsed == 2) {
+            if (this.shadow)
+                this.getShadow().show();
             this.getSkill3DurationBar().startBar(this.calcSkill3Duration(this.getSkillLevel(2)));
         }
-
-        this.endAttack();
     },
 
     skill: function (event, index) {
@@ -581,14 +581,10 @@ cc.Class({
 
             if (index == 0)
                 this.playAnimation(AnimationName.SPECIAL_B);
-            else if (index == 1)
+            else if (index == 1 || index == 2)
                 this.playAnimation(AnimationName.CHARGING);
-            else if (index == 2) {
-                this.playAnimation(AnimationName.CHARGING);
-
-                if (this.shadow)
-                    this.getShadow().show();
-            }
+            else
+                console.log("Unexistent skill");
 
             this.setSp(this.currentSp - skill.SKILL_COST);
         }
