@@ -27,14 +27,14 @@ cc.Class({
         this.createActions();
     },
 
-    createHideAction: function () {
+    createHideAction: function (leftOrRight) {
         var moveBy,
             fadeOut,
             spawn,
             func1,
             func2;
 
-        moveBy = new cc.MoveBy(1.27, cc.p(30 * (i==0?-1:1), 0));
+        moveBy = new cc.MoveBy(1.27, cc.p(30 * leftOrRight, 0));
         fadeOut = new cc.FadeOut(0.25);
         spawn = new cc.spawn(moveBy, fadeOut);
 
@@ -44,7 +44,7 @@ cc.Class({
         return new cc.Sequence(func1, spawn, func2);
     },
 
-    createShowAction: function () {
+    createShowAction: function (leftOrRight) {
         var moveTo,
             moveBy,
             fadeTo,
@@ -54,7 +54,7 @@ cc.Class({
 
         moveTo = new cc.MoveTo(0, cc.p(this.x, 0));
 
-        moveBy = new cc.MoveBy(1.27, cc.p(30 * (i==0?1:-1), 0));
+        moveBy = new cc.MoveBy(1.27, cc.p(30 * leftOrRight, 0));
         fadeTo = new cc.FadeTo(1.27, SHADOW_OPACTY);
         spawn = cc.spawn(moveBy, fadeTo);
 
@@ -65,24 +65,30 @@ cc.Class({
     },
 
     createActions: function () {
-        var spawn;
+        var i,
+            spawn,
+            leftOrRight;
 
         for (i in this.shadows) {
-            this.shadows[i].hideAction = this.createHideAction();
-            this.shadows[i].showAction = this.createShowAction();
+            leftOrRight = i==0 ? -1: 1;
+            this.shadows[i].hideAction = this.createHideAction(leftOrRight);
+            this.shadows[i].showAction = this.createShowAction(leftOrRight);
         }
     },
 
     hide: function () {
-        for (i in this.shadows) {
-            if (this.visibility == Visibility.SHOWING)
-                break;
+        var i;
 
-            this.shadows[i].runAction(this.shadows[i].hideAction);
+        if (this.visibility != Visibility.SHOWING) {
+            for (i in this.shadows) {
+                this.shadows[i].runAction(this.shadows[i].hideAction);
+            }
         }
     },
 
     show: function () {
+        var i;
+
         for (i in this.shadows) {
             this.shadows[i].stopAllActions();
             this.shadows[i].runAction(this.shadows[i].showAction);
@@ -90,6 +96,8 @@ cc.Class({
     },
 
     playAnimation: function (animationName) {
+        var i;
+
         for (i in this.shadows) 
             this.shadows[i].getComponent(cc.Animation).play(animationName);
     }
