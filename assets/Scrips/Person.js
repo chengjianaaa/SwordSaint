@@ -147,6 +147,12 @@ cc.Class({
             default: null,
             visible: true,
             type: cc.Node
+        },
+
+        aura: {
+            default: null,
+            visible: true,
+            type: cc.Node
         }
     },
 
@@ -156,6 +162,7 @@ cc.Class({
         this.setFacingLeft(this.facingLeft);
 
         this.createHideShadowEvent();
+        this.createHideAuraEvent();
 
         if (!this.facingLeft) {
             this.lif = attr.lif;

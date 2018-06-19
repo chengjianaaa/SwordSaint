@@ -1,0 +1,43 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "Circle",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.36666666666666664,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "e62636bd-985e-4ef8-9c5c-86ba5b4e24d8"
+            }
+          },
+          {
+            "frame": 0.11666666666666667,
+            "value": {
+              "__uuid__": "65026db7-df58-4ae3-826c-116965c2e3e3"
+            }
+          },
+          {
+            "frame": 0.23333333333333334,
+            "value": {
+              "__uuid__": "64283d2d-60e6-48fe-ac49-d1878dd65172"
+            }
+          },
+          {
+            "frame": 0.35,
+            "value": {
+              "__uuid__": "64283d2d-60e6-48fe-ac49-d1878dd65172"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}
